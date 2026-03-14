@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Add Book</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+    <body>
+        <form method="post">
+            <div>
+                <label>Book Title</label>
+                <input type="text" required>
+                <br>
+            </div>
+            <div>
+                <label>Author</label>
+                <input type="text" required>
+                <br>
+            </div>
+            
+            <div>
+                <label>Category</label>
+                <select required>
+                    <option value="">Select Category</option>
+                    <option>Programming</option>
+                    <option>Science</option>
+                    <option>History</option>
+                </select>
+                <br>
+            </div>
+
+            <div>
+                <label>Description</label>
+                <textarea required></textarea>
+                <br>
+            </div>
+            <div>
+                <label>Upload Book Cover</label>
+                <input type="file">
+                <br>
+            </div>
+            <button type="submit">Add Book</button>
+
+        </form>
+    </body>
+</html>
