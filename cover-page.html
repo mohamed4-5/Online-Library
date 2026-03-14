@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Library Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0a1628;
+            --deep: #112240;
+            --gold: #c9a84c;
+            --gold-light: #f0d080;
+            --cream: #f5f0e8;
+            --text: #e8e2d4;
+            --muted: #8896a7;
+            --accent: #1e6fbe;
+            --accent-light: #3b9eff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--navy);
+            font-family: 'DM Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        /* Subtle background texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(30, 111, 190, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(201, 168, 76, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .wrapper {
+            width: 100%;
+            max-width: 780px;
+            position: relative;
+            animation: fadeUp 0.8s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── PROJECT HEADER CARD ── */
+        .project-card {
+            background: linear-gradient(135deg, var(--deep) 0%, #162a4a 100%);
+            border: 1px solid rgba(201, 168, 76, 0.35);
+            border-radius: 18px 18px 0 0;
+            padding: 36px 44px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -40px; right: -40px;
+            width: 180px; height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(201,168,76,0.15), transparent 70%);
+        }
+
+        .project-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(201,168,76,0.12);
+            border: 1px solid rgba(201,168,76,0.4);
+            border-radius: 50px;
+            padding: 5px 16px;
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .badge::before {
+            content: '';
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            box-shadow: 0 0 8px var(--gold);
+        }
+
+        .project-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            opacity: 0.8;
+            margin-bottom: 8px;
+        }
+
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--cream);
+            line-height: 1.15;
+            letter-spacing: -0.5px;
+        }
+
+        .project-title span {
+            color: var(--gold-light);
+        }
+
+        .divider-line {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            border-radius: 2px;
+            margin-top: 20px;
+        }
+
+        /* ── TABLE SECTION ── */
+        .table-card {
+            background: var(--deep);
+            border: 1px solid rgba(59,158,255,0.15);
+            border-top: none;
+            border-radius: 0 0 18px 18px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead tr th {
+            background: rgba(30, 111, 190, 0.25);
+            color: var(--accent-light);
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(59,158,255,0.2);
+        }
+
+        thead tr th:first-child { padding-left: 36px; }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s;
+            animation: rowIn 0.5s ease both;
+        }
+
+        tbody tr:nth-child(1) { animation-delay: 0.1s; }
+        tbody tr:nth-child(2) { animation-delay: 0.18s; }
+        tbody tr:nth-child(3) { animation-delay: 0.26s; }
+        tbody tr:nth-child(4) { animation-delay: 0.34s; }
+        tbody tr:nth-child(5) { animation-delay: 0.42s; }
+
+        @keyframes rowIn {
+            from { opacity: 0; transform: translateX(-12px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        tbody tr:hover { background: rgba(59,158,255,0.06); }
+        tbody tr:last-child { border-bottom: none; }
+
+        tbody td {
+            padding: 15px 20px;
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        tbody td:first-child {
+            padding-left: 36px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .id-cell {
+            font-family: 'DM Sans', monospace;
+            font-size: 13px;
+            color: var(--accent-light);
+            opacity: 0.85;
+            letter-spacing: 0.5px;
+        }
+
+        .section-cell {
+            display: inline-block;
+            background: rgba(59,158,255,0.12);
+            border: 1px solid rgba(59,158,255,0.25);
+            border-radius: 6px;
+            padding: 3px 12px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent-light);
+        }
+
+        .ta-cell {
+            color: var(--gold-light);
+            opacity: 0.9;
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+
+        <!-- PROJECT HEADER -->
+        <div class="project-card">
+            <div class="badge">Computer Science · Faculty Project</div>
+            <div class="project-number">Project No. 15</div>
+            <div class="project-title">Online <span>Library</span><br>Website</div>
+            <div class="divider-line"></div>
+        </div>
+
+        <!-- STUDENT TABLE -->
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>ID</th>
+                        <th>Section</th>
+                        <th>TA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Seif Eldin Samir Ahmed</td>
+                        <td><span class="id-cell">20242177</span></td>
+                        <td><span class="section-cell">19-20</span></td>
+                        <td rowspan="5" style="text-align:center; vertical-align:middle;"><span class="ta-cell">Aliaa</span></td>
+                    </tr>
+                    <tr>
+                        <td>Ali Samy Mohamed</td>
+                        <td><span class="id-cell">20240344</span></td>
+                        <td><span class="section-cell">19-20</span></td>
+                    </tr>
+                    <tr>
+                        <td>Muhammed Sherif Abd-Elrahim</td>
+                        <td><span class="id-cell">20242288</span></td>
+                        <td><span class="section-cell">19-20</span></td>
+                    </tr>
+                    <tr>
+                        <td>Mohamed Hussein Ahmed</td>
+                        <td><span class="id-cell">20242279</span></td>
+                        <td><span class="section-cell">19-20</span></td>
+                    </tr>
+                    <tr>
+                        <td>Moamen Mohamed Saied</td>
+                        <td><span class="id-cell">20240621</span></td>
+                        <td><span class="section-cell">19-20</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">Section 19-20 &nbsp;·&nbsp; TA: Aliaa</div>
+    </div>
+</body>
+</html>
