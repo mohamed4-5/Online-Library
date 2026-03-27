@@ -1,0 +1,146 @@
+/* Container الرئيسي للموقع */
+.hero {
+  display: flex;
+  align-items: center;
+  width: 96%;            /* مسافة بسيطة من جوانب الشاشة */
+  max-width: 1300px;
+  height: 350px;         /* زودنا الطول قليلاً ليناسب الجرافيك */
+  margin: 20px auto;     /* سنترناه في نص الصفحة */
+  
+  position: relative;
+  overflow: hidden;
+  background-color: transparent; /* خلفية الموقع الأصلية تظهر كفاصل */
+}
+
+.enjoy {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  background: rgba(255, 255, 255, 0.15); /* خلفية بيضاء شفافة */
+  backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* النقطة اللي بتنور (Live Effect) */
+.enjoy .dot {
+  width: 8px;
+  height: 8px;
+  background-color: #55efc4; /* لون أخضر هادي */
+  border-radius: 50%;
+  box-shadow: 0 0 10px #55efc4;
+  animation: pulse 1.5s infinite; /* أنيميشن نبض */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Slider box (الجزء المائل) */
+/* Slider box (الجزء المائل) */
+.slider {
+  width: 55%; 
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: 'Poppins', 'Tajawal', sans-serif;
+  font-weight: 600;
+  background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 60px;
+  position: relative;
+  /* الحواف المنحنية */
+  border-radius: 30px; 
+
+  /* تعديل الـ Clip Path: 
+     بدل 80% خليناها 80.5% وبدل 100% فوق خليناها 100.5% 
+     ده بيخلي القص يخرج بره "سنة" فيلغي تأثير الـ Anti-aliasing الرمادي */
+  clip-path: polygon(0% -1%, 101% -1%, 80% 101%, 0% 101%);
+  
+  /* إضافة outline بنفس لون الجارديان بيغطي على أي بيكسلات رمادية */
+  outline: 1px solid transparent; 
+  
+  position: relative;
+  z-index: 2;
+  
+  /* تنعيم الظل عشان ميركزش على الحافة المقطوعة */
+  box-shadow: 10px 0 20px rgba(0,0,0,0.2);
+}
+
+/* الجزء اليمين (حاوية الصورة) */
+.hero-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%; 
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* إزاحة بسيطة للصورة لليمين عشان نبعد تماماً عن منطقة الـ Clip */
+  padding-left: 50px; 
+  
+  /* تأكد إن الخلفية هنا شفافة تماماً */
+  background: transparent;
+}
+
+/* ضبط أبعاد الصورة ومكانها */
+.hero-image {
+    height: 320px;       /* كبرنا الصورة قليلاً لتكون أوضح */
+    width: auto;         /* العرض تلقائي عشان متتمطش */
+    
+    /* جعل الحافة المقطوعة تبدو كأنها برواز */
+    border-radius: 0;
+    object-fit: contain;  /* تضمن الصورة متتقصش */
+}
+
+/* تعديل مساحة النص داخل الميل */
+.slider-text-container {
+    padding-right: 18%; /* عشان نضمن الكلام ميبقاش فوق الجزء المقطوع */
+    height: 60px;
+    overflow: hidden;
+}
+
+/* باقي كود الـ Animation والـ Slides كما هو */
+.slides {
+  display: flex;
+  flex-direction: column;
+  animation: slideBox 9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+.slide {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  font-size: 28px; /* كبرنا الخط قليلاً */
+  white-space: nowrap;
+}
+
+@keyframes slideBox {
+  0%, 25%   { transform: translateY(0); }
+  33%, 58%  { transform: translateY(-60px); }
+  66%, 91%  { transform: translateY(-120px); }
+  100%      { transform: translateY(0); }
+}
+
+
