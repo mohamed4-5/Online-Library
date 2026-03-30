@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="icon" href="../images/favicon.png">
+        <link rel="stylesheet" href="../css/profile.css">
     </head>
     <body>
      <nav class="nav">
@@ -28,23 +29,25 @@
         </div>
     </nav>
 
-        <div>
-            <section>
+        <div class="user">
+            <section class="user-info">
                 <i class="fa-regular fa-address-card"></i>
                 <p>Name : </p>
             </section>
 
             <section>
                 <h2>Your Books</h2>
+                <div class="buttons"> 
                 <a>
                    <button>Borrow More</button> 
                 </a>
+                </div>
                 <p>Is Empty!</p>
             </section>
         </div>
 
-        <div>
-            <section>
+        <div class="admin">
+            <section class="user-info">
                 <i class="fa-regular fa-address-card"></i>
                 <p>Name : </p>
                 <p>Role : Administartor</p>
@@ -52,12 +55,15 @@
 
             <section>
                 <h2>Books Added</h2>
+                    <div class="buttons">
+
                 <a href="add-book.html">
-                    <button> Add More </button>
+                    <button class="add"> Add More </button>
                 </a>
                 <a>
-                    <button> Manage Books </button>
+                    <button class="Manage"> Manage Books </button>
                 </a>
+                </div>
                 <p>Is Empty!</p>
             </section>
         </div>

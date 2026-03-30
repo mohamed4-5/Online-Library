@@ -1,0 +1,109 @@
+body {
+  background-color: #f4f6f9;
+  font-family: Arial, sans-serif;
+}
+
+.user {
+ margin: 10px;
+}
+.user section{
+  padding: 20px 0;
+  border-bottom: 1px #ddd solid;
+  position: relative;
+}
+.user-info{
+  display: flex;
+  
+}
+.user i{
+  color: black;
+  font-size: 20px;
+}
+
+.user p{
+  margin: 2px 15px;
+  color: black;
+
+}
+ .user h2{
+  text-align: center;
+  margin-bottom: 10px;
+    font-size: 22px;
+ }
+ .user button{
+border-radius: 5px;
+    color: white;
+    padding: 6px 12px;
+    margin: 5px 5px 0 0;
+    border: 1px solid #ccc;
+    background-color: #e34061;
+    cursor: pointer;
+    font-size: 14px;  
+    
+
+ }
+/* الصفحة */
+
+
+/* الحاوية */
+.admin {
+  margin: 10px;
+}
+
+/* كل section */
+.admin section {
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+ 
+}
+
+/* أول section (المعلومات) */
+
+
+/* الأيقونة */
+.admin i {
+  font-size: 30px;
+  color: #666;
+}
+
+/* النص */
+.admin p {
+  margin: 5px 15px;
+  color: black;
+}
+
+/* العنوان */
+.admin h2 {
+  font-size: 22px;
+  margin-bottom: 10px;
+      text-align: center;
+}
+
+/* الأزرار (نفس ستايل الموقع) */
+.admin button {
+    border-radius: 5px;
+    color: white;
+    padding: 6px 12px;
+    margin: 5px 5px 0 0;
+    border: 1px solid #ccc;
+    background-color: #e34061;
+    cursor: pointer;
+    font-size: 14px;
+}
+.buttons {
+    display: flex;             
+    justify-content: flex-end; 
+    gap: 10px;     
+    position: absolute;
+    top: 15px;
+    right :10px;            
+}
+section:last-child{
+  text-align: center;
+}
+
+
+.admin{
+  display: none;
+}
