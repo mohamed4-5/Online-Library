@@ -42,15 +42,12 @@ border-radius: 5px;
     
 
  }
-/* الصفحة */
 
 
-/* الحاوية */
 .admin {
   margin: 10px;
 }
 
-/* كل section */
 .admin section {
   padding: 20px 0;
   border-bottom: 1px solid #ddd;
@@ -58,29 +55,24 @@ border-radius: 5px;
  
 }
 
-/* أول section (المعلومات) */
 
 
-/* الأيقونة */
 .admin i {
   font-size: 30px;
   color: #666;
 }
 
-/* النص */
 .admin p {
   margin: 5px 15px;
   color: black;
 }
 
-/* العنوان */
 .admin h2 {
   font-size: 22px;
   margin-bottom: 10px;
       text-align: center;
 }
 
-/* الأزرار (نفس ستايل الموقع) */
 .admin button {
     border-radius: 5px;
     color: white;
