@@ -214,3 +214,192 @@ footer {
     letter-spacing: 0.5px;
     margin: 0;
 }
+
+/* ============================================
+   style-responsive.css — Shared Components
+   أضف في الـ HTML بعد style.css:
+   <link rel="stylesheet" href="../css/style-responsive.css">
+   ============================================ */
+
+/* ─── Hamburger Button (مخفي على الـ Desktop) ─── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 2.5px;
+  background-color: var(--text-color);
+  border-radius: 3px;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+}
+
+/* أنيميشن التحول لـ X */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ─── Tablet: 768px → 1024px ─── */
+@media (max-width: 1024px) {
+  .nav {
+    padding: 14px 30px;
+  }
+  .nav-links {
+    gap: 12px;
+  }
+  .nav-links a {
+    font-size: 15px;
+  }
+  .rigester {
+    gap: 10px;
+  }
+  .sign-up,
+  .login {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+/* ─── Mobile: max 768px ─── */
+@media (max-width: 768px) {
+
+  /* ── NAV ── */
+  .nav {
+    position: relative;
+    flex-wrap: nowrap;
+    padding: 14px 20px;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  /* إظهار زرار الهامبرغر */
+  .hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+
+  /* الـ dropdown يطير فوق المحتوى */
+  .nav-links,
+  .rigester {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--bg-color);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    z-index: 999;
+    display: flex;
+  }
+
+  /* لما القايمة تنفتح */
+  .nav-links.open,
+  .rigester.open {
+    max-height: 500px;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* nav-links فوق rigester */
+  .nav-links {
+    padding: 8px 20px 0;
+    border-top: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .nav-links a {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 4px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* إخفاء الـ underline animation على الموبايل */
+  .nav-links a::after {
+    display: none;
+  }
+
+  /* rigester يكمل تحت nav-links في نفس الـ dropdown */
+  .rigester {
+    top: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 12px 20px 16px;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-top: none;
+  }
+
+  .sign-up,
+  .login {
+    font-size: 14px;
+    padding: 9px 18px;
+  }
+
+  /* ── FOOTER ── */
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    width: 92%;
+    padding-bottom: 30px;
+  }
+
+  footer {
+    padding-top: 40px;
+  }
+
+  .footer-section h3 {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+}
+
+/* ─── Mobile Small: max 480px ─── */
+@media (max-width: 480px) {
+  .nav {
+    padding: 12px 16px;
+  }
+  .logo {
+    font-size: 22px;
+  }
+  .nav-links a {
+    font-size: 15px;
+  }
+  .sign-up,
+  .login {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+  .footer-container {
+    width: 95%;
+  }
+  .copyright-bar p {
+    font-size: 11px;
+    padding: 0 10px;
+  }
+}

@@ -1,117 +1,96 @@
 /* Container الرئيسي للموقع */
 .hero {
-  display: flex;
-  align-items: center;
-  width: 96%;            /* مسافة بسيطة من جوانب الشاشة */
-  max-width: 1300px;
-  height: 350px;         /* زودنا الطول قليلاً ليناسب الجرافيك */
-  margin: 20px auto;     /* سنترناه في نص الصفحة */
-  
-  position: relative;
-  overflow: hidden;
-  background-color: transparent; /* خلفية الموقع الأصلية تظهر كفاصل */
+    display: flex;
+    align-items: center;
+    width: 96%;            /* مسافة بسيطة من جوانب الشاشة */
+    max-width: 1300px;
+    height: 350px;         /* زودنا الطول قليلاً ليناسب الجرافيك */
+    margin: 20px auto;     /* سنترناه في نص الصفحة */
+    position: relative;
+    overflow: hidden;
+    background-color: transparent; 
 }
 
 .enjoy {
-  position: absolute;
-  top: 30px;
-  left: 40px;
-  background: rgba(255, 255, 255, 0.15); /* خلفية بيضاء شفافة */
-  backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
-  padding: 8px 20px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  
-  color: #fff;
-  font-family: 'Poppins', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    background: rgba(255, 255, 255, 0.15); /* خلفية بيضاء شفافة */
+    backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
+    padding: 8px 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* النقطة اللي بتنور (Live Effect) */
 .enjoy .dot {
-  width: 8px;
-  height: 8px;
-  background-color: #55efc4; /* لون أخضر هادي */
-  border-radius: 50%;
-  box-shadow: 0 0 10px #55efc4;
-  animation: pulse 1.5s infinite; /* أنيميشن نبض */
+    width: 8px;
+    height: 8px;
+    background-color: #55efc4; /* لون أخضر هادي */
+    border-radius: 50%;
+    box-shadow: 0 0 10px #55efc4;
+    animation: pulse 1.5s infinite; /* أنيميشن نبض */
 }
 
 @keyframes pulse {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.3); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Slider box (الجزء المائل) */
-/* Slider box (الجزء المائل) */
 .slider {
-  width: 55%; 
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-family: 'Poppins', 'Tajawal', sans-serif;
-  font-weight: 600;
-  background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
-  flex-direction: column;
-  align-items: flex-start;
-  padding-left: 60px;
-  position: relative;
-  /* الحواف المنحنية */
-  border-radius: 30px; 
-
-  /* تعديل الـ Clip Path: 
-     بدل 80% خليناها 80.5% وبدل 100% فوق خليناها 100.5% 
-     ده بيخلي القص يخرج بره "سنة" فيلغي تأثير الـ Anti-aliasing الرمادي */
-  clip-path: polygon(0% -1%, 101% -1%, 80% 101%, 0% 101%);
-  
-  /* إضافة outline بنفس لون الجارديان بيغطي على أي بيكسلات رمادية */
-  outline: 1px solid transparent; 
-  
-  position: relative;
-  z-index: 2;
-  
-  /* تنعيم الظل عشان ميركزش على الحافة المقطوعة */
-  box-shadow: 10px 0 20px rgba(0,0,0,0.2);
+    width: 55%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-family: 'Poppins', 'Tajawal', sans-serif;
+    font-weight: 600;
+    background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 60px;
+    position: relative;
+    border-radius: 20px; /* الحواف المنحنية */
+    clip-path: polygon(0% 0%, 99% 0%, 75% 100%, 0% 100%);
+    margin-right: -1;
+    outline: 1px solid transparent;
+    z-index: 2;
+    box-shadow: 10px 0 20px rgba(0,0,0,0.2);
 }
 
 /* الجزء اليمين (حاوية الصورة) */
 .hero-right {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%; 
-  height: 100%;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-  /* إزاحة بسيطة للصورة لليمين عشان نبعد تماماً عن منطقة الـ Clip */
-  padding-left: 50px; 
-  
-  /* تأكد إن الخلفية هنا شفافة تماماً */
-  background: transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 50px;
+    background: transparent;
 }
 
 /* ضبط أبعاد الصورة ومكانها */
 .hero-image {
     height: 320px;       /* كبرنا الصورة قليلاً لتكون أوضح */
     width: auto;         /* العرض تلقائي عشان متتمطش */
-    
-    /* جعل الحافة المقطوعة تبدو كأنها برواز */
-    border-radius: 0;
-    object-fit: contain;  /* تضمن الصورة متتقصش */
+    border-radius: 0;  
+    object-fit: contain;
 }
 
 /* تعديل مساحة النص داخل الميل */
@@ -121,26 +100,397 @@
     overflow: hidden;
 }
 
-/* باقي كود الـ Animation والـ Slides كما هو */
 .slides {
-  display: flex;
-  flex-direction: column;
-  animation: slideBox 9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+    display: flex;
+    flex-direction: column;
+    animation: slideBox 9s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
 }
 
 .slide {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  font-size: 28px; /* كبرنا الخط قليلاً */
-  white-space: nowrap;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    white-space: nowrap;
 }
 
 @keyframes slideBox {
-  0%, 25%   { transform: translateY(0); }
-  33%, 58%  { transform: translateY(-60px); }
-  66%, 91%  { transform: translateY(-120px); }
-  100%      { transform: translateY(0); }
+    0%, 25%   { transform: translateY(0); }
+    33%, 58%  { transform: translateY(-60px); }
+    66%, 91%  { transform: translateY(-120px); }
+    100%      { transform: translateY(0); }
+}
+
+/* --- Section Gradient Background --- */
+.slider-section {
+    padding: 20px 0;
+    margin: 40px 0;
+    background: none !important;
+    border-radius: 0;
+    position: relative; /* مهم جداً عشان الأزرار تتظبط جواها */
 }
 
 
+/* --- Wrapper يحدد عرض 5 كتب فقط --- */
+.slider-wrapper {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    width: calc((220px + 15px) * 5 - 15px); /* 5 كتب + gap */
+    margin: 0 auto; 
+}
+
+/* --- Slider Container أفقي بدون wrap --- */
+.books-container {
+    display: flex;
+    gap: 15px;
+    scroll-behavior: smooth;
+    background-color: whitesmoke;
+    padding: 10px 0;
+    flex-wrap: nowrap; /* مهم جداً لمنع النزول تحت */
+    overflow-x: auto; /* السر هنا: هي دي اللي بتخلي الجافاسكريبت يعرف يعمل سكرول */
+    scrollbar-width: none; /* إخفاء شريط التمرير في فايرفوكس */
+}
+
+/* إخفاء شريط التمرير في كروم وسفاري */
+.books-container::-webkit-scrollbar {
+    display: none; 
+}
+
+/* --- Modern Section Title --- */
+.section-title {
+    margin: 40px 0 20px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #09324e;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    letter-spacing: -0.5px;
+}
+
+
+/* --- Book Card Design --- */
+.book-card {
+    flex: 0 0 220px;
+    background-color: white;
+    border-radius: 18px;
+    padding: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    flex-direction: column; /* ترتيب العناصر طولي */
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
+}
+
+.book-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(9, 50, 78, 0.15);
+}
+
+/* حاوية الصورة عشان الـ Badge يظهر فوقها */
+.book-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.book-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.book-card:hover img {
+    transform: scale(1.1);
+}
+
+/* ديزاين الـ Category */
+.category-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(9, 50, 78, 0.85);
+    backdrop-filter: blur(5px);
+    color: #55efc4;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* حاوية النصوص */
+.book-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* بتخلي الحاوية دي تاخد كل المساحة المتاحة */
+    text-align: left;
+}
+
+.book-card h3 {
+    margin: 0 0 5px;
+    font-size: 17px;
+    color: #09324e;
+    font-weight: 700;
+    /* كود لقص النص لو زاد عن سطرين */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.author-name {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+/* ديزاين الزرار وتثبيته في القاع */
+.details-btn {
+    margin-top: auto; /* السر هنا: هيزق الزرار لآخر الكارد غصب عنه */
+    background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
+    color: white !important;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    transition: 0.3s;
+    display: block;
+}
+
+.details-btn:hover {
+    box-shadow: 0 5px 15px rgba(85, 239, 196, 0.3);
+    transform: scale(0.98);
+}
+/* --- Slide Buttons --- */
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 50%; /* شكل دائري أفضل بكثير للـ UI */
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+/* إخراج الأزرار قليلاً عن حاوية الكتب لسهولة الضغط */
+.slide-btn.left { left: 0; }
+.slide-btn.right { right: 0; }
+
+.slide-btn:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+
+
+
+@media (max-width: 1024px) {
+
+
+
+  /* HERO */
+  .hero {
+    height: 280px;
+    width: 98%;
+  }
+  .slider {
+    width: 60%;
+    padding-left: 40px;
+  }
+  .slide {
+    font-size: 22px;
+  }
+  .hero-image {
+    height: 250px;
+  }
+
+  /* BOOKS SLIDER */
+  .slider-wrapper {
+    width: calc((200px + 12px) * 4 - 12px);
+  }
+  .book-card {
+    flex: 0 0 200px;
+  }
+}
+
+
+/* ─── Mobile Large: 480px → 768px ─── */
+@media (max-width: 768px) {
+
+
+  /* HERO */
+  .hero {
+    flex-direction: column;
+    height: auto;
+    width: 94%;
+    margin: 14px auto;
+    border-radius: 20px;
+    overflow: visible;
+    background: transparent;
+    gap: 50px;
+  }
+  .slider {
+    width: 100%;
+    height: 200px;
+    /* polygon بيمشي للأسفل بدل اليمين */
+    clip-path: polygon(0% 0%, 99% 0%, 75% 100%, 0% 100%);
+    border-radius: 20px 20px 0 0;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 30px;
+    box-shadow: none;
+    position: relative;
+    z-index: 2;
+  }
+  .enjoy {
+    top: 16px;
+    left: 20px;
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+  .slider-text-container {
+    padding-right: 0;
+    margin-top: 10px;
+  }
+  .slide {
+    font-size: 18px;
+    white-space: normal;
+    line-height: 1.3;
+  }
+  /* الصورة تحت الـ slider */
+  .hero-right {
+    position: relative;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 180px;
+    padding-left: 0;
+    justify-content: center;
+   
+    border-radius: 0 0 20px 20px;
+    z-index: 1;
+  }
+  .hero-image {
+    height: 200px;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 24px;
+    margin: 28px 0 14px;
+  }
+
+  /* BOOKS SLIDER */
+  .slider-wrapper {
+    width: 95vw;
+  }
+  .books-container {
+    gap: 12px;
+    padding: 8px 4px;
+  }
+  .book-card {
+    flex: 0 0 170px;
+  }
+  .book-image-wrapper {
+    height: 230px;
+  }
+  .book-card h3 {
+    font-size: 15px;
+  }
+
+  /* SLIDE BUTTONS */
+  .slide-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+
+}
+
+
+/* ─── Mobile Small: max 480px ─── */
+@media (max-width: 480px) {
+
+
+  /* HERO */
+  .hero {
+    width: 96%;
+    border-radius: 16px;
+    flex-direction: column;
+    gap: 30px;
+  }
+  .slider {
+    height: 180px;
+    padding-left: 18px;
+    clip-path: polygon(0% 0%, 99% 0%, 75% 100%, 0% 100%);
+    border-radius: 16px 16px 0 0;
+  }
+  .enjoy {
+    font-size: 11px;
+    padding: 5px 12px;
+    top: 12px;
+    left: 14px;
+  }
+  .slide {
+    font-size: 15px;
+  }
+  .hero-right {
+    height: 150px;
+    border-radius: 0 0 16px 16px;
+    
+  }
+  .hero-image {
+    height: 160px;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 20px;
+  }
+
+  /* BOOKS SLIDER */
+  .slider-wrapper {
+    width: 96vw;
+  }
+  .book-card {
+    flex: 0 0 150px;
+  }
+  .book-image-wrapper {
+    height: 200px;
+  }
+  .book-card h3 {
+    font-size: 14px;
+  }
+  .author-name {
+    font-size: 12px;
+  }
+  .details-btn {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  /* SLIDE BUTTONS */
+  .slide-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+}

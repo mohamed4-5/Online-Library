@@ -13,7 +13,12 @@
     <body>
     <nav class="nav">
         
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
+        <a class="logo" href="index.html" >Saf<span>7</span>a</a>
+        <button class="hamburger" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
         <div class="nav-links">
             <a href="library.html">Library</a>
@@ -48,12 +53,22 @@
 
         </div>
 
-        <section>
-            <h2>Most Read</h2>
+        <section class="slider-section" id="most-read-section">
+            <h2 class="section-title">Most Read</h2>
+            <div class="slider-wrapper">
+                <button class="slide-btn left" onclick="slideLeft('most-read')">&#10094;</button>
+                <div id="most-read" class="books-container"></div>
+                <button class="slide-btn right" onclick="slideRight('most-read')">&#10095;</button>
+            </div>
         </section>
 
-        <section>
-            <h2>New Arrivals</h2>
+        <section class="slider-section" id="latest-section">
+            <h2 class="section-title">New Arrivals</h2>
+            <div class="slider-wrapper">
+                <button class="slide-btn left" onclick="slideLeft('latest')">&#10094;</button>
+                <div id="latest" class="books-container"></div>
+                <button class="slide-btn right" onclick="slideRight('latest')">&#10095;</button>
+            </div>
         </section>
 
         <footer>
@@ -84,5 +99,7 @@
             </div>
         </footer>
 
+        <script src="../JS/home.js"></script>
+        <script src="../JS/general.js"></script>
     </body>
 </html>
