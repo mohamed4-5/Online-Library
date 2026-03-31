@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #f8f9fa;
+    --card-color: #ffffff;
+    --text-color: #222;
+    --primary-color: rgb(227, 64, 97);
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--text-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+}
+/* ── Favorites Empty State ── */
+.favorites-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+.favorites-wrapper h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    direction: rtl;
+}
+
+.favorites-wrapper a {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.favorites-wrapper a:hover {
+    background-color: rgb(234, 9, 54);
+}
+
+/* fallback: in case the div has no class */
+body > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    text-align: center;
+}
+
+body > div h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin-bottom: 20px;
+    direction: rtl;
+}
+
+body > div a {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+body > div a:hover {
+    background-color: rgb(234, 9, 54);
+}
