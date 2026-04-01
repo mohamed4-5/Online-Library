@@ -8,7 +8,7 @@
     --bg-color: #f8f9fa;
     --card-color: #ffffff;
     --text-color: #222;
-    --primary-color: rgb(227, 64, 97);
+    --primary-color: rgb(0, 0, 0);
 }
 
 body {
@@ -66,7 +66,7 @@ button {
 }
 
 .favorites-wrapper a:hover {
-    background-color: rgb(234, 9, 54);
+    background-color: rgb(199, 177, 182);
 }
 
 /* fallback: in case the div has no class */
@@ -92,7 +92,7 @@ body > div h1 {
 body > div a {
     display: inline-block;
     background-color: var(--primary-color);
-    color: white;
+    color: rgb(255, 255, 255);
     padding: 10px 28px;
     border-radius: 8px;
     font-weight: 600;
@@ -101,5 +101,5 @@ body > div a {
 }
 
 body > div a:hover {
-    background-color: rgb(234, 9, 54);
+    background-color: rgb(255, 0, 51);
 }
