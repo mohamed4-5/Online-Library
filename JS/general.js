@@ -51,3 +51,21 @@ window.addEventListener('resize', () => {
     rigester.style.top = '';
   }
 });
+
+const links = document.querySelectorAll(".nav-links a");
+
+links.forEach(link => {
+  if (link.href === window.location.href) {
+    link.classList.add("active");
+  }
+});
+
+window.addEventListener("scroll", () => {
+  const nav = document.querySelector(".nav");
+
+  if (window.scrollY > 50) {
+    nav.classList.add("scrolled");
+  } else {
+    nav.classList.remove("scrolled");
+  }
+});

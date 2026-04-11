@@ -7,9 +7,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         displayBooks(mostRead, "most-read");  
         displayBooks(latest, "latest");
+
     })
     .catch(error => console.error("Error loading books:", error));
 });
+
 
 function displayBooks(books, containerId) {
     const container = document.getElementById(containerId);
@@ -17,6 +19,10 @@ function displayBooks(books, containerId) {
     books.forEach(book => {
         const card = document.createElement("div");
         card.classList.add("book-card");
+
+        card.onclick = () =>{
+            window.location.href = `book.html?id=${book.id}`;
+        };
         
         card.innerHTML = `  
             <div class="book-image-wrapper">
@@ -25,8 +31,7 @@ function displayBooks(books, containerId) {
             </div>
             <div class="book-info">
                 <h3>${book.title}</h3>  
-                <p class="author-name">${book.author}</p>  
-                <a href="book.html" class="details-btn">Details</a>  
+                <p class="author-name">${book.author}</p>   
             </div>
         `;  
         
