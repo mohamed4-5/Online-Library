@@ -36,10 +36,17 @@
             <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
         </div>
     </nav>
-    <div>
-        <h1>No books yet</h1>
-       <a href="library.html">Browse Library</a> 
-    </div>
+    <section class="favorites-section">
+        <h2 class="section-title">Your Favorites ❤️</h2>
+
+        <div id="favorites-container" class="books-container"></div>
+
+        <div id="empty-state" class="empty-state">
+            <h3>No books yet 📚</h3>
+            <a href="library.html">Browse Library</a>
+        </div>
+        
+    </section>
 
     <footer>
             <div class="footer-container">
@@ -70,5 +77,6 @@
         </footer>
 
         <script src="../JS/general.js"></script>
+        <script src="../JS/favorites.js"></script>
 </body>
 </html>
