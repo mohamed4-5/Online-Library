@@ -1,35 +1,49 @@
 // 1. التعريفات في البداية لضمان وجودها
 const borrowBtn = document.getElementById("borrow-btn");
 const containerRelated = document.getElementById("related-books");
-let currentBook = null; 
+let currentBook = null;
+let booksCatalog = [];
 
 // جلب المعرف من الرابط
 const params = new URLSearchParams(window.location.search);
 const bookId = params.get("id");
 
-// 2. تنفيذ الجلب (Fetch)
+// 2. تنفيذ الجلب (Fetch) + دمج كتب المستخدم من localStorage
 fetch("../data/books.json")
-  .then(res => {
+  .then((res) => {
     if (!res.ok) throw new Error("Failed to load books");
     return res.json();
   })
-  .then(data => {
-    const book = data.find(b => b.id == bookId);
-    
+  .then((data) => {
+    booksCatalog = [...data];
+    try {
+      const userBooks = JSON.parse(localStorage.getItem("userBooks")) || [];
+      userBooks.forEach((b) => {
+        if (!booksCatalog.find((x) => x.id === b.id)) booksCatalog.push(b);
+      });
+    } catch {
+      /* ignore */
+    }
+
+    const book = booksCatalog.find((b) => b.id == bookId);
+
     if (!book) {
-      document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px;'>Book not found! 📚</h2>";
+      document.body.innerHTML =
+        "<h2 style='text-align:center; margin-top:50px;'>Book not found! 📚</h2>";
       return;
     }
 
     currentBook = book;
     displayBookDetails(book);
+    syncFavoriteButton(book);
     renderBorrowState(book.id);
 
-    // جلب الكتب المشابهة
-    const related = data.filter(b => b.category === book.category && b.id != book.id);
+    const related = booksCatalog.filter(
+      (b) => b.category === book.category && b.id != book.id
+    );
     displayRelated(related.slice(0, 4));
   })
-  .catch(err => console.error("Error:", err));
+  .catch((err) => console.error("Error:", err));
 
 // 3. وظيفة عرض بيانات الكتاب
 function displayBookDetails(book) {
@@ -39,6 +53,28 @@ function displayBookDetails(book) {
     document.getElementById("book-category").innerText = "Category: " + book.category;
     document.getElementById("book-description").innerText = book.description;
     document.getElementById("book-bg").style.backgroundImage = `url(${book.image})`;
+}
+
+/** Heart button — uses isFavorite / toggleFavorite from general.js */
+function syncFavoriteButton(book) {
+    const btn = document.getElementById("favorite-btn");
+    if (!btn) return;
+
+    const on = typeof isFavorite === "function" && isFavorite(book.id);
+    btn.classList.toggle("active", on);
+    btn.title = on ? "Remove from favorites" : "Add to favorites";
+    btn.setAttribute("aria-label", btn.title);
+
+    const icon = btn.querySelector("i");
+    if (icon) {
+        icon.className = on ? "fa-solid fa-heart" : "fa-regular fa-heart";
+    }
+
+    btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (typeof toggleFavorite === "function") toggleFavorite(book.id, btn);
+    };
 }
 
 function displayRelated(books) {
@@ -80,16 +116,24 @@ function displayRelated(books) {
     container.classList.add("has-scroll");
   }
 
-  // 5. بناء الكروت وعرضها
-  relatedBooks.forEach(book => {
+  // 5. بناء الكروت وعرضها (نفس زر القلب كالصفحة الرئيسية)
+  relatedBooks.forEach((book) => {
+    const favorited =
+      typeof isFavorite === "function" ? isFavorite(book.id) : false;
     const card = document.createElement("div");
     card.classList.add("book-card");
-    card.onclick = () => window.location.href = `book.html?id=${book.id}`;
-    
+    card.onclick = () => (window.location.href = `book.html?id=${book.id}`);
+
     card.innerHTML = `
       <div class="book-image-wrapper">
         <img src="${book.image}" alt="${book.title}">
         <span class="category-badge">${book.category}</span>
+        <button type="button" class="fav-btn ${favorited ? "active" : ""}"
+                title="${favorited ? "Remove from favorites" : "Add to favorites"}"
+                aria-label="${favorited ? "Remove from favorites" : "Add to favorites"}"
+                onclick="event.stopPropagation(); toggleFavorite(${book.id}, this)">
+          <i class="fa-${favorited ? "solid" : "regular"} fa-heart"></i>
+        </button>
       </div>
       <div class="book-info">
         <h3>${book.title}</h3>
@@ -123,27 +167,25 @@ function renderBorrowState(bookId) {
 }
 
 // 6. حدث الضغط على الزر
-borrowBtn.addEventListener("click", () => {
-  if (!currentBook) return;
+if (borrowBtn) {
+  borrowBtn.addEventListener("click", () => {
+    if (!currentBook) return;
 
-  const result = borrowBookById(currentBook.id);
+    const result = borrowBookById(currentBook.id);
 
-  if (!result.ok) {
-    // لو الرسالة بتقول اختار خطة، وّديه الصفحة فوراً
-    if (result.msg === "Choose a plan first!") {
-      alert("You need to choose a plan before borrowing! 📚");
-      window.location.href = "plans.html"; // تأكد من اسم ملف صفحة الخطط عندك
-    } else {
-      // لو المشكلة تانية (زي إنه وصل للـ limit) يظهر alert عادي
-      alert(result.msg);
+    if (!result.ok) {
+      if (result.msg === "Choose a plan first!") {
+        alert("You need to choose a plan before borrowing! 📚");
+        window.location.href = "plans.html";
+      } else {
+        alert(result.msg);
+      }
+      return;
     }
-    return;
-  }
 
-  // تحديث الشكل فوراً
-  renderBorrowState(currentBook.id);
-  
-  // إضافة تأثير بصري بسيط (Optional UX)
-  borrowBtn.style.transform = "scale(0.95)";
-  setTimeout(() => borrowBtn.style.transform = "scale(1)", 100);
-});
+    renderBorrowState(currentBook.id);
+
+    borrowBtn.style.transform = "scale(0.95)";
+    setTimeout(() => (borrowBtn.style.transform = "scale(1)"), 100);
+  });
+}

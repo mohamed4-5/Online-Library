@@ -10,11 +10,23 @@
     --bg-color: #f8f9fa;
     --card-color: #ffffff;
     --text-color: #222;
-    --primary-color:  rgb(227, 64, 97);
+    --primary-color: rgb(227, 64, 97);
+    /* Shared tokens (library, forms, cards) */
+    --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
+    --red: rgb(227, 64, 97);
+    --red-light: #ff5c7a;
+    --dark: #1a1a2e;
+    --muted: #64748b;
+    --text: #222;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --radius: 14px;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --accent: #fd79a8;
 }
 body {
     background-color: var(--bg-color);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-sans);
     color : var(--text-color);
     height: 100%;
     display: flex;
@@ -69,7 +81,7 @@ button {
 
 .nav-links a {
     position: relative;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-sans);
     font-size: 18px;
 }
 
@@ -174,7 +186,7 @@ button {
 
 /* تنسيق الـ Logo ككل */
 .logo {
-  font-family: 'Poppins', sans-serif; /* الخط العصري */
+  font-family: var(--font-sans);
   font-size: 28px; /* حجم مناسب ليكون واضحاً كـ Brand */
   font-weight: 800; /* وزن ثقيل ليعطي طابعاً قرياً */
   letter-spacing: 1px; /* مسافة بسيطة بين الحروف للأناقة */
@@ -186,7 +198,7 @@ button {
 
 /* تنسيق رقم 7 المميز */
 .logo span {
-  color: #fd79a8; /* اللون الوردي المودرن */
+  color: var(--accent);
   font-style: italic; /* إمالة بسيطة لتعطي حركة وديناميكية */
   position: relative;
   /* إضافة توهج خفيف للرقم */
@@ -209,8 +221,8 @@ footer {
     background: #1a1a2e; /* لون أغمق من الهيرو ليعطي عمق */
     color: #fff;
     padding-top: 60px;
-    font-family: 'Poppins', 'Tajawal', sans-serif;
-    border-top: 4px solid #fd79a8;
+    font-family: var(--font-sans);
+    border-top: 4px solid var(--accent);
 }
 
 .footer-container {
@@ -230,7 +242,7 @@ footer {
 }
 
 .footer-section h3 span {
-    color: #fd79a8; /* لون البراند */
+    color: var(--accent);
 }
 
 .footer-section p, .footer-section a {
@@ -242,7 +254,7 @@ footer {
 }
 
 .footer-section a:hover {
-    color: #fd79a8;
+    color: var(--accent);
 }
 
 .social-links {

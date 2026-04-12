@@ -3,72 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Table - Online Library Project</title>
+    <title>Cover Page – Saf7a</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../images/favicon.png">
     <style>
+        .cover-wrap {
+            width: 92%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px 0 48px;
+            flex: 1;
+        }
         table {
             border-collapse: collapse;
-            width: 90%;
-            margin: 20px auto;
-            font-family: Arial, sans-serif;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            font-family: inherit;
+            box-shadow: var(--shadow);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
         }
-        
         th, td {
-            border: 2px solid #333;
-            padding: 12px;
+            border: 1px solid var(--border);
+            padding: 14px 12px;
             text-align: center;
         }
-        
         th {
-            background-color: #00a4ff;
-            color: white;
-            font-weight: bold;
+            background-color: var(--dark);
+            color: #fff;
+            font-weight: 700;
         }
-        
-        td {
-            background-color: #f8f9fa;
+        tbody td {
+            background-color: var(--card-color);
         }
-        
-        tr:hover td {
-            background-color: #e9ecef;
+        tbody tr:hover td {
+            background-color: var(--bg-color);
         }
-        
         .project-info {
-            background-color: #e0f7fa;
-            font-weight: bold;
-            color: #006064;
+            background-color: rgba(227, 64, 97, 0.08);
+            font-weight: 700;
+            color: var(--dark);
         }
-        
         .project-row td {
-            background-color: #b3e5fc;
-            font-weight: bold;
+            background-color: rgba(227, 64, 97, 0.12);
+            font-weight: 700;
         }
     </style>
 </head>
 <body>
-    <nav>
-            <a href="index.html" >Online Library</a>
-            <div>
-                <a href="library.html">Library</a>
-                <a href="favorites.html">Favorites</a>
-                <a href="login.html" target="_blank">Login</a>
-                <a href="Sign up.html" target="_blank">Sign UP</a>
-                <a href="profile.html">Profile</a>
-                <a href="about-us.html">About Us</a>
-                <a href="library cart.html"> cart</a>
-                <a href="cover-page.html">Cover Page</a>
-            </div>
-                <br>
+    <nav class="nav">
+        <a class="logo" href="index.html">Saf<span>7</span>a</a>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="library.html">Library</a>
+            <a href="favorites.html">Favorites</a>
+            <a href="profile.html">Profile</a>
+            <a href="about-us.html">About Us</a>
+            <a href="library cart.html">Cart</a>
+            <a href="cover-page.html" class="active">Cover Page</a>
+        </div>
+        <div class="rigester">
+            <a class="login" href="login.html">Login</a>
+            <a class="sign-up" href="Sign up.html">Sign Up</a>
+            <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
+        </div>
     </nav>
-    <div>
+    <main class="cover-wrap">
         <table>
+            <thead>
             <tr>
                 <th>Name</th>
                 <th>ID</th>
                 <th>Section</th>
                 <th>TA</th>
             </tr>
-            
+            </thead>
+            <tbody>
             <tr>
                 <td>Seif Eldin Samir Ahmed</td>
                 <td>20242177</td>
@@ -106,7 +120,35 @@
             <tr class="project-row">
                 <td colspan="4" class="project-info">Project Name : Online Library Website</td>
             </tr>
+            </tbody>
         </table>
-    </div>
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Saf7<span>a</span> Library</h3>
+                <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../JS/general.js"></script>
 </body>
 </html>
