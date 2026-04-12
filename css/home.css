@@ -398,6 +398,8 @@
   .book-card {
     flex: 0 0 200px;
   }
+
+
 }
 
 
@@ -487,9 +489,7 @@
 
   /* SLIDE BUTTONS */
   .slide-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    display: none;
   }
 
 

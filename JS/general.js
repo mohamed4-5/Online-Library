@@ -69,3 +69,132 @@ window.addEventListener("scroll", () => {
     nav.classList.remove("scrolled");
   }
 });
+
+function selectPlan(plan) {
+  // 1. نجيب عدد الكتب اللي اليوزر مستلفها حالياً
+  const borrowedBooksCount = getBorrowedBooks().length;
+  
+  // 2. نجيب ليميت الخطة الجديدة اللي هو عايز يشترك فيها
+  const newPlanLimit = getPlanLimit(plan);
+
+  // 3. الفحص: هل عدد الكتب الحالية أكبر من ليميت الخطة الجديدة؟
+  if (borrowedBooksCount > newPlanLimit) {
+    alert(
+      `Warning! ⚠️\n\n` +
+      `You currently have ${borrowedBooksCount} books, but the ${plan} plan only allows ${newPlanLimit} books.\n\n` +
+      `Please return some books first before downgrading your plan.`
+    );
+    return; // بنوقف التنفيذ هنا ومش بنغير الخطة
+  }
+
+  // 4. لو الفحص تمام (أو بيعمل Upgrade لخطة أعلى) بنكمل عادي
+  localStorage.setItem("userPlan", plan);
+  
+  alert("Success! Your plan has been updated to: " + plan + " 🎉");
+
+  // تحديث الـ UI
+  if (typeof updatePlanUI === "function") updatePlanUI();
+
+  // تحويل للبروفايل
+  window.location.href = "profile.html";
+}
+
+// جلب الخطة الحالية
+function getUserPlan() {
+  return localStorage.getItem("userPlan");
+}
+
+// وظيفة تحديث شكل الكروت بناءً على الخطة المختارة
+function updatePlanUI() {
+  const currentPlan = getUserPlan();
+  if (!currentPlan) return;
+
+  const cards = document.querySelectorAll('.plan-card');
+  
+  cards.forEach(card => {
+    const btn = card.querySelector('button');
+    // استخراج اسم الخطة من حدث onclick (basic, standard, premium)
+    const onclickAttr = btn.getAttribute('onclick');
+    if (onclickAttr && onclickAttr.includes(currentPlan)) {
+      // تمييز الكارد المختار
+      card.classList.add('active-plan');
+      btn.innerText = "Current Plan";
+      btn.disabled = true;
+      btn.style.background = "#555"; // لون محايد للتعطيل
+      btn.style.cursor = "default";
+    } else {
+      card.classList.remove('active-plan');
+      btn.innerText = "Choose Plan";
+      btn.disabled = false;
+      btn.style.background = ""; // يرجع للون الـ CSS الأصلي
+      btn.style.cursor = "pointer";
+    }
+  });
+}
+
+// تشغيل التحديث عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    // تشغيل الهامبرجر والميزات الأخرى
+    // ... كود الهامبرجر بتاعك ...
+
+    // تشغيل تحديث الخطط لو في صفحة الخطط
+    if (document.querySelector('.plans-container')) {
+        updatePlanUI();
+    }
+});
+
+// باقي وظائف الاستعارة (Keep them as they are)
+function getBorrowedBooks() { return JSON.parse(localStorage.getItem("borrowed")) || []; }
+function isBookBorrowed(bookId) { return getBorrowedBooks().includes(bookId); }
+// ... إلخ
+
+
+function getBorrowedBooks() {
+  return JSON.parse(localStorage.getItem("borrowed")) || [];
+}
+
+function getUserPlan() {
+  return localStorage.getItem("userPlan");
+}
+
+function getPlanLimit(plan) {
+  if (plan === "basic") return 2;
+  if (plan === "standard") return 5;
+  if (plan === "premium") return 10;
+  return 0;
+}
+
+function isBookBorrowed(bookId) {
+  const borrowed = getBorrowedBooks();
+  return borrowed.includes(bookId);
+}
+
+function canBorrowMore() {
+  const plan = getUserPlan();
+  if (!plan) return { ok: false, msg: "Choose a plan first!" };
+
+  const borrowed = getBorrowedBooks();
+  const limit = getPlanLimit(plan);
+
+  if (borrowed.length >= limit) {
+    return { ok: false, msg: "You reached your limit!" };
+  }
+
+  return { ok: true };
+}
+
+function borrowBookById(bookId) {
+  const check = canBorrowMore();
+  if (!check.ok) return check;
+
+  let borrowed = getBorrowedBooks();
+
+  if (borrowed.includes(bookId)) {
+    return { ok: false, msg: "Already borrowed" };
+  }
+
+  borrowed.push(bookId);
+  localStorage.setItem("borrowed", JSON.stringify(borrowed));
+
+  return { ok: true };
+}

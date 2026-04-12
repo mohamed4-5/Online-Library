@@ -1,75 +1,95 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Book Details</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="icon" href="../images/favicon.png">
-    </head>
-    <body>
-     <nav class="nav">
-        
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
-            <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details | Saf7a</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/book.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="../images/favicon.png">
+</head>
+<body>
+    <nav class="nav">
+        <a class="logo" href="index.html">Saf<span>7</span>a</a>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
         </button>
-
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="library.html">Library</a>
             <a href="favorites.html">Favorites</a>
             <a href="profile.html">Profile</a>
             <a href="about-us.html">About Us</a>
-            <a href="library cart.html"> cart</a>
+            <a href="plans.html"> Plans</a>
             <a href="cover-page.html">Cover Page</a>
-            
         </div>
         <div class="rigester">
-            <a class="login" href="login.html" target="_blank">Login</a>
-            <a class="sign-up" href="Sign up.html" target="_blank">Sign UP</a>
+            <a class="login" href="login.html">Login</a>
+            <a class="sign-up" href="Sign up.html">Sign UP</a>
         </div>
     </nav>
 
-        <section>
-            <img src="" alt="Book Image">
-            <h2>Book Name</h2>
-            <p>Author: </p>
-            <p>Category: </p>
-            <p>Description: </p>
-        </section>
-
-        <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>Saf7<span>a</span> Library</h3>
-                    <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+    <main>
+        <section class="book-hero">
+            <div id="book-bg" class="book-bg"></div>
+            <div class="overlay"></div>
+            <div class="book-content">
+                <div class="book-left">
+                    <img id="book-img" alt="Book Cover">
                 </div>
-
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <div class="book-right">
+                    <h1 id="book-title"></h1>
+                    <p id="book-author"></p>
+                    <p id="book-category"></p>
+                    <p id="book-description"></p>
+                    <div class="book-actions">
+                        <button id="borrow-btn" class="borrow-btn">Borrow</button>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <div class="copyright-bar">
-                <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        <section class="related-section">
+            <h2>Related Books</h2>
+            <div class="slider-wrapper">
+                <button id="prev-btn" class="slider-nav-btn" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                
+                <div id="related-books" class="related-container">
+                    </div>
+
+                <button id="next-btn" class="slider-nav-btn" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
             </div>
-        </footer>
+        </section>
+    </main>
 
-        <script src="../JS/general.js"></script>
-    </body>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Saf7<span>a</span> Library</h3>
+                <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="../JS/general.js"></script>
+    <script src="../JS/book.js"></script>
+</body>
 </html>

@@ -1,0 +1,171 @@
+.plans {
+  text-align: center;
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* العنوان */
+.plans h2 {
+    margin-bottom: 30px;
+    font-size: 32px;
+    font-weight: 800;
+    color: #09324e;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    letter-spacing: -0.5px;
+}
+
+/* الكونتينر */
+.plans-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 25px;
+  flex-wrap: wrap;
+  width: 90%;
+  max-width: 1100px;
+}
+
+/* الكارد */
+.plan-card {
+  background: white;
+  padding: 25px 20px;
+  border-radius: 20px;
+  width: 260px;
+
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+
+  position: relative;
+  overflow: hidden;
+}
+
+/* hover */
+.plan-card:hover {
+  transform: translateY(-12px) scale(1.03);
+}
+
+/* العنوان */
+.plan-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+/* السعر */
+.plan-card .price {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 10px 0;
+  color: rgb(239, 49, 87);
+}
+
+/* اللست */
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.plan-card li {
+  margin: 10px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+/* الزرار */
+.plan-card button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+
+  background: linear-gradient(135deg, rgb(233, 43, 81), rgb(239, 49, 87));
+  color: white;
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* hover زرار */
+.plan-card button:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* ⭐ الخطة المميزة */
+.popular {
+  border: 2px solid rgb(239, 49, 87);
+  transform: scale(1.08);
+}
+
+/* label فوقها */
+.popular::before {
+  content: "Most Popular";
+  position: absolute;
+  top: 15px;
+  right: -35px;
+
+  background: rgb(239, 49, 87);
+  color: white;
+  font-size: 12px;
+
+  padding: 5px 40px;
+  transform: rotate(45deg);
+}
+
+/* الأنماط الأساسية موجودة عندك، ضيف دول بس في الآخر */
+
+.plan-card.active-plan {
+  border: 3px solid #2ecc71; /* برودر أخضر لتمييز الخطة */
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(46, 204, 113, 0.2);
+  background-color: #fafffb; /* خلفية فاتحة جداً مريحة */
+}
+
+/* إضافة شارة "Active" في الزاوية */
+.plan-card.active-plan::after {
+  content: "Active";
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #2ecc71;
+  color: white;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* تعديل الأنيميشن للتأكد إن الـ Active بيفضل بارز */
+.plan-card.active-plan:hover {
+    transform: translateY(-12px) scale(1.03);
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+  .plans-container {
+    gap: 20px;
+  }
+
+  .plan-card {
+    width: 220px;
+  }
+
+  .popular {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 500px) {
+  .plans h2 {
+    font-size: 24px;
+  }
+
+  .plan-card {
+    width: 90%;
+  }
+}

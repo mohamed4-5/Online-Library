@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="icon" href="../images/favicon.png">
-     <link rel="stylesheet" href="../css/favorites.css">
-       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
-     <nav class="nav">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Plans</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/plans.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="icon" href="../images/favicon.png">
+    </head>
+    <body>
+        <nav class="nav">
         
         <a class="logo" href="index.html" >Saf<span>7</span>a</a>
         <button class="hamburger" aria-label="Menu">
@@ -34,13 +34,45 @@
             <a class="login" href="login.html" >Login</a>
             <a class="sign-up" href="Sign up.html" >Sign UP</a>
         </div>
-    </nav>
-    <div>
-        <h1>No books yet</h1>
-       <a href="library.html">Browse Library</a> 
-    </div>
+        </nav>
 
-    <footer>
+        <section class="plans">
+            <h2>Choose Your Plan</h2>
+
+            <div class="plans-container">
+                <div class="plan-card">
+                    <h3>Basic</h3>
+                    <p class="price">Free</p>
+                    <ul>
+                        <li>2 Books</li>
+                        <li>7 Days</li>
+                    </ul>
+                    <button onclick="selectPlan('basic')">Choose Plan</button>
+                </div>
+
+                <div class="plan-card popular">
+                    <h3>Standard</h3>
+                    <p class="price">$5</p>
+                    <ul>
+                        <li>5 Books</li>
+                        <li>14 Days</li>
+                    </ul>
+                    <button onclick="selectPlan('standard')">Choose Plan</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3>Premium</h3>
+                    <p class="price">$10</p>
+                    <ul>
+                        <li>10 Books</li>
+                        <li>30 Days</li>
+                    </ul>
+                    <button onclick="selectPlan('premium')">Choose Plan</button>
+                </div>
+            </div>
+        </section>
+
+         <footer>
             <div class="footer-container">
                 <div class="footer-section">
                     <h3>Saf7<span>a</span> Library</h3>
@@ -69,5 +101,5 @@
         </footer>
 
         <script src="../JS/general.js"></script>
-</body>
+    </body>
 </html>
