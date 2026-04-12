@@ -1,103 +1,141 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My Profile</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="icon" href="../images/favicon.png">
-            <link rel="stylesheet" href="../css/profile.css">
-
-    </head>
-    <body>
-     <nav class="nav">
-        
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
-            <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile – Saf7a</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/heart.css">
+    <link rel="stylesheet" href="../css/profile.css">
+    <link rel="icon" href="../images/favicon.png">
+    <script>
+        (function () {
+            try {
+                if (!localStorage.getItem("currentUser")) {
+                    window.location.replace("login.html");
+                }
+            } catch (e) {
+                window.location.replace("login.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="nav">
+        <a class="logo" href="index.html">Saf<span>7</span>a</a>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
         </button>
-
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="library.html">Library</a>
-            <a href="favorites.html">Favorites</a>
             <a href="profile.html">Profile</a>
             <a href="about-us.html">About Us</a>
-            <a href="plans.html"> Plans</a>
             <a href="cover-page.html">Cover Page</a>
-            
         </div>
         <div class="rigester">
-            <a class="login" href="login.html"  >Login</a>
-            <a class="sign-up" href="Sign up.html" >Sign UP</a>
-            <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
+            <a class="login" href="login.html">Login</a>
+            <a class="sign-up" href="Sign up.html">Sign UP</a>
         </div>
     </nav>
 
-        <div class="user">
-            <section class="user-info">
-                <i class="fa-regular fa-address-card"></i>
-                <p >Name : <span id="userName"></span></p>
-            </section>
-
-            <section>
-                <h2>Your Books</h2>
-                <div class="buttons">
-                    <a href="library.html" class="profile-action-btn">Borrow More</a>
+    <main class="profile-page">
+        <header class="profile-header">
+            <div class="profile-header-row">
+                <div class="profile-header-text">
+                    <h1>My account</h1>
+                    <p class="profile-tagline">Your details, favorites, and subscription in one place</p>
                 </div>
-                <p>Is Empty!</p>
-            </section>
-        </div>
+                <button type="button" class="profile-logout-btn" onclick="logout()">
+                    <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+                    <span>Log out</span>
+                </button>
+            </div>
+        </header>
+
+        <section class="profile-section" id="personal-section" aria-labelledby="personal-heading">
+            <h2 id="personal-heading"><i class="fa-regular fa-id-card"></i> Personal information</h2>
+            <dl class="profile-dl">
+                <div><dt>Name</dt><dd id="displayName">—</dd></div>
+                <div><dt>Email</dt><dd id="displayEmail">—</dd></div>
+            </dl>
+        </section>
+
+        <section class="profile-section" id="plan-section" aria-labelledby="plan-heading">
+            <h2 id="plan-heading"><i class="fa-solid fa-layer-group"></i> Subscription plan</h2>
+            <p class="profile-plan-line" id="planLine">Loading…</p>
+            <a href="plans.html" class="profile-action-btn" id="planCta">View plans</a>
+        </section>
+
+        <section class="profile-section" id="favorites-section" aria-labelledby="favorites-heading">
+            <h2 id="favorites-heading"><i class="fa-regular fa-heart"></i> My favorites</h2>
+            <p class="profile-hint">Same heart button as on the home page — remove a book here anytime.</p>
+            <div id="profile-favorites-grid" class="profile-favorites-grid"></div>
+            <p id="profile-fav-empty" class="profile-fav-empty" hidden>
+                No favorites yet. Browse the <a href="library.html">library</a> and tap the heart on a book cover.
+            </p>
+        </section>
+
+        <section class="profile-section" id="borrowed-section" aria-labelledby="borrowed-heading">
+            <h2 id="borrowed-heading"><i class="fa-solid fa-book-bookmark"></i> Borrowed books</h2>
+            <p class="profile-hint">Titles you borrowed from the library. Use <strong>Read PDF</strong> when a file is available.</p>
+            <div id="profile-borrowed-grid" class="profile-favorites-grid"></div>
+            <p id="profile-borrowed-empty" class="profile-fav-empty" hidden>
+                You have not borrowed any books yet. Visit the <a href="library.html">library</a> and choose <strong>Borrow</strong> on a book page.
+            </p>
+        </section>
+
+        <section class="profile-section" id="borrow-section">
+            <h2><i class="fa-solid fa-book-open"></i> Borrowing</h2>
+            <p class="profile-hint">Find more books to borrow within your plan limit.</p>
+            <div class="buttons">
+                <a href="library.html" class="profile-action-btn">Browse library</a>
+            </div>
+        </section>
 
         <div class="admin">
-            <section class="user-info">
-                <i class="fa-regular fa-address-card"></i>
-                <p>Name : </p>
-                <p>Role : Administartor</p>
+            <section class="profile-section admin-banner">
+                <h2><i class="fa-solid fa-user-shield"></i> Administrator</h2>
+                <p class="profile-hint">Signed in as <strong id="adminDisplayName"></strong></p>
             </section>
-
-            <section>
-                <h2>Books Added</h2>
-                    <div class="buttons">
-                        <a href="add-book.html" class="profile-action-btn">Add More</a>
-                        <button type="button" class="profile-action-btn profile-action-btn--outline" disabled title="Coming soon">Manage Books</button>
-                    </div>
-                <p>Is Empty!</p>
+            <section class="profile-section">
+                <h2>Books you added</h2>
+                <div class="buttons">
+                    <a href="add-book.html" class="profile-action-btn">Add a book</a>
+                    <button type="button" class="profile-action-btn profile-action-btn--outline" disabled title="Coming soon">Manage books</button>
+                </div>
             </section>
         </div>
+    </main>
 
-        <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>Saf7<span>a</span> Library</h3>
-                    <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Saf7<span>a</span> Library</h3>
+                <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        </div>
+    </footer>
 
-            <div class="copyright-bar">
-                <p>© 2026 Saf7a Online Library. All rights reserved.</p>
-            </div>
-        </footer>
-
-        <script src="../JS/general.js"></script>
-        <script src="../JS/profile.js"></script>
-    </body>
+    <script src="../JS/general.js"></script>
+    <script src="../JS/profile.js"></script>
+</body>
 </html>

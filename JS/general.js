@@ -2,63 +2,130 @@
    hamburger.js
    ============================================ */
 
-const hamburger = document.querySelector('.hamburger');
-const navLinks  = document.querySelector('.nav-links');
-const rigester  = document.querySelector('.rigester');
+const hamburger = document.querySelector(".hamburger");
+const navLinks = document.querySelector(".nav-links");
+const rigester = document.querySelector(".rigester");
 
-// حساب موضع rigester تحت nav-links
 function positionRigester() {
+  if (!navLinks || !rigester) return;
   if (window.innerWidth <= 768) {
-    const navHeight   = document.querySelector('.nav').offsetHeight;
+    const navEl = document.querySelector(".nav");
+    const navHeight = navEl ? navEl.offsetHeight : 0;
     const linksHeight = navLinks.scrollHeight;
-    rigester.style.top = (navHeight + linksHeight) + 'px';
+    rigester.style.top = navHeight + linksHeight + "px";
   } else {
-    rigester.style.top = '';
+    rigester.style.top = "";
   }
 }
 
-hamburger.addEventListener('click', () => {
-  const isOpen = hamburger.classList.toggle('open');
-  navLinks.classList.toggle('open', isOpen);
-  positionRigester();
-  rigester.classList.toggle('open', isOpen);
-});
-
-// إغلاق لو دوس على لينك
-navLinks.querySelectorAll('a').forEach(link => {
-  link.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    navLinks.classList.remove('open');
-    rigester.classList.remove('open');
+if (hamburger && navLinks && rigester) {
+  hamburger.addEventListener("click", () => {
+    const isOpen = hamburger.classList.toggle("open");
+    navLinks.classList.toggle("open", isOpen);
+    positionRigester();
+    rigester.classList.toggle("open", isOpen);
   });
-});
 
-// إغلاق لو دوس برا القايمة
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.nav')) {
-    hamburger.classList.remove('open');
-    navLinks.classList.remove('open');
-    rigester.classList.remove('open');
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("open");
+      navLinks.classList.remove("open");
+      rigester.classList.remove("open");
+    });
+  });
+
+  rigester.addEventListener("click", (e) => {
+    if (e.target.closest("a")) {
+      hamburger.classList.remove("open");
+      navLinks.classList.remove("open");
+      rigester.classList.remove("open");
+    }
+  });
+}
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".nav")) {
+    if (hamburger) hamburger.classList.remove("open");
+    if (navLinks) navLinks.classList.remove("open");
+    if (rigester) rigester.classList.remove("open");
   }
 });
 
-// reset لو اتفتحت على desktop
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   if (window.innerWidth > 768) {
-    hamburger.classList.remove('open');
-    navLinks.classList.remove('open');
-    rigester.classList.remove('open');
-    rigester.style.top = '';
+    if (hamburger) hamburger.classList.remove("open");
+    if (navLinks) navLinks.classList.remove("open");
+    if (rigester) {
+      rigester.classList.remove("open");
+      rigester.style.top = "";
+    }
   }
 });
 
-const links = document.querySelectorAll(".nav-links a");
-
-links.forEach(link => {
-  if (link.href === window.location.href) {
-    link.classList.add("active");
+function parseCurrentUser() {
+  try {
+    const raw = localStorage.getItem("currentUser");
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
   }
-});
+}
+
+/**
+ * Remove Favorites, Plans, Cart from nav.
+ * Profile: not in nav-links — logged-in users get a pill on the far right (inside .rigester).
+ */
+function initAccountNav() {
+  const navLinks = document.querySelector(".nav-links");
+  const rig = document.querySelector(".rigester");
+  if (!navLinks || !rig) return;
+
+  navLinks
+    .querySelectorAll(
+      'a[href="favorites.html"], a[href="plans.html"], a[href="library cart.html"], a[href*="library%20cart"]'
+    )
+    .forEach((a) => a.remove());
+
+  navLinks.querySelectorAll("a").forEach((a) => {
+    const h = (a.getAttribute("href") || "").toLowerCase();
+    if (h.includes("cart")) a.remove();
+  });
+
+  rig.querySelectorAll("a.nav-profile-pill").forEach((a) => a.remove());
+
+  const profileInNav = navLinks.querySelector('a[href="profile.html"]');
+  if (profileInNav) profileInNav.remove();
+
+  const currentUser = parseCurrentUser();
+  if (currentUser && (currentUser.username || currentUser.email)) {
+    const pill = document.createElement("a");
+    pill.href = "profile.html";
+    pill.className = "nav-profile-pill";
+    pill.title = "My profile";
+    pill.setAttribute("aria-label", "My profile");
+
+    const icon = document.createElement("i");
+    icon.className = "fa-solid fa-circle-user";
+    icon.setAttribute("aria-hidden", "true");
+
+    const label = document.createElement("span");
+    label.className = "nav-profile-pill-text";
+    label.textContent = currentUser.username || currentUser.email;
+
+    pill.appendChild(icon);
+    pill.appendChild(label);
+    rig.appendChild(pill);
+  }
+}
+
+function setActiveNavLink() {
+  document.querySelectorAll(".nav-links a, a.nav-profile-pill").forEach((link) => {
+    if (link.href === window.location.href) {
+      link.classList.add("active");
+    }
+  });
+}
 
 window.addEventListener("scroll", () => {
   const nav = document.querySelector(".nav");
@@ -71,6 +138,7 @@ window.addEventListener("scroll", () => {
 });
 function showMessage(text, type) {
     let msg = document.getElementById("message");
+    if (!msg) return;
     msg.textContent = text;
     msg.className = type;
 
@@ -79,25 +147,28 @@ function showMessage(text, type) {
         msg.className = "";
     }, 3000);
 }
+
 document.addEventListener("DOMContentLoaded", () => {
-    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  initAccountNav();
+  setActiveNavLink();
 
-    let loginBtn = document.querySelector(".login");
-    let signupBtn = document.querySelector(".sign-up");
-    let logoutBtn = document.querySelector(".logout");
+  const currentUser = parseCurrentUser();
+  const loginBtn = document.querySelector(".login");
+  const signupBtn = document.querySelector(".sign-up");
 
-    if (currentUser) {
-        if (loginBtn) loginBtn.style.display = "none";
-        if (signupBtn) signupBtn.style.display = "none";
-        if (logoutBtn) logoutBtn.style.display = "inline-block";
-    } else {
-        if (logoutBtn) logoutBtn.style.display = "none";
-    }
+  if (currentUser) {
+    if (loginBtn) loginBtn.style.display = "none";
+    if (signupBtn) signupBtn.style.display = "none";
+  }
+
+  if (document.querySelector(".plans-container")) {
+    updatePlanUI();
+  }
 });
 
 function logout() {
-    localStorage.removeItem("currentUser");
-    location.reload();
+  localStorage.removeItem("currentUser");
+  window.location.href = "index.html";
 }
 
 function selectPlan(plan) {
@@ -162,29 +233,8 @@ function updatePlanUI() {
   });
 }
 
-// تشغيل التحديث عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', () => {
-    // تشغيل الهامبرجر والميزات الأخرى
-    // ... كود الهامبرجر بتاعك ...
-
-    // تشغيل تحديث الخطط لو في صفحة الخطط
-    if (document.querySelector('.plans-container')) {
-        updatePlanUI();
-    }
-});
-
-// باقي وظائف الاستعارة (Keep them as they are)
-function getBorrowedBooks() { return JSON.parse(localStorage.getItem("borrowed")) || []; }
-function isBookBorrowed(bookId) { return getBorrowedBooks().includes(bookId); }
-// ... إلخ
-
-
 function getBorrowedBooks() {
   return JSON.parse(localStorage.getItem("borrowed")) || [];
-}
-
-function getUserPlan() {
-  return localStorage.getItem("userPlan");
 }
 
 function getPlanLimit(plan) {

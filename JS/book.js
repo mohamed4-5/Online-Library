@@ -37,6 +37,7 @@ fetch("../data/books.json")
     displayBookDetails(book);
     syncFavoriteButton(book);
     renderBorrowState(book.id);
+    updateReadButton(book);
 
     const related = booksCatalog.filter(
       (b) => b.category === book.category && b.id != book.id
@@ -53,6 +54,38 @@ function displayBookDetails(book) {
     document.getElementById("book-category").innerText = "Category: " + book.category;
     document.getElementById("book-description").innerText = book.description;
     document.getElementById("book-bg").style.backgroundImage = `url(${book.image})`;
+}
+
+function bookHasReadablePdf(book) {
+  if (!book || !book.pdf) return false;
+  const p = String(book.pdf).trim();
+  return p !== "" && p !== "#";
+}
+
+/** Read PDF — only after the book is borrowed */
+function updateReadButton(book) {
+  const readBtn = document.getElementById("read-book-btn");
+  if (!readBtn || !book) return;
+
+  const borrowed =
+    typeof isBookBorrowed === "function" && isBookBorrowed(book.id);
+  const pdfOk = bookHasReadablePdf(book);
+
+  readBtn.onclick = null;
+
+  if (borrowed && pdfOk) {
+    readBtn.disabled = false;
+    readBtn.classList.remove("read-book-btn--locked");
+    readBtn.title = "Open the book PDF in a new tab";
+    readBtn.onclick = () =>
+      window.open(book.pdf, "_blank", "noopener,noreferrer");
+  } else {
+    readBtn.disabled = true;
+    readBtn.classList.add("read-book-btn--locked");
+    readBtn.title = !borrowed
+      ? "Borrow this book first to unlock reading"
+      : "No PDF file is available for this book";
+  }
 }
 
 /** Heart button — uses isFavorite / toggleFavorite from general.js */
@@ -184,6 +217,7 @@ if (borrowBtn) {
     }
 
     renderBorrowState(currentBook.id);
+    updateReadButton(currentBook);
 
     borrowBtn.style.transform = "scale(0.95)";
     setTimeout(() => (borrowBtn.style.transform = "scale(1)"), 100);
