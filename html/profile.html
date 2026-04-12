@@ -30,15 +30,16 @@
             
         </div>
         <div class="rigester">
-            <a class="login" href="login.html">Login</a>
-            <a class="sign-up" href="Sign up.html" >Sign UP</a>
+            <a class="login" href="login.html" target="_blank">Login</a>
+            <a class="sign-up" href="Sign up.html" target="_blank">Sign UP</a>
+            <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
         </div>
     </nav>
 
         <div class="user">
             <section class="user-info">
                 <i class="fa-regular fa-address-card"></i>
-                <p>Name : </p>
+                <p >Name : <span id="userName"></span></p>
             </section>
 
             <section>
@@ -103,5 +104,6 @@
         </footer>
 
         <script src="../JS/general.js"></script>
+        <script src="../JS/profile.js"></script>
     </body>
 </html>
