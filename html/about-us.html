@@ -5,78 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us</title>
     <link rel="stylesheet" href="../css/style.css">
-     <link rel="icon" href="../images/favicon.png">
-    <link rel="stylesheet" href="../css/about-us.css">
+    <link rel="stylesheet" href="../css/aboutus.css">
+    <link rel="icon" href="../images/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-     <nav class="nav">
-        
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
-            <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    <nav class="nav">
+        <a class="logo" href="index.html">Saf<span>7</span>a</a>
 
-        <div class="nav-links">
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="library.html">Library</a>
             <a href="favorites.html">Favorites</a>
             <a href="profile.html">Profile</a>
             <a href="about-us.html">About Us</a>
-            <a href="plans.html"> Plans</a>
+            <a href="plans.html">Plans</a>
             <a href="cover-page.html">Cover Page</a>
-            
         </div>
+
         <div class="rigester">
-            <a class="login" href="login.html"  >Login</a>
-            <a class="sign-up" href="Sign up.html" >Sign UP</a>
+            <a class="login" href="login.html">Login</a>
+            <a class="sign-up" href="Sign up.html">Sign UP</a>
             <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
         </div>
+
+        <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
-    <div>
-    <h1>من نحن؟</h1>
-    <p>نحن فريق من الطلاب في كلية الحاسبات والذكاء الاصطناعي قررنا تطوير موقع يقوم بجمع وعرض كل الكتب في مختلف المجالات لتسهيل عملية القراءة ومساعدة القراء للوصول لكل ما يحتاجوه من مكان واحد</p>
+
+    <div class="about-wrapper">
+
+        <div class="about-card">
+            <div class="about-icon"><i class="fa-solid fa-users"></i></div>
+            <h2>من نحن؟</h2>
+            <p>نحن فريق من الطلاب في كلية الحاسبات والذكاء الاصطناعي قررنا تطوير موقع يقوم بجمع وعرض كل الكتب في مختلف المجالات لتسهيل عملية القراءة ومساعدة القراء للوصول لكل ما يحتاجوه من مكان واحد</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon"><i class="fa-solid fa-star"></i></div>
+            <h2>ماذا يميز مكتبتنا</h2>
+            <p>مكتبتنا توفر لك العديد من الكتب في مختلف المجالات وتوفر تسهيلات فالقراءة فيمكنك طلب الكتب او قرائتها عبر الموقع ونتيح التصميم الراقي اللذي يريح عينك حين تقرأ</p>
+        </div>
+
+        <div class="about-card">
+            <div class="about-icon"><i class="fa-solid fa-envelope"></i></div>
+            <h2>تواصل معنا</h2>
+            <p>مكتبتنا توفر لك العديد من الكتب في مختلف المجالات وتوفر تسهيلات فالقراءة فيمكنك طلب الكتب او قرائتها عبر الموقع ونتيح التصميم الراقي اللذي يريح عينك حين تقرأ</p>
+        </div>
+
     </div>
-    <div>
-        <h1>ماذا يميز مكتبتنا</h1>
-        <p>مكتبتنا توفر لك العديد من الكتب في مختلف المجالات وتوفر تسهيلات فالفراءة فيمكنك طلب الكتب او قرائتها عبر الموقع ونتيح التصميم الراقي اللذي يريح عينك حين تقرأ</p>
-    </div>
-    <div>
-        <h1>تواصل معنا</h1>
-        <p>مكتبتنا توفر لك العديد من الكتب في مختلف المجالات وتوفر تسهيلات فالفراءة فيمكنك طلب الكتب او قرائتها عبر الموقع ونتيح التصميم الراقي اللذي يريح عينك حين تقرأ</p>
-    </div>
-    
+
     <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>Saf7<span>a</span> Library</h3>
-                    <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Saf7<span>a</span> Library</h3>
+                <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        </div>
+    </footer>
 
-            <div class="copyright-bar">
-                <p>© 2026 Saf7a Online Library. All rights reserved.</p>
-            </div>
-        </footer>
-
-        <script src="../JS/general.js"></script>
+    <script src="../JS/general.js"></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+    </script>
 </body>
 </html>
