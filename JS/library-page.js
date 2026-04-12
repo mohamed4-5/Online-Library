@@ -158,8 +158,8 @@ function renderPagination(totalPages) {
   html += `<button class="page-btn" onclick="goPage(${currentPage - 1})" ${
     currentPage === 1 ? "disabled" : ""
   }>
-                 <i class="fa-solid fa-angles-left"></i>
-             </button>`;
+            <i class="fa-solid fa-angles-left"></i>
+            </button>`;
 
   const pages = getPageRange(currentPage, totalPages);
   pages.forEach((p) => {
@@ -175,8 +175,8 @@ function renderPagination(totalPages) {
   html += `<button class="page-btn" onclick="goPage(${currentPage + 1})" ${
     currentPage === totalPages ? "disabled" : ""
   }>
-                 <i class="fa-solid fa-angles-right"></i>
-             </button>`;
+            <i class="fa-solid fa-angles-right"></i>
+            </button>`;
 
   pg.innerHTML = html;
 }
@@ -211,31 +211,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 const user = JSON.parse(localStorage.getItem("currentUser"));
 const addDiv = document.querySelector(".library-main");
-
-  addDiv.innerHTML = `
-  
-    <!-- FILTERS -->
-    <div class="filters" id="filtersContainer">
+addDiv.innerHTML = `
+  <!-- FILTERS -->
+      <div class="filters" id="filtersContainer">
         <!-- populated by JS -->
-    </div>
+      </div>
 
-    <!-- RESULTS HEADER -->
-    <div class="results-header">
+      <!-- RESULTS HEADER -->
+      <div class="results-header">
         <h2 id="sectionTitle">All Books</h2>
         <span class="results-count" id="resultsCount"></span>
-    </div>
+      </div>
 
-    <!-- BOOKS GRID -->
-    <div class="books-grid" id="booksGrid">
+      <!-- BOOKS GRID -->
+      <div class="books-grid" id="booksGrid">
         <!-- populated by JS -->
-    </div>
+      </div>
 
-    <!-- PAGINATION -->
-    <div class="pagination" id="pagination"></div>
-
-    <!-- ADD BOOK -->
-    <!-- ADD BOOK -->
-    ${user.admin?`
+      <!-- PAGINATION -->
+      <div class="pagination" id="pagination"></div>
+    ${
+      user?.admin
+        ? `
     <div class="add-book-strip">
         <div>
             <h2>Add Your Book</h2>
@@ -243,7 +240,7 @@ const addDiv = document.querySelector(".library-main");
         </div>
         <a href="add-book.html" class="btn-add"><i class="fa-solid fa-plus"></i> Add Book</a>
     </div>
-    `: ""
+    `
+        : ""
     } 
   `;
-
