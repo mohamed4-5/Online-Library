@@ -62,6 +62,105 @@ function renderPlanSection() {
   }
 }
 
+function bookHasReadablePdf(book) {
+  if (!book || !book.pdf) return false;
+  const p = String(book.pdf).trim();
+  return p !== "" && p !== "#";
+}
+
+function renderBorrowedBooks() {
+  const grid = document.getElementById("profile-borrowed-grid");
+  const empty = document.getElementById("profile-borrowed-empty");
+  if (!grid || !empty) return;
+
+  grid.innerHTML = "";
+  const ids =
+    typeof getBorrowedBooks === "function" ? getBorrowedBooks() : [];
+  const books = ids
+    .map((id) => profileBooks.find((b) => b.id == id))
+    .filter(Boolean);
+
+  if (books.length === 0) {
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+
+  books.forEach((book) => {
+    const card = document.createElement("div");
+    card.className = "book-card profile-borrowed-card";
+
+    const wrap = document.createElement("div");
+    wrap.className = "book-image-wrapper";
+
+    const img = document.createElement("img");
+    img.src = book.image;
+    img.alt = book.title;
+    img.onerror = () => {
+      img.src = "../images/book-placeholder.jpg";
+    };
+
+    const badge = document.createElement("span");
+    badge.className = "category-badge";
+    badge.textContent = book.category;
+
+    wrap.appendChild(img);
+    wrap.appendChild(badge);
+
+    const info = document.createElement("div");
+    info.className = "book-info";
+    const h3 = document.createElement("h3");
+    h3.textContent = book.title;
+    const author = document.createElement("p");
+    author.className = "author-name";
+    author.textContent = book.author;
+    info.appendChild(h3);
+    info.appendChild(author);
+
+    const actions = document.createElement("div");
+    actions.className = "profile-borrowed-actions";
+
+    const readPdf = document.createElement("button");
+    readPdf.type = "button";
+    readPdf.className = "profile-read-pdf-btn";
+    readPdf.innerHTML =
+      '<i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Read PDF';
+    if (bookHasReadablePdf(book)) {
+      readPdf.disabled = false;
+      readPdf.title = "Open PDF in a new tab";
+      readPdf.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.open(book.pdf, "_blank", "noopener,noreferrer");
+      });
+    } else {
+      readPdf.disabled = true;
+      readPdf.title = "No PDF for this book";
+    }
+
+    const openBook = document.createElement("button");
+    openBook.type = "button";
+    openBook.className = "profile-open-book-btn";
+    openBook.textContent = "Book page";
+    openBook.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.location.href = `book.html?id=${book.id}`;
+    });
+
+    actions.appendChild(readPdf);
+    actions.appendChild(openBook);
+
+    info.appendChild(actions);
+
+    card.appendChild(wrap);
+    card.appendChild(info);
+    card.addEventListener("click", () => {
+      window.location.href = `book.html?id=${book.id}`;
+    });
+
+    grid.appendChild(card);
+  });
+}
+
 function renderProfileFavorites() {
   const grid = document.getElementById("profile-favorites-grid");
   const empty = document.getElementById("profile-fav-empty");
@@ -155,6 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await loadProfileBooks();
   renderPlanSection();
   renderProfileFavorites();
+  renderBorrowedBooks();
 
   if (window.location.hash === "#favorites") {
     const el = document.getElementById("favorites-section");

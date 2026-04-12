@@ -143,6 +143,66 @@ body {
   max-width: 220px;
 }
 
+.profile-borrowed-card .book-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.profile-borrowed-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.profile-read-pdf-btn,
+.profile-open-book-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, background 0.2s;
+}
+
+.profile-read-pdf-btn {
+  background: var(--primary-color);
+  color: #fff;
+}
+
+.profile-read-pdf-btn:hover:not(:disabled) {
+  background: rgb(199, 40, 70);
+}
+
+.profile-read-pdf-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.profile-open-book-btn {
+  background: var(--bg-color, #f8f9fa);
+  color: var(--dark, #1a1a2e);
+  border: 1px solid var(--border, #e2e8f0);
+}
+
+.profile-open-book-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.profile-borrowed-card.book-card {
+  cursor: pointer;
+}
+
 .profile-fav-empty {
   text-align: center;
   padding: 24px 12px;

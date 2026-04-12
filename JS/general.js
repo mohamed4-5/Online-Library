@@ -102,9 +102,19 @@ function initAccountNav() {
     const pill = document.createElement("a");
     pill.href = "profile.html";
     pill.className = "nav-profile-pill";
-    pill.textContent = currentUser.username || currentUser.email;
     pill.title = "My profile";
     pill.setAttribute("aria-label", "My profile");
+
+    const icon = document.createElement("i");
+    icon.className = "fa-solid fa-circle-user";
+    icon.setAttribute("aria-hidden", "true");
+
+    const label = document.createElement("span");
+    label.className = "nav-profile-pill-text";
+    label.textContent = currentUser.username || currentUser.email;
+
+    pill.appendChild(icon);
+    pill.appendChild(label);
     rig.appendChild(pill);
   }
 }
