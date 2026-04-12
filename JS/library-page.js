@@ -22,7 +22,6 @@ async function loadBooks() {
       }
     });
   } catch (e) {
-    /* silently ignore */
   }
 
   buildFilters();
