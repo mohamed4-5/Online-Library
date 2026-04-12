@@ -146,8 +146,21 @@ function renderBorrowedBooks() {
       window.location.href = `book.html?id=${book.id}`;
     });
 
+    const returnBook = document.createElement("button");
+    returnBook.type = "button";
+    returnBook.className = "profile-return-book-btn";
+    returnBook.innerHTML =
+      '<i class="fa-solid fa-rotate-left" aria-hidden="true"></i> Return book';
+    returnBook.title = "Return this book (end borrowing)";
+    returnBook.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (typeof returnBookById === "function") returnBookById(book.id);
+      renderBorrowedBooks();
+    });
+
     actions.appendChild(readPdf);
     actions.appendChild(openBook);
+    actions.appendChild(returnBook);
 
     info.appendChild(actions);
 
@@ -263,5 +276,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         el.scrollIntoView({ behavior: "smooth", block: "start" })
       );
     }
+  }
+
+  const logoutBtn = document.querySelector(".profile-logout-btn");
+  if (logoutBtn && typeof logout === "function") {
+    logoutBtn.addEventListener("click", function () {
+      logout();
+    });
   }
 });

@@ -1,6 +1,4 @@
-/* ============================================
-   hamburger.js
-   ============================================ */
+/* Nav: mobile menu + account UI */
 
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
@@ -73,7 +71,7 @@ function parseCurrentUser() {
 }
 
 /**
- * Remove Favorites, Plans, Cart from nav.
+ * Remove Favorites, Plans from nav (access via profile).
  * Profile: not in nav-links — logged-in users get a pill on the far right (inside .rigester).
  */
 function initAccountNav() {
@@ -82,15 +80,8 @@ function initAccountNav() {
   if (!navLinks || !rig) return;
 
   navLinks
-    .querySelectorAll(
-      'a[href="favorites.html"], a[href="plans.html"], a[href="library cart.html"], a[href*="library%20cart"]'
-    )
+    .querySelectorAll('a[href="favorites.html"], a[href="plans.html"]')
     .forEach((a) => a.remove());
-
-  navLinks.querySelectorAll("a").forEach((a) => {
-    const h = (a.getAttribute("href") || "").toLowerCase();
-    if (h.includes("cart")) a.remove();
-  });
 
   rig.querySelectorAll("a.nav-profile-pill").forEach((a) => a.remove());
 
@@ -245,8 +236,7 @@ function getPlanLimit(plan) {
 }
 
 function isBookBorrowed(bookId) {
-  const borrowed = getBorrowedBooks();
-  return borrowed.includes(bookId);
+  return getBorrowedBooks().some((id) => id == bookId);
 }
 
 function canBorrowMore() {
@@ -269,7 +259,7 @@ function borrowBookById(bookId) {
 
   let borrowed = getBorrowedBooks();
 
-  if (borrowed.includes(bookId)) {
+  if (borrowed.some((id) => id == bookId)) {
     return { ok: false, msg: "Already borrowed" };
   }
 
@@ -279,7 +269,14 @@ function borrowBookById(bookId) {
   return { ok: true };
 }
 
-/* ── Favorites (home, library, book details, favorites page) ── */
+/** Remove a book from the borrowed list (return to library). */
+function returnBookById(bookId) {
+  const borrowed = getBorrowedBooks().filter((id) => id != bookId);
+  localStorage.setItem("borrowed", JSON.stringify(borrowed));
+  return { ok: true };
+}
+
+/* ── Favorites (home, library, book page, profile) ── */
 function getFavorites() {
   try {
     const parsed = JSON.parse(localStorage.getItem("favorites"));

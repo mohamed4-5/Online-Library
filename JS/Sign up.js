@@ -1,5 +1,15 @@
 let users = JSON.parse(localStorage.getItem("users") || "[]");
 
+document.addEventListener("DOMContentLoaded", function () {
+  var form = document.getElementById("signupForm");
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      signup();
+    });
+  }
+});
+
 function signup() {
   let username = document.getElementById("username").value.trim();
   let password = document.getElementById("password").value.trim();

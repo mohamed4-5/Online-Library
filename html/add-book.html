@@ -40,7 +40,7 @@
 
 <!-- ── FORM CARD ── -->
 <div class="add-book-container">
-    <h2><i class="fa-solid fa-book-open" style="color:var(--red);margin-right:8px;"></i>Book Details</h2>
+    <h2><i class="fa-solid fa-book-open section-title-icon" aria-hidden="true"></i>Book Details</h2>
 
     <form id="addBookForm">
         <div class="form-grid">
@@ -48,7 +48,7 @@
             <!-- Title -->
             <div class="form-group">
                 <label for="bookTitle">
-                    <i class="fa-solid fa-heading"></i> Book Title <span style="color:var(--red)">*</span>
+                    <i class="fa-solid fa-heading"></i> Book Title <span class="label-required">*</span>
                 </label>
                 <input type="text" id="bookTitle" placeholder="e.g. The Great Gatsby" required>
             </div>
@@ -56,7 +56,7 @@
             <!-- Author -->
             <div class="form-group">
                 <label for="bookAuthor">
-                    <i class="fa-solid fa-user-pen"></i> Author <span style="color:var(--red)">*</span>
+                    <i class="fa-solid fa-user-pen"></i> Author <span class="label-required">*</span>
                 </label>
                 <input type="text" id="bookAuthor" placeholder="e.g. F. Scott Fitzgerald" required>
             </div>
@@ -64,7 +64,7 @@
             <!-- Category -->
             <div class="form-group">
                 <label for="bookCategory">
-                    <i class="fa-solid fa-tag"></i> Category <span style="color:var(--red)">*</span>
+                    <i class="fa-solid fa-tag"></i> Category <span class="label-required">*</span>
                 </label>
                 <select id="bookCategory" required>
                     <option value="">Select a Category</option>
@@ -97,7 +97,7 @@
                         <i class="fa-solid fa-cloud-arrow-up"></i>
                         <span>Choose cover image</span>
                     </label>
-                    <div class="file-name-display" id="imageFileName" style="display:none;">
+                    <div class="file-name-display" id="imageFileName">
                         <i class="fa-solid fa-check-circle"></i>
                         <span></span>
                     </div>
@@ -121,7 +121,7 @@
                         <i class="fa-solid fa-file-arrow-up"></i>
                         <span>Choose PDF file</span>
                     </label>
-                    <div class="file-name-display" id="pdfFileName" style="display:none;">
+                    <div class="file-name-display" id="pdfFileName">
                         <i class="fa-solid fa-check-circle"></i>
                         <span></span>
                     </div>
@@ -131,7 +131,7 @@
             <!-- Description -->
             <div class="form-group full-width">
                 <label for="bookDescription">
-                    <i class="fa-solid fa-align-left"></i> Description <span style="color:var(--red)">*</span>
+                    <i class="fa-solid fa-align-left"></i> Description <span class="label-required">*</span>
                 </label>
                 <textarea id="bookDescription" placeholder="Write a short description of the book…" required></textarea>
             </div>
@@ -158,7 +158,7 @@
             <a href="library.html" class="btn-toast primary">
                 <i class="fa-solid fa-book"></i> View Library
             </a>
-            <button class="btn-toast secondary" onclick="addAnother()">
+            <button type="button" class="btn-toast secondary" id="addAnotherBtn">
                 <i class="fa-solid fa-plus"></i> Add Another
             </button>
         </div>
@@ -191,148 +191,7 @@
     </div>
 </footer>
 
-<script>
-// ── FILE PREVIEW HANDLERS ─────────────────────────────────────────
-
-// Cover image preview
-const imageInput = document.getElementById('bookImageFile');
-const imageUploadBtn = document.getElementById('imageUploadBtn');
-const imageFileNameDisplay = document.getElementById('imageFileName');
-const coverPreview = document.getElementById('coverPreview');
-
-imageInput.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-        // Show filename
-        imageFileNameDisplay.style.display = 'flex';
-        imageFileNameDisplay.querySelector('span').textContent = file.name;
-        imageUploadBtn.classList.add('has-file');
-        imageUploadBtn.querySelector('span').textContent = 'Change image';
-
-        // Show live preview
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            coverPreview.classList.remove('empty');
-            coverPreview.innerHTML = `<img src="${e.target.result}" alt="Cover preview">`;
-        };
-        reader.readAsDataURL(file);
-    }
-});
-
-// PDF file name display
-const pdfInput = document.getElementById('bookPdfFile');
-const pdfUploadBtn = document.getElementById('pdfUploadBtn');
-const pdfFileNameDisplay = document.getElementById('pdfFileName');
-
-pdfInput.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-        pdfFileNameDisplay.style.display = 'flex';
-        pdfFileNameDisplay.querySelector('span').textContent = file.name;
-        pdfUploadBtn.classList.add('has-file');
-        pdfUploadBtn.querySelector('span').textContent = 'Change PDF';
-    }
-});
-
-// ── FORM SUBMIT ───────────────────────────────────────────────────
-const form = document.getElementById('addBookForm');
-const submitBtn = document.getElementById('submitBtn');
-
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    // Collect & validate required text fields
-    const title       = document.getElementById('bookTitle').value.trim();
-    const author      = document.getElementById('bookAuthor').value.trim();
-    const category    = document.getElementById('bookCategory').value;
-    const description = document.getElementById('bookDescription').value.trim();
-
-    if (!title || !author || !category || !description) {
-        alert('Please fill in all required fields.');
-        return;
-    }
-
-    // Show loading state
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="spinner"></span> Processing…';
-
-    const imageFile = imageInput.files[0];
-    const pdfFile   = pdfInput.files[0];
-
-    // Read files as base64 (both are optional)
-    const readFile = (file) => {
-        return new Promise((resolve) => {
-            if (!file) { resolve(null); return; }
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(file);
-        });
-    };
-
-    Promise.all([readFile(imageFile), readFile(pdfFile)])
-        .then(([imageData, pdfData]) => {
-            // Build new book object
-            const newBook = {
-                id:          Date.now(),
-                title,
-                author,
-                category,
-                description,
-                image:       imageData || '../images/book-placeholder.jpg',
-                pdf:         pdfData   || '#',
-                rating:      0,
-                latest:      true,
-                mostRead:    false,
-                userAdded:   true
-            };
-
-            // Load existing userBooks from localStorage
-            let stored = [];
-            try {
-                stored = JSON.parse(localStorage.getItem('userBooks')) || [];
-            } catch {
-                stored = [];
-            }
-
-            // Save
-            stored.push(newBook);
-            localStorage.setItem('userBooks', JSON.stringify(stored));
-
-            // Reset button state
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> Add Book to Library';
-
-            // Show success toast
-            document.getElementById('toastMsg').textContent =
-                `"${title}" by ${author} has been added to the library!`;
-            document.getElementById('successToast').classList.add('show');
-        })
-        .catch(() => {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> Add Book to Library';
-            alert('Something went wrong processing the files. Please try again.');
-        });
-});
-
-// ── ADD ANOTHER ───────────────────────────────────────────────────
-function addAnother() {
-    document.getElementById('successToast').classList.remove('show');
-    form.reset();
-
-    // Reset file UI
-    imageUploadBtn.classList.remove('has-file');
-    imageUploadBtn.querySelector('span').textContent = 'Choose cover image';
-    imageFileNameDisplay.style.display = 'none';
-    coverPreview.classList.add('empty');
-    coverPreview.innerHTML = '<div><i class="fa-regular fa-image"></i> Preview will appear here</div>';
-
-    pdfUploadBtn.classList.remove('has-file');
-    pdfUploadBtn.querySelector('span').textContent = 'Choose PDF file';
-    pdfFileNameDisplay.style.display = 'none';
-}
-</script>
-
 <script src="../JS/general.js"></script>
+<script src="../JS/add-book-page.js"></script>
 </body>
 </html>

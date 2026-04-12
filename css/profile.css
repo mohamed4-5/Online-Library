@@ -157,6 +157,30 @@ body {
   padding-top: 10px;
 }
 
+.profile-return-book-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid #cbd5e1;
+  background: #f1f5f9;
+  color: #475569;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.profile-return-book-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
 .profile-read-pdf-btn,
 .profile-open-book-btn {
   display: inline-flex;
