@@ -10,7 +10,7 @@
     --bg-color: #f8f9fa;
     --card-color: #ffffff;
     --text-color: #222;
-    --primary-color: rgb(227, 64, 97);
+    --primary-color:  rgb(227, 64, 97);
 }
 body {
     background-color: var(--bg-color);
