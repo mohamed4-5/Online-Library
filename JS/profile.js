@@ -246,42 +246,72 @@ function renderProfileFavorites() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const currentUser = readCurrentUser();
-  if (!currentUser) {
-    window.location.replace("login.html");
-    return;
-  }
-
-  const nameEl = document.getElementById("displayName");
-  const emailEl = document.getElementById("displayEmail");
-  if (nameEl) nameEl.textContent = currentUser.username || "—";
-  if (emailEl) emailEl.textContent = currentUser.email || "—";
-
-  const adminBlock = document.querySelector(".admin");
-  if (adminBlock) {
-    adminBlock.style.display = currentUser.admin ? "block" : "none";
-    const adminName = document.getElementById("adminDisplayName");
-    if (adminName) adminName.textContent = currentUser.username || "";
-  }
-
-  await loadProfileBooks();
-  renderPlanSection();
-  renderProfileFavorites();
-  renderBorrowedBooks();
-
-  if (window.location.hash === "#favorites") {
-    const el = document.getElementById("favorites-section");
-    if (el) {
-      requestAnimationFrame(() =>
-        el.scrollIntoView({ behavior: "smooth", block: "start" })
-      );
+    const currentUser = readCurrentUser();
+    if (!currentUser) {
+        window.location.replace("login.html");
+        return;
     }
-  }
 
-  const logoutBtn = document.querySelector(".profile-logout-btn");
-  if (logoutBtn && typeof logout === "function") {
-    logoutBtn.addEventListener("click", function () {
-      logout();
-    });
-  }
+    // 1. عرض البيانات الأساسية (تظهر للكل)
+    const nameEl = document.getElementById("displayName");
+    const emailEl = document.getElementById("displayEmail");
+    if (nameEl) nameEl.textContent = currentUser.username || "—";
+    if (emailEl) emailEl.textContent = currentUser.email || "—";
+
+    // 2. تحديد الأقسام الخاصة بالمستخدم العادي فقط
+    const userOnlySections = [
+        document.getElementById("plan-section"),
+        document.getElementById("favorites-section"),
+        document.getElementById("borrowed-section"),
+        document.getElementById("borrow-section")
+    ];
+
+    const adminBlock = document.querySelector(".admin");
+
+    // 3. منطق التبديل بناءً على الرتبة (Admin vs User)
+    if (currentUser.admin) {
+        // --- حالة الأدمن ---
+        // إظهار بلوك الأدمن
+        if (adminBlock) adminBlock.style.display = "block";
+        const adminName = document.getElementById("adminDisplayName");
+        if (adminName) adminName.textContent = currentUser.username || "";
+
+        // إخفاء كل أقسام المستخدم العادي
+        userOnlySections.forEach(section => {
+            if (section) section.style.display = "none";
+        });
+
+    } else {
+        // --- حالة المستخدم العادي ---
+        // إخفاء بلوك الأدمن تماماً
+        if (adminBlock) adminBlock.style.display = "none";
+
+        // إظهار أقسام المستخدم وتشغيل الدوال الخاصة بها
+        userOnlySections.forEach(section => {
+            if (section) section.style.display = "block";
+        });
+
+        await loadProfileBooks();
+        renderPlanSection();
+        renderProfileFavorites();
+        renderBorrowedBooks();
+    }
+
+    // منطق الـ Scroll للمفضلات (اختياري)
+    if (!currentUser.admin && window.location.hash === "#favorites") {
+        const el = document.getElementById("favorites-section");
+        if (el) {
+            requestAnimationFrame(() =>
+                el.scrollIntoView({ behavior: "smooth", block: "start" })
+            );
+        }
+    }
+
+    // زر تسجيل الخروج
+    const logoutBtn = document.querySelector(".profile-logout-btn");
+    if (logoutBtn && typeof logout === "function") {
+        logoutBtn.addEventListener("click", function () {
+            logout();
+        });
+    }
 });

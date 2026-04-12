@@ -37,12 +37,12 @@ label{
     padding: 10px;
   border-radius: 10px;
 border: none;
- background: #007bff; 
+ background: rgb(199, 40, 70); 
   color: white;
 }
 
 input:focus{
-    border-color: #007bff;
+    border-color: rgb(199, 40, 70);
 }
 .submit input:hover {
   cursor: pointer;
