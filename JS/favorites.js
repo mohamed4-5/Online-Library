@@ -27,9 +27,9 @@ function showEmptyState() {
   container.innerHTML = `
         <div class="favorites-empty">
             <i class="fa-regular fa-heart" aria-hidden="true"></i>
-            <h2>لا يوجد كتب في المفضلة بعد</h2>
-            <p>اضغط على أيقونة القلب بجانب أي كتاب لإضافته هنا فورًا</p>
-            <a href="library.html" class="favorites-empty-cta">تصفح المكتبة</a>
+            <h2> No favorite books yet</h2>
+            <p>Click the heart icon next to any book to add it here instantly</p>
+            <a href="library.html" class="favorites-empty-cta">Browse Library</a>
         </div>`;
 }
 
