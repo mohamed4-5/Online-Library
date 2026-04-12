@@ -69,6 +69,36 @@ window.addEventListener("scroll", () => {
     nav.classList.remove("scrolled");
   }
 });
+function showMessage(text, type) {
+    let msg = document.getElementById("message");
+    msg.textContent = text;
+    msg.className = type;
+
+    setTimeout(() => {
+        msg.textContent = "";
+        msg.className = "";
+    }, 3000);
+}
+document.addEventListener("DOMContentLoaded", () => {
+    let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+    let loginBtn = document.querySelector(".login");
+    let signupBtn = document.querySelector(".sign-up");
+    let logoutBtn = document.querySelector(".logout");
+
+    if (currentUser) {
+        if (loginBtn) loginBtn.style.display = "none";
+        if (signupBtn) signupBtn.style.display = "none";
+        if (logoutBtn) logoutBtn.style.display = "inline-block";
+    } else {
+        if (logoutBtn) logoutBtn.style.display = "none";
+    }
+});
+
+function logout() {
+    localStorage.removeItem("currentUser");
+    location.reload();
+}
 
 function selectPlan(plan) {
   // 1. نجيب عدد الكتب اللي اليوزر مستلفها حالياً
