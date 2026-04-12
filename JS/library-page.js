@@ -21,8 +21,7 @@ async function loadBooks() {
         allBooks.push(b);
       }
     });
-  } catch (e) {
-  }
+  } catch (e) {}
 
   buildFilters();
   render();
@@ -40,7 +39,7 @@ function buildFilters() {
       (cat) => `
         <button class="filter-pill ${cat === currentFilter ? "active" : ""}"
                 onclick="setFilter('${cat}')">${cat}</button>
-    `
+    `,
     )
     .join("");
 }
@@ -53,7 +52,10 @@ function setFilter(cat) {
 }
 
 function handleSearch() {
-  searchQuery = document.getElementById("searchInput").value.toLowerCase().trim();
+  searchQuery = document
+    .getElementById("searchInput")
+    .value.toLowerCase()
+    .trim();
   currentPage = 1;
   render();
 }
@@ -67,7 +69,7 @@ function getFiltered() {
     books = books.filter(
       (b) =>
         b.title.toLowerCase().includes(searchQuery) ||
-        b.author.toLowerCase().includes(searchQuery)
+        b.author.toLowerCase().includes(searchQuery),
     );
   }
   return books;
@@ -206,3 +208,42 @@ document.addEventListener("DOMContentLoaded", function () {
   if (si) si.addEventListener("input", handleSearch);
   loadBooks();
 });
+
+const user = JSON.parse(localStorage.getItem("currentUser"));
+const addDiv = document.querySelector(".library-main");
+
+  addDiv.innerHTML = `
+  
+    <!-- FILTERS -->
+    <div class="filters" id="filtersContainer">
+        <!-- populated by JS -->
+    </div>
+
+    <!-- RESULTS HEADER -->
+    <div class="results-header">
+        <h2 id="sectionTitle">All Books</h2>
+        <span class="results-count" id="resultsCount"></span>
+    </div>
+
+    <!-- BOOKS GRID -->
+    <div class="books-grid" id="booksGrid">
+        <!-- populated by JS -->
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination" id="pagination"></div>
+
+    <!-- ADD BOOK -->
+    <!-- ADD BOOK -->
+    ${user.admin?`
+    <div class="add-book-strip">
+        <div>
+            <h2>Add Your Book</h2>
+            <p>Share your favorite reads with the community</p>
+        </div>
+        <a href="add-book.html" class="btn-add"><i class="fa-solid fa-plus"></i> Add Book</a>
+    </div>
+    `: ""
+    } 
+  `;
+
