@@ -50,8 +50,9 @@ button {
 
 .nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
+    gap: 20px;
     padding: 15px 60px;
     width: 100%;
     position: sticky;
@@ -85,13 +86,43 @@ button {
     font-size: 18px;
 }
 
+/* Center main links; account stays on the far right via .rigester */
 .nav-links {
     font-size: 16px;
     display: flex;
     flex-direction: row;
-    align-content: space-between;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 15px;
-   
+}
+
+/* Profile pill — far right (inside .rigester) */
+.nav-profile-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: var(--dark);
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 15px;
+    max-width: min(200px, 38vw);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+}
+
+.nav-profile-pill:hover {
+    background: var(--primary-color);
+    color: #fff !important;
+}
+
+.nav-profile-pill.active {
+    box-shadow: 0 0 0 2px var(--accent);
 }
 
 .nav-links a.active {
@@ -127,11 +158,13 @@ button {
 
 
 .rigester {
-   
     font-size: 15px;
     display: flex;
-    align-content: space-between;
-    gap: 15px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 
@@ -186,6 +219,7 @@ button {
 
 /* تنسيق الـ Logo ككل */
 .logo {
+  flex-shrink: 0;
   font-family: var(--font-sans);
   font-size: 28px; /* حجم مناسب ليكون واضحاً كـ Brand */
   font-weight: 800; /* وزن ثقيل ليعطي طابعاً قرياً */
@@ -426,6 +460,12 @@ footer {
   .login {
     font-size: 14px;
     padding: 9px 18px;
+  }
+
+  .rigester .nav-profile-pill {
+    max-width: 100%;
+    width: 100%;
+    justify-content: center;
   }
 
   /* ── FOOTER ── */
