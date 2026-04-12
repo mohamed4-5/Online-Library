@@ -1,74 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Favorites</title>
+    <title>Favorites – Saf7a</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/heart.css">
+    <link rel="stylesheet" href="../css/favorites.css">
     <link rel="icon" href="../images/favicon.png">
-     <link rel="stylesheet" href="../css/favorites.css">
-       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-     <nav class="nav">
-        
-        <a class="logo" href="index.html" >Saf<span>7</span>a</a>
+    <nav class="nav" dir="ltr">
+        <a class="logo" href="index.html">Saf<span>7</span>a</a>
         <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </button>
-
         <div class="nav-links">
             <a href="index.html">Home</a>
             <a href="library.html">Library</a>
-            <a href="favorites.html">Favorites</a>
+            <a href="favorites.html" class="active">Favorites</a>
             <a href="profile.html">Profile</a>
             <a href="about-us.html">About Us</a>
-            <a href="plans.html"> Plans</a>
+            <a href="plans.html">Plans</a>
             <a href="cover-page.html">Cover Page</a>
-            
         </div>
         <div class="rigester">
-            <a class="login" href="login.html" >Login</a>
-            <a class="sign-up" href="Sign up.html" >Sign UP</a>
+            <a class="login" href="login.html">Login</a>
+            <a class="sign-up" href="Sign up.html">Sign UP</a>
             <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
         </div>
     </nav>
-    <div>
-        <h1>No books yet</h1>
-       <a href="library.html">Browse Library</a> 
-    </div>
+
+    <main class="favorites-page" dir="rtl">
+        <h1 class="favorites-page-title">مفضلتي</h1>
+        <div id="favorites-container"></div>
+    </main>
 
     <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>Saf7<span>a</span> Library</h3>
-                    <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Saf7<span>a</span> Library</h3>
+                <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
                 </div>
             </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        </div>
+    </footer>
 
-            <div class="copyright-bar">
-                <p>© 2026 Saf7a Online Library. All rights reserved.</p>
-            </div>
-        </footer>
-
-        <script src="../JS/general.js"></script>
+    <script src="../JS/general.js"></script>
+    <script src="../JS/favorites.js"></script>
 </body>
 </html>

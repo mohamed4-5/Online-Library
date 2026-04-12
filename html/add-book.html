@@ -1,76 +1,340 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Book</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="icon" href="../images/favicon.png">
-    </head>
-    <body>
-     <nav class="nav">
-        
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
-            <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book – Saf7a</title>
+    <meta name="description" content="Share your favorite books with the Saf7a community. Add a new book to our online library.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/add-book.css">
+    <link rel="icon" href="../images/favicon.png">
+</head>
+<body>
 
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="library.html">Library</a>
-            <a href="favorites.html">Favorites</a>
-            <a href="profile.html">Profile</a>
-            <a href="about-us.html">About Us</a>
-            <a href="plans.html"> Plans</a>
-            <a href="cover-page.html">Cover Page</a>
-            
-        </div>
-        <div class="rigester">
-            <a class="login" href="login.html"  >Login</a>
-            <a class="sign-up" href="Sign up.html" >Sign UP</a>
-            <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
-        </div>
-    </nav>
-        <form method="post">
-            <div>
-                <label>Book Title</label>
-                <input type="text" required>
-                <br>
+<!-- ── NAV ── -->
+<nav class="nav">
+    <a class="logo" href="index.html">Saf<span>7</span>a</a>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="library.html">Library</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="profile.html">Profile</a>
+        <a href="about-us.html">About Us</a>
+        <a href="library cart.html">Cart</a>
+        <a href="cover-page.html">Cover Page</a>
+    </div>
+    <div class="rigester">
+        <a class="login" href="login.html">Login</a>
+        <a class="sign-up" href="Sign up.html">Sign Up</a>
+        <a class="logout" href="#" style="display:none;" onclick="logout()">Logout</a>
+    </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="add-book-hero">
+    <h1>Add Your <span>Book</span></h1>
+    <p>Share a great read with the Saf7a community</p>
+</div>
+
+<!-- ── FORM CARD ── -->
+<div class="add-book-container">
+    <h2><i class="fa-solid fa-book-open" style="color:var(--red);margin-right:8px;"></i>Book Details</h2>
+
+    <form id="addBookForm">
+        <div class="form-grid">
+
+            <!-- Title -->
+            <div class="form-group">
+                <label for="bookTitle">
+                    <i class="fa-solid fa-heading"></i> Book Title <span style="color:var(--red)">*</span>
+                </label>
+                <input type="text" id="bookTitle" placeholder="e.g. The Great Gatsby" required>
             </div>
-            <div>
-                <label>Author</label>
-                <input type="text" required>
-                <br>
+
+            <!-- Author -->
+            <div class="form-group">
+                <label for="bookAuthor">
+                    <i class="fa-solid fa-user-pen"></i> Author <span style="color:var(--red)">*</span>
+                </label>
+                <input type="text" id="bookAuthor" placeholder="e.g. F. Scott Fitzgerald" required>
             </div>
-            
-            <div>
-                <label>Category</label>
-                <select required>
-                    <option value="">Select Category</option>
-                    <option>Programming</option>
-                    <option>Science</option>
-                    <option>History</option>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label for="bookCategory">
+                    <i class="fa-solid fa-tag"></i> Category <span style="color:var(--red)">*</span>
+                </label>
+                <select id="bookCategory" required>
+                    <option value="">Select a Category</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Classic">Classic</option>
+                    <option value="Tragedy">Tragedy</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Satire">Satire</option>
+                    <option value="Philosophical Fiction">Philosophical Fiction</option>
+                    <option value="Romance">Romance</option>
+                    <option value="History">History</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Self-Help">Self-Help</option>
+                    <option value="Other">Other</option>
                 </select>
-                <br>
             </div>
 
-            <div>
-                <label>Description</label>
-                <textarea required></textarea>
-                <br>
+            <!-- Cover Image Upload -->
+            <div class="form-group">
+                <label>
+                    <i class="fa-solid fa-image"></i> Cover Image
+                </label>
+                <div class="file-upload-area">
+                    <input type="file" id="bookImageFile" accept="image/*">
+                    <label for="bookImageFile" class="file-upload-btn" id="imageUploadBtn">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Choose cover image</span>
+                    </label>
+                    <div class="file-name-display" id="imageFileName" style="display:none;">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="cover-preview-box empty" id="coverPreview">
+                    <div>
+                        <i class="fa-regular fa-image"></i>
+                        Preview will appear here
+                    </div>
+                </div>
             </div>
-            <div>
-                <label>Upload Book Cover</label>
-                <input type="file">
-                <br>
+
+            <!-- PDF Upload -->
+            <div class="form-group">
+                <label>
+                    <i class="fa-solid fa-file-pdf"></i> PDF File
+                </label>
+                <div class="file-upload-area">
+                    <input type="file" id="bookPdfFile" accept=".pdf">
+                    <label for="bookPdfFile" class="file-upload-btn" id="pdfUploadBtn">
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                        <span>Choose PDF file</span>
+                    </label>
+                    <div class="file-name-display" id="pdfFileName" style="display:none;">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span></span>
+                    </div>
+                </div>
             </div>
-            <button type="submit">Add Book</button>
 
-        </form>
+            <!-- Description -->
+            <div class="form-group full-width">
+                <label for="bookDescription">
+                    <i class="fa-solid fa-align-left"></i> Description <span style="color:var(--red)">*</span>
+                </label>
+                <textarea id="bookDescription" placeholder="Write a short description of the book…" required></textarea>
+            </div>
 
-        <script src="../JS/general.js"></script>
-    </body>
+            <!-- Submit -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fa-solid fa-plus-circle"></i>
+                Add Book to Library
+            </button>
+
+        </div>
+    </form>
+</div>
+
+<!-- ── SUCCESS TOAST ── -->
+<div class="toast-overlay" id="successToast">
+    <div class="toast-card">
+        <div class="toast-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <h3>✓ Book Added!</h3>
+        <p id="toastMsg">Your book has been added to the library successfully.</p>
+        <div class="toast-actions">
+            <a href="library.html" class="btn-toast primary">
+                <i class="fa-solid fa-book"></i> View Library
+            </a>
+            <button class="btn-toast secondary" onclick="addAnother()">
+                <i class="fa-solid fa-plus"></i> Add Another
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Saf7<span>a</span> Library</h3>
+            <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
+            <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+// ── FILE PREVIEW HANDLERS ─────────────────────────────────────────
+
+// Cover image preview
+const imageInput = document.getElementById('bookImageFile');
+const imageUploadBtn = document.getElementById('imageUploadBtn');
+const imageFileNameDisplay = document.getElementById('imageFileName');
+const coverPreview = document.getElementById('coverPreview');
+
+imageInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        // Show filename
+        imageFileNameDisplay.style.display = 'flex';
+        imageFileNameDisplay.querySelector('span').textContent = file.name;
+        imageUploadBtn.classList.add('has-file');
+        imageUploadBtn.querySelector('span').textContent = 'Change image';
+
+        // Show live preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            coverPreview.classList.remove('empty');
+            coverPreview.innerHTML = `<img src="${e.target.result}" alt="Cover preview">`;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// PDF file name display
+const pdfInput = document.getElementById('bookPdfFile');
+const pdfUploadBtn = document.getElementById('pdfUploadBtn');
+const pdfFileNameDisplay = document.getElementById('pdfFileName');
+
+pdfInput.addEventListener('change', function() {
+    const file = this.files[0];
+    if (file) {
+        pdfFileNameDisplay.style.display = 'flex';
+        pdfFileNameDisplay.querySelector('span').textContent = file.name;
+        pdfUploadBtn.classList.add('has-file');
+        pdfUploadBtn.querySelector('span').textContent = 'Change PDF';
+    }
+});
+
+// ── FORM SUBMIT ───────────────────────────────────────────────────
+const form = document.getElementById('addBookForm');
+const submitBtn = document.getElementById('submitBtn');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Collect & validate required text fields
+    const title       = document.getElementById('bookTitle').value.trim();
+    const author      = document.getElementById('bookAuthor').value.trim();
+    const category    = document.getElementById('bookCategory').value;
+    const description = document.getElementById('bookDescription').value.trim();
+
+    if (!title || !author || !category || !description) {
+        alert('Please fill in all required fields.');
+        return;
+    }
+
+    // Show loading state
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span> Processing…';
+
+    const imageFile = imageInput.files[0];
+    const pdfFile   = pdfInput.files[0];
+
+    // Read files as base64 (both are optional)
+    const readFile = (file) => {
+        return new Promise((resolve) => {
+            if (!file) { resolve(null); return; }
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = () => resolve(null);
+            reader.readAsDataURL(file);
+        });
+    };
+
+    Promise.all([readFile(imageFile), readFile(pdfFile)])
+        .then(([imageData, pdfData]) => {
+            // Build new book object
+            const newBook = {
+                id:          Date.now(),
+                title,
+                author,
+                category,
+                description,
+                image:       imageData || '../images/book-placeholder.jpg',
+                pdf:         pdfData   || '#',
+                rating:      0,
+                latest:      true,
+                mostRead:    false,
+                userAdded:   true
+            };
+
+            // Load existing userBooks from localStorage
+            let stored = [];
+            try {
+                stored = JSON.parse(localStorage.getItem('userBooks')) || [];
+            } catch {
+                stored = [];
+            }
+
+            // Save
+            stored.push(newBook);
+            localStorage.setItem('userBooks', JSON.stringify(stored));
+
+            // Reset button state
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> Add Book to Library';
+
+            // Show success toast
+            document.getElementById('toastMsg').textContent =
+                `"${title}" by ${author} has been added to the library!`;
+            document.getElementById('successToast').classList.add('show');
+        })
+        .catch(() => {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-plus-circle"></i> Add Book to Library';
+            alert('Something went wrong processing the files. Please try again.');
+        });
+});
+
+// ── ADD ANOTHER ───────────────────────────────────────────────────
+function addAnother() {
+    document.getElementById('successToast').classList.remove('show');
+    form.reset();
+
+    // Reset file UI
+    imageUploadBtn.classList.remove('has-file');
+    imageUploadBtn.querySelector('span').textContent = 'Choose cover image';
+    imageFileNameDisplay.style.display = 'none';
+    coverPreview.classList.add('empty');
+    coverPreview.innerHTML = '<div><i class="fa-regular fa-image"></i> Preview will appear here</div>';
+
+    pdfUploadBtn.classList.remove('has-file');
+    pdfUploadBtn.querySelector('span').textContent = 'Choose PDF file';
+    pdfFileNameDisplay.style.display = 'none';
+}
+</script>
+
+<script src="../JS/general.js"></script>
+</body>
 </html>

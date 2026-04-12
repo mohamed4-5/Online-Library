@@ -228,3 +228,56 @@ function borrowBookById(bookId) {
 
   return { ok: true };
 }
+
+/* ── Favorites (home, library, book details, favorites page) ── */
+function getFavorites() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("favorites"));
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveFavorites(favorites) {
+  localStorage.setItem("favorites", JSON.stringify(favorites));
+}
+
+function isFavorite(bookId) {
+  return getFavorites().some((id) => id == bookId);
+}
+
+/**
+ * @param bookId  id of the book
+ * @param btn     optional heart button; updates icon/classes when provided
+ */
+function toggleFavorite(bookId, btn) {
+  let favorites = getFavorites();
+  const idx = favorites.findIndex((id) => id == bookId);
+
+  if (idx !== -1) {
+    favorites.splice(idx, 1);
+    if (btn) {
+      btn.classList.remove("active");
+      btn.title = "Add to favorites";
+      const icon = btn.querySelector("i");
+      if (icon) {
+        icon.classList.remove("fa-solid");
+        icon.classList.add("fa-regular");
+      }
+    }
+  } else {
+    favorites.push(bookId);
+    if (btn) {
+      btn.classList.add("active");
+      btn.title = "Remove from favorites";
+      const icon = btn.querySelector("i");
+      if (icon) {
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+      }
+    }
+  }
+
+  saveFavorites(favorites);
+}

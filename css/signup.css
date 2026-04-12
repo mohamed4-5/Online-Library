@@ -62,7 +62,7 @@ button {
 
 /* ── Labels ── */
 #signupForm label {
-    font-family: 'Poppins', Arial, sans-serif;
+    font-family: var(--font-sans);
     font-size: 0.9rem;
     font-weight: 600;
     color: #1a1a2e;

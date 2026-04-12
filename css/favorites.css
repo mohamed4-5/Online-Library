@@ -1,129 +1,79 @@
-* {
-    margin: 0;
-    padding: 0;
+/* Favorites page layout (cards use home.css + heart.css) */
+
+.favorites-page {
+    flex: 1;
+    width: 100%;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 36px 20px 56px;
     box-sizing: border-box;
 }
 
-:root {
-    --bg-color: #f8f9fa;
-    --card-color: #ffffff;
-    --text-color: #222;
-    --primary-color:  rgb(227, 64, 97);
-}
-
-body {
-    background-color: var(--bg-color);
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--text-color);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main {
-    flex: 1;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-button {
-    cursor: pointer;
-    border: none;
-}
-/* ── Favorites Empty State ── */
-.favorites-wrapper {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 40px;
+.favorites-page-title {
     text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--dark, #1a1a2e);
+    margin-bottom: 36px;
+    font-family: var(--font-sans, system-ui, sans-serif);
 }
 
-.favorites-wrapper h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 20px;
-    direction: rtl;
-}
-
-.favorites-wrapper a {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 10px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: 0.3s;
-}
-
-.favorites-wrapper a:hover {
-    background-color: rgb(199, 177, 182);
-}
-
-/* fallback: in case the div has no class */
-body > div {
-    flex: 1;
+.favorites-grid {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
-    padding: 80px 40px;
+    align-items: stretch;
+}
+
+.favorites-grid .book-card {
+    flex: 0 0 220px;
+    max-width: 220px;
+}
+
+.favorites-empty {
     text-align: center;
+    padding: 72px 24px 88px;
+    max-width: 480px;
+    margin: 0 auto;
 }
 
-body > div h1 {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 20px;
-    direction: rtl;
-}
-
-body > div a {
-    display: inline-block;
-    background-color: var(--primary-color);
-    color: rgb(255, 255, 255);
-    padding: 10px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    transition: 0.3s;
-}
-
-body > div a:hover {
-    background-color: rgb(255, 0, 51);
-}
-.fav-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: white;
-    border: none;
-    border-radius: 50%;
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+.favorites-empty i {
+    font-size: 3.5rem;
     color: var(--primary-color);
-    font-size: 0.95rem;
-    transition: 0.2s;
+    opacity: 0.35;
+    margin-bottom: 20px;
+    display: block;
 }
- 
-.fav-btn:hover {
-    background: var(--primary-color);
-    color: white;
-    transform: scale(1.1);
+
+.favorites-empty h2 {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--dark, #1a1a2e);
+    margin-bottom: 12px;
+    font-family: var(--font-sans, system-ui, sans-serif);
+}
+
+.favorites-empty p {
+    font-size: 1rem;
+    color: var(--muted, #64748b);
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.favorites-empty-cta {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #fff !important;
+    padding: 12px 28px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background-color 0.25s, transform 0.2s;
+}
+
+.favorites-empty-cta:hover {
+    background-color: rgb(199, 40, 70);
+    transform: translateY(-2px);
 }

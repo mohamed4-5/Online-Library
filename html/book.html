@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/book.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/heart.css">
     <link rel="icon" href="../images/favicon.png">
 </head>
 <body>
@@ -45,7 +45,10 @@
                     <p id="book-category"></p>
                     <p id="book-description"></p>
                     <div class="book-actions">
-                        <button id="borrow-btn" class="borrow-btn">Borrow</button>
+                        <button type="button" id="favorite-btn" class="fav-btn fav-btn--inline" title="Add to favorites" aria-label="Add to favorites">
+                            <i class="fa-regular fa-heart"></i>
+                        </button>
+                        <button type="button" id="borrow-btn" class="borrow-btn">Borrow</button>
                     </div>
                 </div>
             </div>

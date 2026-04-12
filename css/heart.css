@@ -38,3 +38,9 @@
 .fav-btn.active i {
     font-weight: 900; /* solid heart */
 }
+
+/* Detail page: heart next to other actions (not over the cover) */
+.fav-btn--inline {
+    position: static;
+    flex-shrink: 0;
+}

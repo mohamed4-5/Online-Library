@@ -12,37 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-/* ── Favorites helpers ── */
-function getFavorites() {
-    return JSON.parse(localStorage.getItem("favorites")) || [];
-}
-
-function saveFavorites(favorites) {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-}
-
-function isFavorite(bookId) {
-    return getFavorites().includes(bookId);
-}
-
-function toggleFavorite(bookId, btn) {
-    let favorites = getFavorites();
-
-    if (favorites.includes(bookId)) {
-        // Remove
-        favorites = favorites.filter(id => id !== bookId);
-        btn.classList.remove("active");
-        btn.title = "Add to favorites";
-    } else {
-        // Add
-        favorites.push(bookId);
-        btn.classList.add("active");
-        btn.title = "Remove from favorites";
-    }
-
-    saveFavorites(favorites);
-}
-
+/* Favorites: getFavorites / toggleFavorite — defined in general.js */
 
 /* ── Display books ── */
 function displayBooks(books, containerId) {

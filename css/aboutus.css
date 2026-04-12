@@ -13,7 +13,7 @@
 
 body {
     background-color: var(--bg-color);
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-sans);
     color: var(--text-color);
     display: flex;
     flex-direction: column;
@@ -121,7 +121,7 @@ button {
 }
 
 .about-card h2 {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-sans);
     font-size: 1.2rem;
     font-weight: 700;
     color: #1a1a2e;
