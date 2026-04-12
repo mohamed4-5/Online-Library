@@ -51,7 +51,6 @@ window.addEventListener('resize', () => {
     rigester.style.top = '';
   }
 });
-<<<<<<< HEAD
 
 const links = document.querySelectorAll(".nav-links a");
 
@@ -70,9 +69,17 @@ window.addEventListener("scroll", () => {
     nav.classList.remove("scrolled");
   }
 });
-=======
-document.addEventListener("DOMContentLoaded", () => {
+function showMessage(text, type) {
+    let msg = document.getElementById("message");
+    msg.textContent = text;
+    msg.className = type;
 
+    setTimeout(() => {
+        msg.textContent = "";
+        msg.className = "";
+    }, 3000);
+}
+document.addEventListener("DOMContentLoaded", () => {
     let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
     let loginBtn = document.querySelector(".login");
@@ -86,22 +93,9 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         if (logoutBtn) logoutBtn.style.display = "none";
     }
-
 });
+
 function logout() {
     localStorage.removeItem("currentUser");
     location.reload();
 }
-
-
-  function showMessage(text, type) {
-    let msg = document.getElementById("message");
-    msg.textContent = text;
-    msg.className = type; 
-
-    setTimeout(() => {
-        msg.textContent = "";
-        msg.className = "";
-    }, 3000);
-}
->>>>>>> 63a60b0 (profile)
