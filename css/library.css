@@ -309,6 +309,12 @@
 }
 .no-results i { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
 .no-results h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.library-no-results {
+    grid-column: 1 / -1;
+}
+.book-cover-placeholder--hidden {
+    display: none;
+}
 
 @media (max-width: 768px) {
     .library-hero {

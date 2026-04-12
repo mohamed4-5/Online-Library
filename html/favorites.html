@@ -4,25 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Favorites – Saf7a</title>
-    <script>
-        (function () {
-            try {
-                var raw = localStorage.getItem("currentUser");
-                if (!raw) {
-                    window.location.replace("login.html");
-                    return;
-                }
-                JSON.parse(raw);
-            } catch (e) {
-                window.location.replace("login.html");
-                return;
-            }
-            window.location.replace("profile.html#favorites");
-        })();
-    </script>
+    <link rel="stylesheet" href="../css/favorites-redirect.css">
+    <script src="../JS/favorites-redirect.js"></script>
 </head>
 <body>
-    <p style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center;">
+    <p class="favorites-redirect-msg">
         Redirecting to your profile…
         <a href="profile.html#favorites">Continue</a>
     </p>

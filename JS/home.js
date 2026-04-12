@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         displayBooks(latest, "latest");
     })
     .catch(error => console.error("Error loading books:", error));
+
+    document.querySelectorAll('.slide-btn[data-slider-target]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-slider-target');
+            if (!id) return;
+            if (btn.classList.contains('left')) slideLeft(id);
+            else slideRight(id);
+        });
+    });
 });
 
 
@@ -58,8 +67,4 @@ function slideRight(containerId) {
 function slideLeft(containerId) {
     const container = document.getElementById(containerId);
     container.scrollBy({ left: -(220 + 15) * 2, behavior: 'smooth' });
-}
-
-function openBook(pdf) {
-    window.open(pdf, "_blank");
 }

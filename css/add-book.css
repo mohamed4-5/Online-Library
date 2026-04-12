@@ -154,13 +154,24 @@
     background: #f0fdf4;
 }
 
+.add-book-container h2 .section-title-icon {
+    color: var(--red);
+    margin-right: 8px;
+}
+.form-group label .label-required {
+    color: var(--red);
+}
+
 .file-name-display {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 8px;
     font-size: 0.85rem;
     color: #15803d;
     font-weight: 600;
+}
+.file-name-display.is-visible {
+    display: flex;
 }
 .file-name-display span {
     overflow: hidden;

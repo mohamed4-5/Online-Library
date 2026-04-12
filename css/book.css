@@ -102,6 +102,9 @@
     color: white;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 10px 20px rgba(239, 49, 87, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .borrow-btn:hover:not(:disabled) {
@@ -109,10 +112,16 @@
     box-shadow: 0 15px 25px rgba(239, 49, 87, 0.4);
 }
 
-.borrow-btn.borrowed {
-    background: #4a5568;
-    cursor: not-allowed;
-    box-shadow: none;
+/* Borrowed state = return action (click again to return) */
+.borrow-btn.borrowed.return-mode {
+    background: linear-gradient(135deg, #475569, #64748b);
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(71, 85, 105, 0.35);
+}
+
+.borrow-btn.borrowed.return-mode:hover:not(:disabled) {
+    background: linear-gradient(135deg, #334155, #475569);
+    box-shadow: 0 12px 24px rgba(51, 65, 85, 0.4);
 }
 
 .read-book-btn {

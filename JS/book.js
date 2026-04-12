@@ -182,20 +182,25 @@ function displayRelated(books) {
 }
 
 
-// 5. التحكم في زر الاستعارة
+// 5. التحكم في زر الاستعارة / الإرجاع (نفس الزر: استعارة ثم إرجاع)
 function renderBorrowState(bookId) {
   if (!borrowBtn) return;
 
   if (isBookBorrowed(bookId)) {
-    borrowBtn.innerText = "Borrowed ✓";
+    borrowBtn.innerHTML =
+      '<i class="fa-solid fa-rotate-left" aria-hidden="true"></i> <span>Return book</span>';
     borrowBtn.classList.add("borrowed");
-    borrowBtn.disabled = true;
-    borrowBtn.style.opacity = "0.6"; // لمسة UX لبيان التعطيل
-  } else {
-    borrowBtn.innerText = "Borrow Now";
-    borrowBtn.classList.remove("borrowed");
+    borrowBtn.classList.add("return-mode");
     borrowBtn.disabled = false;
     borrowBtn.style.opacity = "1";
+    borrowBtn.title = "Click to return this book to the library";
+  } else {
+    borrowBtn.innerHTML = "<span>Borrow Now</span>";
+    borrowBtn.classList.remove("borrowed");
+    borrowBtn.classList.remove("return-mode");
+    borrowBtn.disabled = false;
+    borrowBtn.style.opacity = "1";
+    borrowBtn.title = "";
   }
 }
 
@@ -203,6 +208,15 @@ function renderBorrowState(bookId) {
 if (borrowBtn) {
   borrowBtn.addEventListener("click", () => {
     if (!currentBook) return;
+
+    if (isBookBorrowed(currentBook.id)) {
+      returnBookById(currentBook.id);
+      renderBorrowState(currentBook.id);
+      updateReadButton(currentBook);
+      borrowBtn.style.transform = "scale(0.95)";
+      setTimeout(() => (borrowBtn.style.transform = "scale(1)"), 100);
+      return;
+    }
 
     const result = borrowBookById(currentBook.id);
 
