@@ -1,10 +1,13 @@
 /* Library page — uses tokens from style.css */
 
 .library-hero {
-    background: linear-gradient(135deg, var(--dark) 0%, #2d1b3d 100%);
+    background-image: url("../images/search-bar-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     padding: 56px 40px 48px;
     text-align: center;
-    color: #fff;
+    color: #000000;
     position: relative;
     overflow: hidden;
 }
@@ -13,7 +16,6 @@
     position: absolute;
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, rgba(227, 64, 97, 0.12) 0%, transparent 70%);
     top: -120px;
     right: -80px;
     border-radius: 50%;
@@ -23,7 +25,6 @@
     position: absolute;
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, rgba(255, 92, 122, 0.08) 0%, transparent 70%);
     bottom: -100px;
     left: -60px;
     border-radius: 50%;
@@ -309,6 +310,12 @@
 }
 .no-results i { font-size: 3rem; margin-bottom: 16px; opacity: 0.4; }
 .no-results h3 { font-size: 1.2rem; margin-bottom: 8px; }
+.library-no-results {
+    grid-column: 1 / -1;
+}
+.book-cover-placeholder--hidden {
+    display: none;
+}
 
 @media (max-width: 768px) {
     .library-hero {

@@ -102,6 +102,9 @@
     color: white;
     transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 10px 20px rgba(239, 49, 87, 0.3);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .borrow-btn:hover:not(:disabled) {
@@ -109,10 +112,54 @@
     box-shadow: 0 15px 25px rgba(239, 49, 87, 0.4);
 }
 
-.borrow-btn.borrowed {
-    background: #4a5568;
+/* Borrowed state = return action (click again to return) */
+.borrow-btn.borrowed.return-mode {
+    background: linear-gradient(135deg, #475569, #64748b);
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(71, 85, 105, 0.35);
+}
+
+.borrow-btn.borrowed.return-mode:hover:not(:disabled) {
+    background: linear-gradient(135deg, #334155, #475569);
+    box-shadow: 0 12px 24px rgba(51, 65, 85, 0.4);
+}
+
+.read-book-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transition: 0.25s ease;
+}
+
+.read-book-btn:not(:disabled):hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.55);
+    transform: translateY(-2px);
+}
+
+.read-book-btn:disabled,
+.read-book-btn.read-book-btn--locked:disabled {
+    opacity: 0.45;
     cursor: not-allowed;
-    box-shadow: none;
+    transform: none;
+}
+
+.read-book-btn:not(:disabled) {
+    background: linear-gradient(135deg, #0d9488, #14b8a6);
+    border-color: transparent;
+    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.35);
+}
+
+.read-book-btn:not(:disabled):hover {
+    box-shadow: 0 12px 28px rgba(20, 184, 166, 0.45);
 }
 
 /* --- Related Slider Section --- */
