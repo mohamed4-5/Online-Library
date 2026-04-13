@@ -1,42 +1,44 @@
-let users = JSON.parse(localStorage.getItem("users") || "[]");
-
 document.addEventListener("DOMContentLoaded", function () {
-  var form = document.getElementById("signupForm");
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      signup();
-    });
-  }
+    const signupForm = document.getElementById("signupForm");
+    
+    if (signupForm) {
+        signupForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            
+            const username = document.getElementById("username").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const password = document.getElementById("password").value.trim();
+            const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+            if (password !== confirmPassword) {
+                showMessage("Passwords do not match", "error");
+                return;
+            }
+
+            const allUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
+            if (allUsers.some(u => u.email === email)) {
+                showMessage("Email already registered!", "error");
+                return;
+            }
+
+            // إضافة المستخدم
+            allUsers.push({ username, email, password, admin: false });
+            localStorage.setItem("users", JSON.stringify(allUsers));
+
+            // تسجيل الدخول فوراً للمستخدم الجديد
+            localStorage.removeItem("currentUser");
+            localStorage.setItem("currentUser", JSON.stringify({ username, email, admin: false }));
+
+            // إنشاء مفتاح الخطة (Plan)
+            const safeEmail = email.replace(/[^a-zA-Z0-9]/g, ""); 
+            localStorage.setItem(`userPlan_${safeEmail}`, "basic");
+
+            showMessage("Account created! Welcome " + username, "success");
+            
+            setTimeout(() => {
+                window.location.href = "profile.html";
+            }, 1000);
+        });
+    }
 });
-
-function signup() {
-  let username = document.getElementById("username").value.trim();
-  let password = document.getElementById("password").value.trim();
-  let confirmPassword = document.getElementById("confirmPassword").value.trim();
-  let email = document.getElementById("email").value.trim();
-  let admin = document.getElementById("admin").checked;
-
-  if (password !== confirmPassword) {
-    showMessage("Passwords do not match", "error");
-    return;
-  }
-
-  let exists = users.some((user) => user.email === email);
-  if (exists) {
-    showMessage("Email already exists!", "error");
-    return;
-  }
-
-  const newUser = { username, email, password, admin };
-  users.push(newUser);
-  localStorage.setItem("users", JSON.stringify(users));
-
-  const session = { username, email, admin: !!admin };
-  localStorage.setItem("currentUser", JSON.stringify(session));
-
-  showMessage("Account created! Opening your profile…", "success");
-  setTimeout(() => {
-    window.location.href = "profile.html";
-  }, 800);
-}

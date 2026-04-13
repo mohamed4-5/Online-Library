@@ -1,4 +1,29 @@
-/* Nav: mobile menu + account UI */
+/* --- 1. الأساسيات وجلب بيانات المستخدم الحالي --- */
+
+/** جلب بيانات المستخدم المسجل حالياً من localStorage */
+function parseCurrentUser() {
+  try {
+    const raw = localStorage.getItem("currentUser");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** * دالة عبقرية لإنشاء مفتاح فريد لكل مستخدم.
+ * إذا كان المستخدم "ahmed" سيتحول المفتاح من "borrowed" إلى "borrowed_ahmed"
+ */
+function getUserKey(prefix) {
+  const user = parseCurrentUser();
+  if (!user || !user.email) return null;
+
+  // تحويل الإيميل إلى نص بسيط بدون نقاط أو علامات (مثلاً mo2@gmail.com -> mo2gmailcom)
+  // لضمان عدم حدوث تداخل أو أخطاء في مفاتيح الـ LocalStorage
+  const safeEmail = user.email.replace(/[^a-zA-Z0-9]/g, ""); 
+  
+  return `${prefix}_${safeEmail}`;
+}
+/* --- 2. إدارة التنقل (Navigation & Mobile Menu) --- */
 
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
@@ -24,133 +49,175 @@ if (hamburger && navLinks && rigester) {
     rigester.classList.toggle("open", isOpen);
   });
 
-  navLinks.querySelectorAll("a").forEach((link) => {
+  document.querySelectorAll(".nav-links a, .rigester a").forEach((link) => {
     link.addEventListener("click", () => {
       hamburger.classList.remove("open");
       navLinks.classList.remove("open");
       rigester.classList.remove("open");
     });
   });
-
-  rigester.addEventListener("click", (e) => {
-    if (e.target.closest("a")) {
-      hamburger.classList.remove("open");
-      navLinks.classList.remove("open");
-      rigester.classList.remove("open");
-    }
-  });
 }
 
+// إغلاق القائمة عند النقر خارجها
 document.addEventListener("click", (e) => {
-  if (!e.target.closest(".nav")) {
-    if (hamburger) hamburger.classList.remove("open");
-    if (navLinks) navLinks.classList.remove("open");
-    if (rigester) rigester.classList.remove("open");
+  if (!e.target.closest(".nav") && navLinks?.classList.contains("open")) {
+    hamburger.classList.remove("open");
+    navLinks.classList.remove("open");
+    rigester.classList.remove("open");
   }
 });
 
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 768) {
-    if (hamburger) hamburger.classList.remove("open");
-    if (navLinks) navLinks.classList.remove("open");
-    if (rigester) {
-      rigester.classList.remove("open");
-      rigester.style.top = "";
-    }
-  }
-});
+/* --- 3. تخصيص واجهة الحساب (Account UI) --- */
 
-function parseCurrentUser() {
-  try {
-    const raw = localStorage.getItem("currentUser");
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-}
-
-/**
- * Remove Favorites, Plans from nav (access via profile).
- * Profile: not in nav-links — logged-in users get a pill on the far right (inside .rigester).
- */
 function initAccountNav() {
   const navLinks = document.querySelector(".nav-links");
   const rig = document.querySelector(".rigester");
   if (!navLinks || !rig) return;
 
-  navLinks
-    .querySelectorAll('a[href="favorites.html"], a[href="plans.html"]')
-    .forEach((a) => a.remove());
-
-  rig.querySelectorAll("a.nav-profile-pill").forEach((a) => a.remove());
-
-  const profileInNav = navLinks.querySelector('a[href="profile.html"]');
-  if (profileInNav) profileInNav.remove();
+  // تنظيف الروابط القديمة لتجنب التكرار
+  navLinks.querySelectorAll('a[href="favorites.html"], a[href="plans.html"], a[href="profile.html"]').forEach(a => a.remove());
+  rig.querySelectorAll("a.nav-profile-pill").forEach(a => a.remove());
 
   const currentUser = parseCurrentUser();
-  if (currentUser && (currentUser.username || currentUser.email)) {
+  if (currentUser) {
+    // إخفاء أزرار تسجيل الدخول
+    const loginBtn = document.querySelector(".login");
+    const signupBtn = document.querySelector(".sign-up");
+    if (loginBtn) loginBtn.style.display = "none";
+    if (signupBtn) signupBtn.style.display = "none";
+
+    // إضافة "كبسولة" البروفايل في اليمين
     const pill = document.createElement("a");
     pill.href = "profile.html";
     pill.className = "nav-profile-pill";
-    pill.title = "My profile";
-    pill.setAttribute("aria-label", "My profile");
-
-    const icon = document.createElement("i");
-    icon.className = "fa-solid fa-circle-user";
-    icon.setAttribute("aria-hidden", "true");
-
-    const label = document.createElement("span");
-    label.className = "nav-profile-pill-text";
-    label.textContent = currentUser.username || currentUser.email;
-
-    pill.appendChild(icon);
-    pill.appendChild(label);
+    pill.innerHTML = `
+      <i class="fa-solid fa-circle-user"></i>
+      <span class="nav-profile-pill-text">${currentUser.username || currentUser.email}</span>
+    `;
     rig.appendChild(pill);
   }
 }
 
-function setActiveNavLink() {
-  document.querySelectorAll(".nav-links a, a.nav-profile-pill").forEach((link) => {
-    if (link.href === window.location.href) {
-      link.classList.add("active");
-    }
-  });
+/* --- 4. منطق الاستعارة (Borrowed Books) - خاص بكل مستخدم --- */
+
+function getBorrowedBooks() {
+  const key = getUserKey("borrowed");
+  if (!key) return [];
+  return JSON.parse(localStorage.getItem(key)) || [];
 }
 
-window.addEventListener("scroll", () => {
-  const nav = document.querySelector(".nav");
+function getPlanLimit(plan) {
+  const limits = { basic: 2, standard: 5, premium: 10 };
+  return limits[plan] || 0;
+}
 
-  if (window.scrollY > 50) {
-    nav.classList.add("scrolled");
+function getUserPlan() {
+  const key = getUserKey("userPlan");
+  return key ? localStorage.getItem(key) : null;
+}
+
+function canBorrowMore() {
+  const plan = getUserPlan();
+  if (!plan) return { ok: false, msg: "Choose a plan first!" };
+  const borrowed = getBorrowedBooks();
+  if (borrowed.length >= getPlanLimit(plan)) return { ok: false, msg: "Limit reached!" };
+  return { ok: true };
+}
+
+function borrowBookById(bookId) {
+  const check = canBorrowMore();
+  if (!check.ok) return check;
+
+  let borrowed = getBorrowedBooks();
+  if (borrowed.some(id => id == bookId)) return { ok: false, msg: "Already borrowed" };
+
+  borrowed.push(bookId);
+  localStorage.setItem(getUserKey("borrowed"), JSON.stringify(borrowed));
+  return { ok: true };
+}
+
+function returnBookById(bookId) {
+  const key = getUserKey("borrowed");
+  if (!key) return;
+  const borrowed = getBorrowedBooks().filter(id => id != bookId);
+  localStorage.setItem(key, JSON.stringify(borrowed));
+  return { ok: true };
+}
+
+function isBookBorrowed(bookId) {
+  return getBorrowedBooks().some(id => id == bookId);
+}
+
+/* --- 5. منطق المفضلات (Favorites) - خاص بكل مستخدم --- */
+
+function getFavorites() {
+  const key = getUserKey("favorites");
+  if (!key) return [];
+  return JSON.parse(localStorage.getItem(key)) || [];
+}
+
+function saveFavorites(favorites) {
+  const key = getUserKey("favorites");
+  if (key) localStorage.setItem(key, JSON.stringify(favorites));
+}
+
+function toggleFavorite(bookId, btn) {
+  let favorites = getFavorites();
+  const idx = favorites.findIndex(id => id == bookId);
+
+  if (idx !== -1) {
+    favorites.splice(idx, 1);
+    updateHeartIcon(btn, false);
   } else {
-    nav.classList.remove("scrolled");
+    favorites.push(bookId);
+    updateHeartIcon(btn, true);
   }
-});
-function showMessage(text, type) {
-    let msg = document.getElementById("message");
-    if (!msg) return;
-    msg.textContent = text;
-    msg.className = type;
-
-    setTimeout(() => {
-        msg.textContent = "";
-        msg.className = "";
-    }, 3000);
+  saveFavorites(favorites);
 }
+
+function updateHeartIcon(btn, isActive) {
+  if (!btn) return;
+  const icon = btn.querySelector("i");
+  if (isActive) {
+    btn.classList.add("active");
+    btn.title = "Remove from favorites";
+    if (icon) icon.className = "fa-solid fa-heart";
+  } else {
+    btn.classList.remove("active");
+    btn.title = "Add to favorites";
+    if (icon) icon.className = "fa-regular fa-heart";
+  }
+}
+
+function isFavorite(bookId) {
+  return getFavorites().some(id => id == bookId);
+}
+
+/* --- 6. منطق الخطط (Plans) --- */
+
+function selectPlan(plan) {
+  const borrowedCount = getBorrowedBooks().length;
+  const newLimit = getPlanLimit(plan);
+
+  if (borrowedCount > newLimit) {
+    alert(`⚠️ Warning!\nYou have ${borrowedCount} books, but the ${plan} plan allows only ${newLimit}.\nPlease return some books first.`);
+    return;
+  }
+
+  localStorage.setItem(getUserKey("userPlan"), plan);
+  alert(`Plan updated to ${plan} 🎉`);
+  window.location.href = "profile.html";
+}
+
+/* --- 7. التشغيل عند تحميل الصفحة --- */
 
 document.addEventListener("DOMContentLoaded", () => {
   initAccountNav();
-  setActiveNavLink();
-
-  const currentUser = parseCurrentUser();
-  const loginBtn = document.querySelector(".login");
-  const signupBtn = document.querySelector(".sign-up");
-
-  if (currentUser) {
-    if (loginBtn) loginBtn.style.display = "none";
-    if (signupBtn) signupBtn.style.display = "none";
-  }
+  
+  // تفعيل رابط الصفحة الحالية في القائمة
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    if (link.href === window.location.href) link.classList.add("active");
+  });
 
   if (document.querySelector(".plans-container")) {
     updatePlanUI();
@@ -162,169 +229,16 @@ function logout() {
   window.location.href = "index.html";
 }
 
-function selectPlan(plan) {
-  // 1. نجيب عدد الكتب اللي اليوزر مستلفها حالياً
-  const borrowedBooksCount = getBorrowedBooks().length;
-  
-  // 2. نجيب ليميت الخطة الجديدة اللي هو عايز يشترك فيها
-  const newPlanLimit = getPlanLimit(plan);
 
-  // 3. الفحص: هل عدد الكتب الحالية أكبر من ليميت الخطة الجديدة؟
-  if (borrowedBooksCount > newPlanLimit) {
-    alert(
-      `Warning! ⚠️\n\n` +
-      `You currently have ${borrowedBooksCount} books, but the ${plan} plan only allows ${newPlanLimit} books.\n\n` +
-      `Please return some books first before downgrading your plan.`
-    );
-    return; // بنوقف التنفيذ هنا ومش بنغير الخطة
-  }
+function showMessage(text, type) {
+    const msg = document.getElementById("message");
+    if (!msg) return;
 
-  // 4. لو الفحص تمام (أو بيعمل Upgrade لخطة أعلى) بنكمل عادي
-  localStorage.setItem("userPlan", plan);
-  
-  alert("Success! Your plan has been updated to: " + plan + " 🎉");
+    msg.textContent = text;
+    msg.className = type; 
 
-  // تحديث الـ UI
-  if (typeof updatePlanUI === "function") updatePlanUI();
-
-  // تحويل للبروفايل
-  window.location.href = "profile.html";
-}
-
-// جلب الخطة الحالية
-function getUserPlan() {
-  return localStorage.getItem("userPlan");
-}
-
-// وظيفة تحديث شكل الكروت بناءً على الخطة المختارة
-function updatePlanUI() {
-  const currentPlan = getUserPlan();
-  if (!currentPlan) return;
-
-  const cards = document.querySelectorAll('.plan-card');
-  
-  cards.forEach(card => {
-    const btn = card.querySelector('button');
-    // استخراج اسم الخطة من حدث onclick (basic, standard, premium)
-    const onclickAttr = btn.getAttribute('onclick');
-    if (onclickAttr && onclickAttr.includes(currentPlan)) {
-      // تمييز الكارد المختار
-      card.classList.add('active-plan');
-      btn.innerText = "Current Plan";
-      btn.disabled = true;
-      btn.style.background = "#555"; // لون محايد للتعطيل
-      btn.style.cursor = "default";
-    } else {
-      card.classList.remove('active-plan');
-      btn.innerText = "Choose Plan";
-      btn.disabled = false;
-      btn.style.background = ""; // يرجع للون الـ CSS الأصلي
-      btn.style.cursor = "pointer";
-    }
-  });
-}
-
-function getBorrowedBooks() {
-  return JSON.parse(localStorage.getItem("borrowed")) || [];
-}
-
-function getPlanLimit(plan) {
-  if (plan === "basic") return 2;
-  if (plan === "standard") return 5;
-  if (plan === "premium") return 10;
-  return 0;
-}
-
-function isBookBorrowed(bookId) {
-  return getBorrowedBooks().some((id) => id == bookId);
-}
-
-function canBorrowMore() {
-  const plan = getUserPlan();
-  if (!plan) return { ok: false, msg: "Choose a plan first!" };
-
-  const borrowed = getBorrowedBooks();
-  const limit = getPlanLimit(plan);
-
-  if (borrowed.length >= limit) {
-    return { ok: false, msg: "You reached your limit!" };
-  }
-
-  return { ok: true };
-}
-
-function borrowBookById(bookId) {
-  const check = canBorrowMore();
-  if (!check.ok) return check;
-
-  let borrowed = getBorrowedBooks();
-
-  if (borrowed.some((id) => id == bookId)) {
-    return { ok: false, msg: "Already borrowed" };
-  }
-
-  borrowed.push(bookId);
-  localStorage.setItem("borrowed", JSON.stringify(borrowed));
-
-  return { ok: true };
-}
-
-/** Remove a book from the borrowed list (return to library). */
-function returnBookById(bookId) {
-  const borrowed = getBorrowedBooks().filter((id) => id != bookId);
-  localStorage.setItem("borrowed", JSON.stringify(borrowed));
-  return { ok: true };
-}
-
-/* ── Favorites (home, library, book page, profile) ── */
-function getFavorites() {
-  try {
-    const parsed = JSON.parse(localStorage.getItem("favorites"));
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function saveFavorites(favorites) {
-  localStorage.setItem("favorites", JSON.stringify(favorites));
-}
-
-function isFavorite(bookId) {
-  return getFavorites().some((id) => id == bookId);
-}
-
-/**
- * @param bookId  id of the book
- * @param btn     optional heart button; updates icon/classes when provided
- */
-function toggleFavorite(bookId, btn) {
-  let favorites = getFavorites();
-  const idx = favorites.findIndex((id) => id == bookId);
-
-  if (idx !== -1) {
-    favorites.splice(idx, 1);
-    if (btn) {
-      btn.classList.remove("active");
-      btn.title = "Add to favorites";
-      const icon = btn.querySelector("i");
-      if (icon) {
-        icon.classList.remove("fa-solid");
-        icon.classList.add("fa-regular");
-      }
-    }
-  } else {
-    favorites.push(bookId);
-    if (btn) {
-      btn.classList.add("active");
-      btn.title = "Remove from favorites";
-      const icon = btn.querySelector("i");
-      if (icon) {
-        icon.classList.remove("fa-regular");
-        icon.classList.add("fa-solid");
-      }
-    }
-  }
-
-  saveFavorites(favorites);
+    setTimeout(() => {
+        msg.textContent = "";
+        msg.className = "";
+    }, 3000);
 }
