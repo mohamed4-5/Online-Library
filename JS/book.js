@@ -83,7 +83,7 @@ if (borrowBtn) {
         } else { alert(result.msg); }
         return;
       }
-      alert("Book borrowed successfully! Enjoy reading 📖");
+      //alert("Book borrowed successfully! Enjoy reading 📖");
     }
     renderBorrowState(currentBook.id);
     updateReadButton(currentBook);

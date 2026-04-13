@@ -244,7 +244,7 @@ button {
 /* تنسيق الـ Logo ككل */
 .logo {
   flex-shrink: 0;
-  font-family: var(--font-sans);
+  font-family: 'poppins', var(--font-sans);
   font-size: 28px; /* حجم مناسب ليكون واضحاً كـ Brand */
   font-weight: 800; /* وزن ثقيل ليعطي طابعاً قرياً */
   letter-spacing: 1px; /* مسافة بسيطة بين الحروف للأناقة */

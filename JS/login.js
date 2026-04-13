@@ -31,3 +31,21 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+const toggle = document.querySelector(".toggle-password");
+
+toggle.addEventListener("click", () => {
+  const input = document.getElementById("password");
+
+  if (input.type === "password") {
+    input.type = "text";
+    toggle.classList.remove("fa-eye");
+    toggle.classList.add("fa-eye-slash");
+    toggle.classList.add("active");
+  } else {
+    input.type = "password";
+    toggle.classList.remove("fa-eye-slash");
+    toggle.classList.add("fa-eye");
+    toggle.classList.remove("active");
+  }
+});
