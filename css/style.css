@@ -26,7 +26,7 @@
 }
 body {
     background-color: var(--bg-color);
-    font-family: var(--font-sans);
+    font-family: 'Poppins', sans-serif;
     color : var(--text-color);
     height: 100%;
     display: flex;
@@ -72,6 +72,7 @@ button {
   background: rgb(239, 49, 87);
   transform: translateX(-50%);
   transition: 0.3s;
+
 }
 
 /* لما نعمل scroll */
