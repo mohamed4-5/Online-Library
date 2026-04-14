@@ -1,4 +1,4 @@
-/* ───────── CARD ───────── */
+
 #signupForm {
     flex: 1;
     display: flex;
@@ -7,7 +7,7 @@
     padding: 60px 20px;
 }
 
-/* الكارد */
+
 .signup-card {
     background: white;
     padding: 40px 30px;
@@ -18,13 +18,13 @@
     animation: fadeUp 0.6s ease;
 }
 
-/* ───────── INPUT GROUP ───────── */
+
 .input-group {
     position: relative;
     margin-bottom: 25px;
 }
 
-/* input */
+
 .input-group input {
     width: 100%;
     padding: 12px 14px;
@@ -36,7 +36,7 @@
     transition: 0.3s;
 }
 
-/* label */
+
 .input-group label {
     position: absolute;
     left: 12px;
@@ -48,7 +48,7 @@
     pointer-events: none;
 }
 
-/* لما تكتب أو تعمل focus */
+
 .input-group input:focus + label,
 .input-group input:valid + label {
     top: -10px;
@@ -56,13 +56,13 @@
     color: var(--primary-color);
 }
 
-/* البوردر */
+
 .input-group input:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(227, 64, 97, 0.1);
 }
 
-/* ───────── CHECKBOX ───────── */
+
 .checkbox-row {
     display: flex;
     align-items: center;
@@ -70,7 +70,7 @@
     margin-bottom: 15px;
 }
 
-/* ───────── BUTTON ───────── */
+
 #signupForm input[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -88,14 +88,14 @@
     box-shadow: 0 10px 20px rgba(227,64,97,0.3);
 }
 
-/* ───────── MESSAGE ───────── */
+
 #message {
     font-size: 13px;
     color: var(--primary-color);
     min-height: 18px;
 }
 
-/* ───────── ANIMATION ───────── */
+
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -107,7 +107,7 @@
     }
 }
 
-/* أيقونة العين */
+
 .toggle-password {
     position: absolute;
     right: 12px;
@@ -119,17 +119,17 @@
     transition: 0.3s;
 }
 
-/* hover */
+
 .toggle-password:hover {
     color: var(--primary-color);
 }
 
-/* لما الباسورد ظاهر */
+
 .toggle-password.active {
     color: var(--primary-color);
 }
 
-/* ── Responsive ── */
+
 @media (max-width: 600px) {
     .nav {
         padding: 12px 16px;

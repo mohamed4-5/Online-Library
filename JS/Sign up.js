@@ -22,18 +22,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
-                      // هات قيمة الـ checkbox
+                     
             const isAdmin = document.getElementById("admin").checked;
 
-            // إضافة المستخدم
+           
             allUsers.push({ username, email, password, admin: isAdmin });
             localStorage.setItem("users", JSON.stringify(allUsers));
 
-            // تسجيل الدخول فوراً للمستخدم الجديد
+           
             localStorage.removeItem("currentUser");
             localStorage.setItem("currentUser", JSON.stringify({ username, email, admin: isAdmin }));
 
-            // إنشاء مفتاح الخطة (Plan)
             const safeEmail = email.replace(/[^a-zA-Z0-9]/g, ""); 
             localStorage.setItem(`userPlan_${safeEmail}`, "basic");
 
