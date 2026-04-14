@@ -1,6 +1,4 @@
-/* ══════════════════════════
-   HEART / FAVORITE BUTTON
-══════════════════════════ */
+
 .book-image-wrapper {
     position: relative;
 }
@@ -30,16 +28,16 @@
     color: var(--primary-color);
 }
  
-/* when active (favorited) */
+
 .fav-btn.active {
     color: var(--primary-color);
 }
  
 .fav-btn.active i {
-    font-weight: 900; /* solid heart */
+    font-weight: 900; 
 }
 
-/* Detail page: heart next to other actions (not over the cover) */
+
 .fav-btn--inline {
     position: static;
     flex-shrink: 0;
