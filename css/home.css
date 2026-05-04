@@ -21,7 +21,7 @@
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: #fff;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -55,7 +55,7 @@
     display: flex;
     justify-content: center;
     color: white;
-    font-family: 'Poppins', 'Tajawal', sans-serif;
+    font-family: var(--font-sans);
     font-weight: 600;
     background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
     flex-direction: column;
@@ -145,7 +145,6 @@
     display: flex;
     gap: 15px;
     scroll-behavior: smooth;
-    background-color: whitesmoke;
     padding: 10px 0;
     flex-wrap: nowrap; /* مهم جداً لمنع النزول تحت */
     overflow-x: auto; /* السر هنا: هي دي اللي بتخلي الجافاسكريبت يعرف يعمل سكرول */
@@ -164,7 +163,7 @@
     font-weight: 800;
     color: #09324e;
     text-align: center;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-sans);
     position: relative;
     letter-spacing: -0.5px;
 }
@@ -176,7 +175,7 @@
     background-color: white;
     border-radius: 18px;
     padding: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column; /* ترتيب العناصر طولي */
@@ -186,7 +185,7 @@
 
 .book-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(9, 50, 78, 0.15);
+   
 }
 
 /* حاوية الصورة عشان الـ Badge يظهر فوقها */
@@ -298,6 +297,77 @@
     background-color: rgba(0,0,0,0.8);
 }
 
+.authors-section {
+  margin: 50px 0;
+  text-align: center;
+}
+
+.authors-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.author-card {
+  background: white;
+  padding: 15px;
+  border-radius: 15px;
+  width: 120px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.author-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-card p {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.author-card:hover {
+  transform: translateY(-10px) scale(1.05);
+}
+
+.stats-section {
+  display: flex;
+  flex-wrap: wrap; /* مهم */
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+
+  width: 90%; /* بدل 50% */
+  max-width: 1000px; /* يفضل يبقى فيه حد أقصى */
+  margin: 60px auto; /* سنتر */
+
+  padding: 30px;
+  background: linear-gradient(135deg, #322a4f, #09324e);
+  color: white;
+  border-radius: 20px;
+}
+
+/* كل stat */
+.stat {
+  flex: 1 1 180px; /* responsive */
+  text-align: center;
+}
+
+
+.stat h2 {
+  font-size: 32px;
+  margin-bottom: 5px;
+}
+
+.stat p {
+  font-size: 14px;
+  opacity: 0.8;
+}
 
 
 
@@ -328,6 +398,8 @@
   .book-card {
     flex: 0 0 200px;
   }
+
+
 }
 
 
@@ -417,9 +489,7 @@
 
   /* SLIDE BUTTONS */
   .slide-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 16px;
+    display: none;
   }
 
 

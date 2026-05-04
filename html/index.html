@@ -7,8 +7,9 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link rel="stylesheet" href="../css/style.css">
         <link rel="stylesheet" href="../css/home.css">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/heart.css">
         <link rel="icon" href="../images/favicon.png">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
     <nav class="nav">
@@ -21,11 +22,12 @@
         </button>
 
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="library.html">Library</a>
             <a href="favorites.html">Favorites</a>
             <a href="profile.html">Profile</a>
             <a href="about-us.html">About Us</a>
-            <a href="library cart.html"> cart</a>
+            <a href="plans.html"> Plans</a>
             <a href="cover-page.html">Cover Page</a>
             
         </div>
@@ -56,19 +58,70 @@
         <section class="slider-section" id="most-read-section">
             <h2 class="section-title">Most Read</h2>
             <div class="slider-wrapper">
-                <button class="slide-btn left" onclick="slideLeft('most-read')">&#10094;</button>
+                <button type="button" class="slide-btn left" data-slider-target="most-read" aria-label="Scroll left">&#10094;</button>
                 <div id="most-read" class="books-container"></div>
-                <button class="slide-btn right" onclick="slideRight('most-read')">&#10095;</button>
+                <button type="button" class="slide-btn right" data-slider-target="most-read" aria-label="Scroll right">&#10095;</button>
             </div>
         </section>
 
         <section class="slider-section" id="latest-section">
             <h2 class="section-title">New Arrivals</h2>
             <div class="slider-wrapper">
-                <button class="slide-btn left" onclick="slideLeft('latest')">&#10094;</button>
+                <button type="button" class="slide-btn left" data-slider-target="latest" aria-label="Scroll left">&#10094;</button>
                 <div id="latest" class="books-container"></div>
-                <button class="slide-btn right" onclick="slideRight('latest')">&#10095;</button>
+                <button type="button" class="slide-btn right" data-slider-target="latest" aria-label="Scroll right">&#10095;</button>
             </div>
+        </section>
+
+        <section class="authors-section">
+            <h2 class="section-title">Featured Authors</h2>
+
+            <div class="authors-container">
+                
+                <div class="author-card">
+                <img src="../images/authors/h.g wells.jfif" alt="">
+                <p>H.G. Wells</p>
+                </div>
+
+                <div class="author-card">
+                <img src="../images/authors/mark twain.webp" alt="">
+                <p>Mark Twain</p>
+                </div>
+
+                <div class="author-card">
+                <img src="../images/authors/william shakespeare.webp" alt="">
+                <p>William Shakespeare</p>
+                </div>
+
+                <div class="author-card">
+                <img src="../images/authors/jack london.jfif" alt="">
+                <p>Jack London</p>
+                </div>
+
+                <div class="author-card">
+                <img src="../images/authors/bram stoker.jfif" alt="">
+                <p>Bram Stoker</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="stat">
+                <h2>5000+</h2>
+                <p>Books</p>
+            </div>
+
+            <div class="stat">
+                <h2>200+</h2>
+                <p>Authors</p>
+            </div>
+
+            <div class="stat">
+                <h2>10K+</h2>
+                <p>Users</p>
+            </div>
+
         </section>
 
         <footer>
@@ -81,7 +134,7 @@
                 <div class="footer-section">
                     <h3>Contact Us</h3>
                     <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
+                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+20123456789">+201157973377</a></p>
                 </div>
 
                 <div class="footer-section">
@@ -99,7 +152,7 @@
             </div>
         </footer>
 
-        <script src="../JS/home.js"></script>
         <script src="../JS/general.js"></script>
+        <script src="../JS/home.js"></script>
     </body>
 </html>

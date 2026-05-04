@@ -1,74 +1,198 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add Book</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="icon" href="../images/favicon.png">
-    </head>
-    <body>
-     <nav class="nav">
-        
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
-            <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Book – Saf7a</title>
+    <meta name="description" content="Share your favorite books with the Saf7a community. Add a new book to our online library.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/add-book.css">
+    <link rel="icon" href="../images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-        <div class="nav-links">
-            <a href="library.html">Library</a>
-            <a href="favorites.html">Favorites</a>
-            <a href="profile.html">Profile</a>
-            <a href="about-us.html">About Us</a>
-            <a href="library cart.html"> cart</a>
-            <a href="cover-page.html">Cover Page</a>
-            
-        </div>
-        <div class="rigester">
-            <a class="login" href="login.html" target="_blank">Login</a>
-            <a class="sign-up" href="Sign up.html" target="_blank">Sign UP</a>
-        </div>
-    </nav>
-        <form method="post">
-            <div>
-                <label>Book Title</label>
-                <input type="text" required>
-                <br>
+<!-- ── NAV ── -->
+<nav class="nav">
+    <a class="logo" href="index.html">Saf<span>7</span>a</a>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="library.html">Library</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="profile.html">Profile</a>
+        <a href="about-us.html">About Us</a>
+        <a href="cover-page.html">Cover Page</a>
+    </div>
+    <div class="rigester">
+        <a class="login" href="login.html">Login</a>
+        <a class="sign-up" href="Sign up.html">Sign Up</a>
+    </div>
+</nav>
+
+<!-- ── HERO ── -->
+<div class="add-book-hero">
+    <h1>Add Your <span>Book</span></h1>
+    <p>Share a great read with the Saf7a community</p>
+</div>
+
+<!-- ── FORM CARD ── -->
+<div class="add-book-container">
+    <h2><i class="fa-solid fa-book-open section-title-icon" aria-hidden="true"></i>Book Details</h2>
+
+    <form id="addBookForm">
+        <div class="form-grid">
+
+            <!-- Title -->
+            <div class="form-group">
+                <label for="bookTitle">
+                    <i class="fa-solid fa-heading"></i> Book Title <span class="label-required">*</span>
+                </label>
+                <input type="text" id="bookTitle" placeholder="e.g. The Great Gatsby" required>
             </div>
-            <div>
-                <label>Author</label>
-                <input type="text" required>
-                <br>
+
+            <!-- Author -->
+            <div class="form-group">
+                <label for="bookAuthor">
+                    <i class="fa-solid fa-user-pen"></i> Author <span class="label-required">*</span>
+                </label>
+                <input type="text" id="bookAuthor" placeholder="e.g. F. Scott Fitzgerald" required>
             </div>
-            
-            <div>
-                <label>Category</label>
-                <select required>
-                    <option value="">Select Category</option>
-                    <option>Programming</option>
-                    <option>Science</option>
-                    <option>History</option>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label for="bookCategory">
+                    <i class="fa-solid fa-tag"></i> Category <span class="label-required">*</span>
+                </label>
+                <select id="bookCategory" required>
+                    <option value="">Select a Category</option>
+                    <option value="Fantasy">Fantasy</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Science Fiction">Science Fiction</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Classic">Classic</option>
+                    <option value="Tragedy">Tragedy</option>
+                    <option value="Drama">Drama</option>
+                    <option value="Mystery">Mystery</option>
+                    <option value="Satire">Satire</option>
+                    <option value="Philosophical Fiction">Philosophical Fiction</option>
+                    <option value="Romance">Romance</option>
+                    <option value="History">History</option>
+                    <option value="Biography">Biography</option>
+                    <option value="Self-Help">Self-Help</option>
+                    <option value="Other">Other</option>
                 </select>
-                <br>
             </div>
 
-            <div>
-                <label>Description</label>
-                <textarea required></textarea>
-                <br>
+            <!-- Cover Image Upload -->
+            <div class="form-group">
+                <label>
+                    <i class="fa-solid fa-image"></i> Cover Image
+                </label>
+                <div class="file-upload-area">
+                    <input type="file" id="bookImageFile" accept="image/*">
+                    <label for="bookImageFile" class="file-upload-btn" id="imageUploadBtn">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Choose cover image</span>
+                    </label>
+                    <div class="file-name-display" id="imageFileName">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="cover-preview-box empty" id="coverPreview">
+                    <div>
+                        <i class="fa-regular fa-image"></i>
+                        Preview will appear here
+                    </div>
+                </div>
             </div>
-            <div>
-                <label>Upload Book Cover</label>
-                <input type="file">
-                <br>
+
+            <!-- PDF Upload -->
+            <div class="form-group">
+                <label>
+                    <i class="fa-solid fa-file-pdf"></i> PDF File
+                </label>
+                <div class="file-upload-area">
+                    <input type="file" id="bookPdfFile" accept=".pdf">
+                    <label for="bookPdfFile" class="file-upload-btn" id="pdfUploadBtn">
+                        <i class="fa-solid fa-file-arrow-up"></i>
+                        <span>Choose PDF file</span>
+                    </label>
+                    <div class="file-name-display" id="pdfFileName">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span></span>
+                    </div>
+                </div>
             </div>
-            <button type="submit">Add Book</button>
 
-        </form>
+            <!-- Description -->
+            <div class="form-group full-width">
+                <label for="bookDescription">
+                    <i class="fa-solid fa-align-left"></i> Description <span class="label-required">*</span>
+                </label>
+                <textarea id="bookDescription" placeholder="Write a short description of the book…" required></textarea>
+            </div>
 
-        <script src="../JS/general.js"></script>
-    </body>
+            <!-- Submit -->
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fa-solid fa-plus-circle"></i>
+                Add Book to Library
+            </button>
+
+        </div>
+    </form>
+</div>
+
+<!-- ── SUCCESS TOAST ── -->
+<div class="toast-overlay" id="successToast">
+    <div class="toast-card">
+        <div class="toast-icon">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <h3>✓ Book Added!</h3>
+        <p id="toastMsg">Your book has been added to the library successfully.</p>
+        <div class="toast-actions">
+            <a href="library.html" class="btn-toast primary">
+                <i class="fa-solid fa-book"></i> View Library
+            </a>
+            <button type="button" class="btn-toast secondary" id="addAnotherBtn">
+                <i class="fa-solid fa-plus"></i> Add Another
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Saf7<span>a</span> Library</h3>
+            <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><i class="fa-regular fa-envelope"></i> <a href="mailto:seif.telp55@gmail.com">seif.telp55@gmail.com</a></p>
+            <p><i class="fa-solid fa-phone"></i> <a href="tel:+201281782159">+201281782159</a></p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="../JS/general.js"></script>
+<script src="../JS/add-book-page.js"></script>
+</body>
 </html>

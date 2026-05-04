@@ -3,92 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>library</title>
+    <title>Library – Saf7a</title>
+    <meta name="description" content="Browse our complete collection of books. Filter by category, search by title or author, and discover your next great read.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/heart.css">
+    <link rel="stylesheet" href="../css/library.css">
     <link rel="icon" href="../images/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-     <nav class="nav">
-        
-            <a class="logo" href="index.html" >Saf<span>7</span>a</a>
-            <button class="hamburger" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
 
-        <div class="nav-links">
-            <a href="library.html">Library</a>
-            <a href="favorites.html">Favorites</a>
-            <a href="profile.html">Profile</a>
-            <a href="about-us.html">About Us</a>
-            <a href="library cart.html"> cart</a>
-            <a href="cover-page.html">Cover Page</a>
-            
+<nav class="nav">
+    <a class="logo" href="index.html">Saf<span>7</span>a</a>
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="library.html" class="active">Library</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="profile.html">Profile</a>
+        <a href="about-us.html">About Us</a>
+        <a href="cover-page.html">Cover Page</a>
+    </div>
+    <div class="rigester">
+        <a class="login" href="login.html">Login</a>
+        <a class="sign-up" href="Sign up.html">Sign Up</a>
+    </div>
+</nav>
+
+<div class="library-hero">
+    <h1>Explore Our <span>Library</span></h1>
+    <p>Discover thousands of books across every genre</p>
+    <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search by title or author…">
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="library-main">
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Saf7<span>a</span> Library</h3>
+            <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
         </div>
-        <div class="rigester">
-            <a class="login" href="login.html" >Login</a>
-            <a class="sign-up" href="Sign up.html" >Sign UP</a>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><i class="fa-regular fa-envelope"></i> <a href="mailto:seif.telp55@gmail.com">seif.telp554@gmail.com</a></p>
+            <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201281782159</a></p>
         </div>
-    </nav>
-    <div>
-        <form action="">
-        <input type="text"  placeholder="search...">
-        <button type="submit" class="search-button">بحث</button>
-        </form>
-    </div>
-    <div>
-        <ol>
-            <button>احدث الكتب</button>
-            <button>علوم</button>
-            <button>روايات</button>
-            <button>قصص خيالية</button>
-            <button> كرتون</button>
-        </ol>
-    </div>
-    <div>
-        <ol>
-        <img src="" alt="غلاف الكتاب">
-        <h2>اسم الكتاب</h2>
-        <h3>اسم الكاتب</h3>
-        <h4>نوع الكتاب</h4>
-        <p class="price">$السعر</p>
-        <a href="book.html">عرض الكتاب</a>
-        </ol>
-    </div>
-    <div>
-        <h2> اضف كتابك</h2>
-        <a href="add-book.html"><button>اضافة</button></a>
-    </div>
-
-    <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>Saf7<span>a</span> Library</h3>
-                    <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201157973377</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    </div>
-                </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
             </div>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+    </div>
+</footer>
 
-            <div class="copyright-bar">
-                <p>© 2026 Saf7a Online Library. All rights reserved.</p>
-            </div>
-        </footer>
+<script src="../JS/general.js"></script>
+<script src="../JS/library-page.js"></script>
 
-        <script src="../JS/general.js"></script>
 </body>
 </html>

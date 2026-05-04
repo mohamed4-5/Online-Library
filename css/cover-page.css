@@ -1,0 +1,42 @@
+.cover-wrap {
+    width: 92%;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 0 48px;
+    flex: 1;
+}
+.cover-wrap table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: inherit;
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.cover-wrap th,
+.cover-wrap td {
+    border: 1px solid var(--border);
+    padding: 14px 12px;
+    text-align: center;
+}
+.cover-wrap th {
+    background-color: var(--dark);
+    color: #fff;
+    font-weight: 700;
+}
+.cover-wrap tbody td {
+    background-color: var(--card-color);
+}
+.cover-wrap tbody tr:hover td {
+    background-color: var(--bg-color);
+}
+.cover-wrap .project-info {
+    background-color: rgba(227, 64, 97, 0.08);
+    font-weight: 700;
+    color: var(--dark);
+}
+.cover-wrap .project-row td {
+    background-color: rgba(227, 64, 97, 0.12);
+    font-weight: 700;
+}

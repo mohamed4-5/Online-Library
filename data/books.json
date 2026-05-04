@@ -9,7 +9,7 @@
     "rating": 4.5,
     "mostRead": true,
     "latest": true,
-    "pdf": "#"
+    "pdf": "../books/demon.pdf"
   },
   {
     "id": 2,
@@ -21,7 +21,7 @@
     "rating": 4.8,
     "mostRead": true,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/dracula.pdf"
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "rating": 4.6,
     "mostRead": false,
     "latest": true,
-    "pdf": "#"
+    "pdf": "../books/time-machine.pdf"
   },
   {
     "id": 4,
@@ -45,7 +45,7 @@
     "rating": 4.4,
     "mostRead": false,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/blind.pdf"
   },
   {
     "id": 5,
@@ -57,7 +57,7 @@
     "rating": 4.5,
     "mostRead": true,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/moon.pdf"
   },
   {
     "id": 6,
@@ -69,7 +69,7 @@
     "rating": 4.7,
     "mostRead": true,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/invisible.pdf"
   },
   {
     "id": 7,
@@ -81,7 +81,7 @@
     "rating": 4.9,
     "mostRead": true,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/arabian.pdf"
   },
   {
     "id": 8,
@@ -93,7 +93,7 @@
     "rating": 4.6,
     "mostRead": false,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/huck.pdf"
   },
   {
     "id": 9,
@@ -105,7 +105,7 @@
     "rating": 4.0,
     "mostRead": false,
     "latest": true,
-    "pdf": "#"
+    "pdf": "../books/1601.pdf"
   },
   {
     "id": 10,
@@ -117,7 +117,7 @@
     "rating": 4.7,
     "mostRead": true,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/antony.pdf"
   },
   {
     "id": 11,
@@ -129,7 +129,7 @@
     "rating": 4.3,
     "mostRead": false,
     "latest": true,
-    "pdf": "#"
+    "pdf": "../books/allforlove.pdf"
   },
   {
     "id": 12,
@@ -141,7 +141,7 @@
     "rating": 4.8,
     "mostRead": true,
     "latest": false,
-    "pdf": "#"
+    "pdf": "../books/wild.pdf"
   },
   {
     "id": 13,
@@ -153,7 +153,7 @@
     "rating": 4.4,
     "mostRead": false,
     "latest": true,
-    "pdf": "#"
+    "pdf": "../books/adventure.pdf"
   },
   {
     "id": 14,
@@ -165,6 +165,6 @@
     "rating": 4.2,
     "mostRead": false,
     "latest": true,
-    "pdf": "#"
+    "pdf": "../books/fast.pdf"
   }
 ]

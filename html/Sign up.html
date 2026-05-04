@@ -5,10 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign up</title>
         <link rel="stylesheet" href="../css/style.css">
+        <link rel="stylesheet" href="../css/signup.css">
         <link rel="icon" href="../images/favicon.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-         <nav class="nav">
+        <nav class="nav">
         
             <a class="logo" href="index.html" >Saf<span>7</span>a</a>
             <button class="hamburger" aria-label="Menu">
@@ -18,11 +21,12 @@
         </button>
 
         <div class="nav-links">
+            <a href="index.html">Home</a>
             <a href="library.html">Library</a>
             <a href="favorites.html">Favorites</a>
             <a href="profile.html">Profile</a>
             <a href="about-us.html">About Us</a>
-            <a href="library cart.html"> cart</a>
+            <a href="plans.html"> Plans</a>
             <a href="cover-page.html">Cover Page</a>
             
         </div>
@@ -31,32 +35,43 @@
             <a class="sign-up" href="Sign up.html" >Sign UP</a>
         </div>
     </nav>
-       <form action="/submit" method="post">
-            <div>
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required minlength="5">
-            </div>
-            <div>
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="8">
-            </div>
-            <div>
-                <label for="confirm_password">Confirm Password</label>
-                <input type="password" id="confirm_password" name="confirm_password" placeholder="Re-enter your password" required minlength="8">
-            </div>
-            <div>
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div>
-                <input type="checkbox" id="is_admin" name="is_admin" value="true">
-                <label for="is_admin">Admin</label>
-            </div>
-            <div>
-                <input type="submit" value="Sign Up">
-            </div>
-        </form>
+        <form id="signupForm">
+        <div class="signup-card">
 
+            <div class="input-group">
+            <input type="text" id="username" required>
+            <label for="username">Username</label>
+            </div>
+
+            <div class="input-group">
+            <input type="password" id="password" required>
+            <label for="password">Password</label>
+            <i class="fa-regular fa-eye toggle-password"></i>
+            </div>
+
+            <div class="input-group">
+            <input type="password" id="confirmPassword" required>
+            <label for="confirmPassword">Confirm Password</label>
+            <i class="fa-regular fa-eye toggle-password"></i>
+            </div>
+
+            <div class="input-group">
+            <input type="email" id="email" required>
+            <label for="email">Email</label>
+            </div>
+
+            <div class="checkbox-row">
+            <input type="checkbox" id="admin">
+            <label for="admin">Admin</label>
+            </div>
+
+            <div id="message"></div>
+
+            <input type="submit" value="Sign Up">
+
+        </div>
+        </form>
         <script src="../JS/general.js"></script>
+        <script src="../JS/Sign up.js"></script>
     </body>
 </html>
