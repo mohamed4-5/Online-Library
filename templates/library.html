@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library – Saf7a</title>
+    <meta name="description" content="Browse our complete collection of books. Filter by category, search by title or author, and discover your next great read.">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/heart.css' %}">
+<link rel="stylesheet" href="{% static 'css/library.css' %}">
+<link rel="icon" href="{% static 'images/favicon.png' %}">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+    <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+    
+    <button class="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+    </button>
+
+    <div class="nav-links">
+        <a href="{% url 'home' %}">Home</a>
+        
+        <a href="#">Library</a>
+        <a href="#">Favorites</a>
+        
+        <a href="{% url 'profile' %}">Profile</a>
+        
+        <a href="#">About Us</a>
+        <a href="#">Cover Page</a>
+    </div>
+
+    <div class="rigester">
+        <a class="login" href="{% url 'login' %}">Login</a>
+        <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+    </div>
+</nav>
+
+<div class="library-hero">
+    <h1>Explore Our <span>Library</span></h1>
+    <p>Discover thousands of books across every genre</p>
+    <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search by title or author…">
+        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
+</div>
+
+<!-- MAIN -->
+<div class="library-main">
+</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Saf7<span>a</span> Library</h3>
+            <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><i class="fa-regular fa-envelope"></i> <a href="mailto:seif.telp55@gmail.com">seif.telp554@gmail.com</a></p>
+            <p><i class="fa-solid fa-phone"></i> <a href="tel:+201157973377">+201281782159</a></p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-links">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright-bar">
+        <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="{% static 'js/general.js' %}"></script>
+<script src="{% static 'js/library-page.js' %}"></script>
+
+</body>
+</html>

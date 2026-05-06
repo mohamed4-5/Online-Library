@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="nav">
+        <a class="logo" href="/">Saf<span>7</span>a</a>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="{% url 'profile' %}">Profile</a>
+        </div>
+        <div class="rigester">
+            <a class="login" href="{% url 'login' %}">Login</a>
+            <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+        </div>
+    </nav>
+
+    <div class="form">
+        <form id="loginForm" method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            
+            <div class="login-card">
+                <h2>Login</h2>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p style="color: #ff4d4d; font-size: 14px; text-align: center; background: rgba(255, 77, 77, 0.1); padding: 5px; border-radius: 5px;">
+                            {{ message }}
+                        </p>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="input-group">
+                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password</label>
+                    <i class="fa-regular fa-eye toggle-password" style="cursor: pointer;"></i>
+                </div>
+
+                <input type="submit" value="Login" id="loginbtn">
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'js/general.js' %}"></script>
+    <script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>

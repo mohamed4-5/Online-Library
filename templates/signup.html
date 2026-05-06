@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up - Saf7a</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+</head>
+<body>
+    <nav class="nav">
+        <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="#">Library</a>
+            <a href="#">Favorites</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="#">About Us</a>
+            <a href="#">Plans</a>
+        </div>
+        <div class="rigester">
+            <a class="login" href="{% url 'login' %}">Login</a>
+            <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+        </div>
+    </nav>
+
+    <div class="messages-container" style="max-width: 400px; margin: 20px auto;">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}" style="padding: 15px; border-radius: 8px; margin-bottom: 10px; text-align: center; 
+                    {% if message.tags == 'error' %} background-color: #ffe6e6; color: #d93025; border: 1px solid #d93025; 
+                    {% else %} background-color: #e6ffed; color: #28a745; border: 1px solid #28a745; {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <form id="signupForm" method="POST"> 
+        {% csrf_token %} <div class="signup-card">
+            <h2>Create Account</h2>
+
+            <div class="input-group">
+                <input type="text" id="username" name="username" required>
+                <label for="username">Username</label>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" name="email" required>
+                <label for="email">Email</label>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+                <label for="password">Password</label>
+                <i class="fa-regular fa-eye toggle-password" style="position: absolute; right: 10px; top: 35%; cursor: pointer;"></i>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <label for="confirmPassword">Confirm Password</label>
+                <i class="fa-regular fa-eye toggle-password" style="position: absolute; right: 10px; top: 35%; cursor: pointer;"></i>
+            </div>
+
+            <div class="checkbox-row" style="display: flex; align-items: center; gap: 10px; margin: 15px 0;">
+                <input type="checkbox" id="admin" name="admin">
+                <label for="admin">Request Admin Access</label>
+            </div>
+
+            <input type="submit" value="Sign Up" style="cursor: pointer;">
+        </div>
+    </form>
+
+    <script src="{% static 'js/general.js' %}"></script>
+    <script src="{% static 'js/signup.js' %}"></script>
+</body>
+</html>
