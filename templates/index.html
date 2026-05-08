@@ -1,160 +1,161 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Saf7a</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" href="{% static 'css/home.css' %}">
-<link rel="stylesheet" href="{% static 'css/heart.css' %}">
-<link rel="icon" href="{% static 'images/favicon.png' %}">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saf7a | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/heart.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
     <nav class="nav">
-    <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
-    
-    <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-    </button>
+        <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
 
-    <div class="nav-links">
-        <a href="{% url 'home' %}">Home</a>
-        
-        <a href="#">Library</a>
-        <a href="#">Favorites</a>
-        
-        <a href="{% url 'profile' %}">Profile</a>
-        
-        <a href="#">About Us</a>
-        <a href="#">Plans</a>
-        <a href="#">Cover Page</a>
-    </div>
+        <div class="nav-links">
+            <a href="{% url 'home' %}" class="active">Home</a>
+            <a href="{% url 'library' %}">Library</a>
+            <a href="{% url 'favorites' %}">Favorites</a>
+            <a href="{% url 'profile' %}">Profile</a>
+            <a href="{% url 'about-us' %}">About Us</a>
+            <a href="{% url 'plans' %}">Plans</a>
+        </div>
 
-    <div class="rigester">
-        <a class="login" href="{% url 'login' %}">Login</a>
-        <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
-    </div>
-</nav>
-        <div class="hero">
-  
-            <div class="slider">
-                <div class="enjoy"><span class="dot"></span>Enjoy Reading</div>
-                <div class="slider-text-container">
+        <div class="rigester">
+            {% if user.is_authenticated %}
+                <a href="{% url 'profile' %}" class="nav-profile-pill">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span class="nav-profile-pill-text">{{ user.username }}</span>
+                </a>
+                <a class="login" href="{% url 'logout' %}">Logout</a>
+            {% else %}
+                <a class="login" href="{% url 'login' %}">Login</a>
+                <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="hero">
+        <div class="slider">
+            <div class="enjoy"><span class="dot"></span>Enjoy Reading</div>
+            <div class="slider-text-container">
                 <div class="slides">
                     <div class="slide">A World of Books at Your Fingertips</div>
                     <div class="slide">Discover Your Next Adventure</div>
                     <div class="slide">Read Anytime, Anywhere</div>
                 </div>
-                </div>
             </div>
-
-            <div class="hero-right">
-                 <img class="hero-image" src="../images/hero-image.png" alt="hero image">
-            </div>
-
         </div>
+        <div class="hero-right">
+             <img class="hero-image" src="{% static 'images/hero-image.png' %}" alt="hero image">
+        </div>
+    </div>
 
-        <section class="slider-section" id="most-read-section">
-            <h2 class="section-title">Most Read</h2>
-            <div class="slider-wrapper">
-                <button type="button" class="slide-btn left" data-slider-target="most-read" aria-label="Scroll left">&#10094;</button>
-                <div id="most-read" class="books-container"></div>
-                <button type="button" class="slide-btn right" data-slider-target="most-read" aria-label="Scroll right">&#10095;</button>
-            </div>
-        </section>
-
-        <section class="slider-section" id="latest-section">
-            <h2 class="section-title">New Arrivals</h2>
-            <div class="slider-wrapper">
-                <button type="button" class="slide-btn left" data-slider-target="latest" aria-label="Scroll left">&#10094;</button>
-                <div id="latest" class="books-container"></div>
-                <button type="button" class="slide-btn right" data-slider-target="latest" aria-label="Scroll right">&#10095;</button>
-            </div>
-        </section>
-
-        <section class="authors-section">
-            <h2 class="section-title">Featured Authors</h2>
-
-            <div class="authors-container">
-                
-                <div class="author-card">
-                <img src="../images/authors/h.g wells.jfif" alt="">
-                <p>H.G. Wells</p>
-                </div>
-
-                <div class="author-card">
-                <img src="../images/authors/mark twain.webp" alt="">
-                <p>Mark Twain</p>
-                </div>
-
-                <div class="author-card">
-                <img src="../images/authors/william shakespeare.webp" alt="">
-                <p>William Shakespeare</p>
-                </div>
-
-                <div class="author-card">
-                <img src="../images/authors/jack london.jfif" alt="">
-                <p>Jack London</p>
-                </div>
-
-                <div class="author-card">
-                <img src="../images/authors/bram stoker.jfif" alt="">
-                <p>Bram Stoker</p>
-                </div>
-
-            </div>
-        </section>
-
-        <section class="stats-section">
-            <div class="stat">
-                <h2>5000+</h2>
-                <p>Books</p>
-            </div>
-
-            <div class="stat">
-                <h2>200+</h2>
-                <p>Authors</p>
-            </div>
-
-            <div class="stat">
-                <h2>10K+</h2>
-                <p>Users</p>
-            </div>
-
-        </section>
-
-        <footer>
-            <div class="footer-container">
-                <div class="footer-section">
-                    <h3>Saf7<span>a</span> Library</h3>
-                    <p>Your trusted online library for discovering, reading, and enjoying infinite worlds of books.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contact Us</h3>
-                    <p><i class="fa-regular fa-envelope"></i> <a href="mailto:mohammedhla4@gmail.com">mohammedhla4@gmail.com</a></p>
-                    <p><i class="fa-solid fa-phone"></i> <a href="tel:+20123456789">+201157973377</a></p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Follow Us</h3>
-                    <div class="social-links">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+    <section class="slider-section" id="most-read-section">
+        <h2 class="section-title">Most Read</h2>
+        <div class="slider-wrapper">
+            <button type="button" class="slide-btn left" data-slider-target="most-read">&#10094;</button>
+            <div id="most-read" class="books-container">
+                {% for book in most_read_books %}
+                <div class="book-card" onclick="location.href='{% url 'book_detail' book.id %}'">
+                    <div class="book-image-wrapper">
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                        <span class="category-badge">{{ book.category }}</span>
+                        <button class="fav-btn {% if book.id in favorite_book_ids %}active{% endif %}"
+                                onclick="event.stopPropagation(); toggleFavorite({{ book.id }}, this)">
+                            <i class="fa-{% if book.id in favorite_book_ids %}solid{% else %}regular{% endif %} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="book-info">
+                        <h3>{{ book.title }}</h3>
+                        <p class="author-name">{{ book.author.name }}</p>
                     </div>
                 </div>
+                {% endfor %}
             </div>
+            <button type="button" class="slide-btn right" data-slider-target="most-read">&#10095;</button>
+        </div>
+    </section>
 
-            <div class="copyright-bar">
-                <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+    <section class="slider-section" id="latest-section">
+        <h2 class="section-title">New Arrivals</h2>
+        <div class="slider-wrapper">
+            <button type="button" class="slide-btn left" data-slider-target="latest">&#10094;</button>
+            <div id="latest" class="books-container">
+                {% for book in latest_books %}
+                <div class="book-card" onclick="location.href='{% url 'book_detail' book.id %}'">
+                    <div class="book-image-wrapper">
+                        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                        <span class="category-badge">{{ book.category }}</span>
+                        <button class="fav-btn {% if book.id in favorite_book_ids %}active{% endif %}"
+                                onclick="event.stopPropagation(); toggleFavorite({{ book.id }}, this)">
+                            <i class="fa-{% if book.id in favorite_book_ids %}solid{% else %}regular{% endif %} fa-heart"></i>
+                        </button>
+                    </div>
+                    <div class="book-info">
+                        <h3>{{ book.title }}</h3>
+                        <p class="author-name">{{ book.author.name }}</p>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-        </footer>
+            <button type="button" class="slide-btn right" data-slider-target="latest">&#10095;</button>
+        </div>
+    </section>
 
-        <script src="{% static 'js/general.js' %}"></script>
-        <script src="{% static 'js/home.js' %}"></script>
-    </body>
+    <section class="authors-section">
+        <h2 class="section-title">Featured Authors</h2>
+        <div class="authors-container">
+            {% for author in authors %}
+            <div class="author-card">
+                <img src="{% if author.image %}{{ author.image.url }}{% else %}{% static 'images/default-author.png' %}{% endif %}" alt="{{ author.name }}">
+                <p>{{ author.name }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stat"><h2>5000+</h2><p>Books</p></div>
+        <div class="stat"><h2>200+</h2><p>Authors</p></div>
+        <div class="stat"><h2>10K+</h2><p>Users</p></div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Saf7<span>a</span> Library</h3>
+                <p>Your trusted online library for discovering and enjoying infinite worlds of books.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fa-regular fa-envelope"></i> mohammedhla4@gmail.com</p>
+                <p><i class="fa-solid fa-phone"></i> +201157973377</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <p>© 2026 Saf7a Online Library. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div id="message"></div>
+
+    <script src="{% static 'js/general.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
+</body>
 </html>

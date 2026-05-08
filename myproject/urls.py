@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.urls import path, include
 
 urlpatterns = [
+    # الروابط القديمة بتاعتك
     path('admin/', admin.site.urls),
-    path('', include('myapp.urls')), # توجيه الروابط لتطبيقك
-]
+    path('', include('myapp.urls')),
+] 
+
+# السطر ده هو اللي هيخلي الصور تظهر
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

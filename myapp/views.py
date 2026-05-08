@@ -1,12 +1,30 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from .models import Favorite, Book, Author # ضيفنا Author هنا
 
-# Home View
 def home_view(request):
-    return render(request, 'index.html')
+    # جلب البيانات من الداتا بيز
+    most_read_books = Book.objects.filter(most_read=True)
+    latest_books = Book.objects.filter(latest=True).order_by('-id')[:10]
+        # هنجيب بس المؤلفين اللي رفعنا ليهم صور فعلاً
+    authors = Author.objects.exclude(image="").exclude(image__isnull=True)[:5]
+    
+    # جلب الـ IDs للمفضلات لو اليوزر مسجل دخول
+    favorite_book_ids = []
+    if request.user.is_authenticated:
+        favorite_book_ids = Favorite.objects.filter(user=request.user).values_list('book_id', flat=True)
+    
+    context = {
+        'most_read_books': most_read_books,
+        'latest_books': latest_books,
+        'authors': authors, # بعتنا المؤلفين هنا
+        'favorite_book_ids': list(favorite_book_ids),
+    }
+    return render(request, 'index.html', context)
 
 # Signup View
 def signup_view(request):
@@ -16,7 +34,6 @@ def signup_view(request):
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirmPassword')
         
-        # English Messages
         if password != confirm_password:
             messages.error(request, "Passwords do not match!")
             return render(request, 'signup.html')
@@ -51,9 +68,7 @@ def login_view(request):
         password_input = request.POST.get('password')
 
         try:
-            # 1. Get user by email
             user_obj = User.objects.get(email=email_input)
-            # 2. Authenticate using the actual username
             user = authenticate(request, username=user_obj.username, password=password_input)
 
             if user is not None:
@@ -67,7 +82,7 @@ def login_view(request):
 
     return render(request, 'login.html')
 
-# Profile View (Protected)
+# Profile View
 @login_required(login_url='login')
 def profile_view(request):
     return render(request, 'profile.html', {'user': request.user})
@@ -77,3 +92,44 @@ def logout_view(request):
     django_logout(request)
     messages.info(request, "You have been logged out.")
     return redirect('login')
+
+def library_view(request):
+    all_books = Book.objects.all()
+    return render(request, 'library.html', {'books': all_books})
+
+def favorites_view(request):
+    if request.user.is_authenticated:
+        # بنجيب الكتب اللي اليوزر عملها مفضلة فعلياً
+        user_favorites = Favorite.objects.filter(user=request.user).select_related('book')
+        books = [fav.book for fav in user_favorites]
+    else:
+        books = []
+    return render(request, 'favorites.html', {'books': books})
+
+def plans_view(request):
+    return render(request, 'plans.html')
+
+def book_view(request, id):
+    book = get_object_or_404(Book, id=id)
+    return render(request, 'book.html', {'book': book})
+
+def add_book_view(request):
+    return render(request, 'add_book.html')
+
+def about_us_view(request):
+    return render(request, 'about-us.html')
+
+@login_required
+def toggle_favorite(request, book_id):
+    if request.method == "POST":
+        book = get_object_or_404(Book, id=book_id)
+        fav, created = Favorite.objects.get_or_create(user=request.user, book=book)
+        
+        if not created:
+            fav.delete()
+            status = "removed"
+        else:
+            status = "added"
+            
+        return JsonResponse({'status': status})
+    return JsonResponse({'error': 'Invalid request'}, status=400)
