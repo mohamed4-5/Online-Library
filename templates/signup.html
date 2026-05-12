@@ -4,86 +4,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign up - Saf7a</title>
+    <title>Saf7a | Sign Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/signup.css' %}">
-    <link rel="icon" href="{% static 'images/favicon.png' %}">
 </head>
 <body>
-    <nav class="nav">
+     <nav class="nav">
         <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+        
         <button class="hamburger" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'library' %}" class="{% if request.resolver_match.url_name == 'library' %}active{% endif %}">Library</a>
+                <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
+                <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
+                <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
+                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
+            </div>
 
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            
-            <a href="{% url 'library' %}">Library</a>
-            <a href="{% url 'favorites' %}">Favorites</a>
-            
-            <a href="{% url 'profile' %}">Profile</a>
-            
-            <a href="{% url 'about-us' %}">About Us</a>
-            <a href="{% url 'plans' %}">Plans</a>
-        </div>
-        <div class="rigester">
-            <a class="login" href="{% url 'login' %}">Login</a>
-            <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+
+            <div class="rigester">
+                
+                        <!-- جوه الـ nav قبل الـ hamburger -->
+                <button id="dark-mode-toggle" class="dark-mode-btn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-profile-pill">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span class="nav-profile-pill-text">{{ user.username }}</span>
+                    </a>
+                    <a class="login" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="login" href="{% url 'login' %}">Login</a>
+                    <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 
-    <div class="messages-container" style="max-width: 400px; margin: 20px auto;">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert {{ message.tags }}" style="padding: 15px; border-radius: 8px; margin-bottom: 10px; text-align: center; 
-                    {% if message.tags == 'error' %} background-color: #ffe6e6; color: #d93025; border: 1px solid #d93025; 
-                    {% else %} background-color: #e6ffed; color: #28a745; border: 1px solid #28a745; {% endif %}">
-                    {{ message }}
+    <div class="form-container">
+        <form id="signupForm" method="POST"> 
+            {% csrf_token %}
+            <div class="signup-card">
+                <div class="brand-logo">
+                    <a href="{% url 'home' %}">Saf<span>7</span>a</a>
                 </div>
-            {% endfor %}
-        {% endif %}
+                <h2>Create Account</h2>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert" style="padding: 12px; border-radius: 10px; margin-bottom: 20px; text-align: center; font-size: 14px;
+                            {% if message.tags == 'error' %} background: #fff5f5; color: #e53e3e; border: 1px solid #feb2b2; 
+                            {% else %} background: #f0fff4; color: #38a169; border: 1px solid #9ae6b4; {% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="input-group">
+                    <input type="text" id="username" name="username" required>
+                    <label for="username">Username</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="email" id="email" name="email" required>
+                    <label for="email">Email Address</label>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="password" name="password" required>
+                    <label for="password">Password</label>
+                    <i class="fa-regular fa-eye toggle-password" id="togglePass"></i>
+                </div>
+
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    <label for="confirmPassword">Confirm Password</label>
+                    <i class="fa-regular fa-eye toggle-password" id="toggleConfirm"></i>
+                </div>
+
+                <div class="checkbox-row">
+                    <input type="checkbox" id="admin" name="admin">
+                    <label for="admin">Request Admin Access</label>
+                </div>
+
+                <input type="submit" value="Create Account">
+
+                <div class="form-footer">
+                    <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+                </div>
+            </div>
+        </form>
     </div>
 
-    <form id="signupForm" method="POST"> 
-        {% csrf_token %} <div class="signup-card">
-            <h2>Create Account</h2>
-
-            <div class="input-group">
-                <input type="text" id="username" name="username" required>
-                <label for="username">Username</label>
-            </div>
-
-            <div class="input-group">
-                <input type="email" id="email" name="email" required>
-                <label for="email">Email</label>
-            </div>
-
-            <div class="input-group">
-                <input type="password" id="password" name="password" required>
-                <label for="password">Password</label>
-                <i class="fa-regular fa-eye toggle-password" style="position: absolute; right: 10px; top: 35%; cursor: pointer;"></i>
-            </div>
-
-            <div class="input-group">
-                <input type="password" id="confirmPassword" name="confirmPassword" required>
-                <label for="confirmPassword">Confirm Password</label>
-                <i class="fa-regular fa-eye toggle-password" style="position: absolute; right: 10px; top: 35%; cursor: pointer;"></i>
-            </div>
-
-            <div class="checkbox-row" style="display: flex; align-items: center; gap: 10px; margin: 15px 0;">
-                <input type="checkbox" id="admin" name="admin">
-                <label for="admin">Request Admin Access</label>
-            </div>
-
-            <input type="submit" value="Sign Up" style="cursor: pointer;">
-        </div>
-    </form>
-
     <script src="{% static 'js/general.js' %}"></script>
-    <script src="{% static 'js/signup.js' %}"></script>
+    <script>
+        // كود إظهار/إخفاء الباسورد
+        function setupToggle(iconId, inputId) {
+            const icon = document.getElementById(iconId);
+            const input = document.getElementById(inputId);
+            icon.addEventListener('click', () => {
+                const type = input.type === 'password' ? 'text' : 'password';
+                input.type = type;
+                icon.classList.toggle('fa-eye-slash');
+            });
+        }
+        setupToggle('togglePass', 'password');
+        setupToggle('toggleConfirm', 'confirmPassword');
+    </script>
 </body>
 </html>

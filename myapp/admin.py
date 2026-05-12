@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Author, Book, Favorite
+from .models import Author, Book, Favorite, UserPlan
 
 # تخصيص عرض الكتب في لوحة الأدمن
 class BookAdmin(admin.ModelAdmin):
@@ -10,3 +10,4 @@ class BookAdmin(admin.ModelAdmin):
 admin.site.register(Author)
 admin.site.register(Book, BookAdmin)
 admin.site.register(Favorite)
+admin.site.register(UserPlan)

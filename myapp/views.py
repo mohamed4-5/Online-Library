@@ -4,9 +4,13 @@ from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+<<<<<<< HEAD
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import Favorite, Book, Author # ضيفنا Author هنا
 import json
+=======
+from .models import Favorite, Book, Author, UserPlan
+>>>>>>> f17e47b1ef7c45a1a512cb8a39526de984712333
 
 def home_view(request):
     # جلب البيانات من الداتا بيز
@@ -114,8 +118,27 @@ def favorites_view(request):
     else:
         return redirect('login')
 
+@login_required
 def plans_view(request):
-    return render(request, 'plans.html')
+    # الحصول على خطة اليوزر الحالية (لو مش موجودة بنجيب الـ basic)
+    current_plan, created = UserPlan.objects.get_or_create(user=request.user)
+    return render(request, 'plans.html', {
+        'current_plan': current_plan.plan_name
+    })
+
+@login_required
+def select_plan(request):
+    if request.method == 'POST':
+        import json
+        data = json.loads(request.body)
+        new_plan = data.get('plan')
+        
+        # تحديث الخطة في الداتابيز
+        user_plan = request.user.user_plan
+        user_plan.plan_name = new_plan
+        user_plan.save()
+        
+        return JsonResponse({'status': 'success', 'message': f'Switched to {new_plan}'})
 
 def book_view(request, id):
     book = get_object_or_404(Book, id=id)

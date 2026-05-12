@@ -3,64 +3,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saf7a | Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.png' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav class="nav">
-        <a class="logo" href="/">Saf<span>7</span>a</a>
-        <div class="nav-links">
-            <a href="{% url 'home' %}">Home</a>
-            
-            <a href="{% url 'library' %}">Library</a>
-            <a href="{% url 'favorites' %}">Favorites</a>
-            
-            <a href="{% url 'profile' %}">Profile</a>
-            
-            <a href="{% url 'about-us' %}">About Us</a>
-            <a href="{% url 'plans' %}">Plans</a>
-        </div>
-        <div class="rigester">
-            <a class="login" href="{% url 'login' %}">Login</a>
-            <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+     <nav class="nav">
+        <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+        
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'library' %}" class="{% if request.resolver_match.url_name == 'library' %}active{% endif %}">Library</a>
+                <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
+                <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
+                <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
+                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
+            </div>
+
+
+            <div class="rigester">
+                
+                        <!-- جوه الـ nav قبل الـ hamburger -->
+                <button id="dark-mode-toggle" class="dark-mode-btn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-profile-pill">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span class="nav-profile-pill-text">{{ user.username }}</span>
+                    </a>
+                    <a class="login" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="login" href="{% url 'login' %}">Login</a>
+                    <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 
+    <!-- Login Form -->
     <div class="form">
         <form id="loginForm" method="POST" action="{% url 'login' %}">
             {% csrf_token %}
             
             <div class="login-card">
-                <h2>Login</h2>
+                <!-- البراند لوجو داخل الكارد -->
+                <div class="brand-logo">
+                    <a href="/">Saf<span>7</span>a</a>
+                </div>
+
+                <h2>Welcome Back</h2>
+                <p class="subtitle">Access your personal library and favorites</p>
 
                 {% if messages %}
                     {% for message in messages %}
-                        <p style="color: #ff4d4d; font-size: 14px; text-align: center; background: rgba(255, 77, 77, 0.1); padding: 5px; border-radius: 5px;">
-                            {{ message }}
-                        </p>
+                        <div class="message-alert" style="color: #d32f2f; background: #ffebee; padding: 10px; border-radius: 8px; font-size: 13px; text-align: center; margin-bottom: 20px; border: 1px solid #ffcdd2;">
+                            <i class="fa-solid fa-circle-exclamation"></i> {{ message }}
+                        </div>
                     {% endfor %}
                 {% endif %}
 
                 <div class="input-group">
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required autocomplete="email">
                     <label for="email">Email Address</label>
                 </div>
 
                 <div class="input-group">
                     <input type="password" id="password" name="password" required>
                     <label for="password">Password</label>
-                    <i class="fa-regular fa-eye toggle-password" style="cursor: pointer;"></i>
+                    <i class="fa-regular fa-eye toggle-password" id="eyeIcon"></i>
                 </div>
 
-                <input type="submit" value="Login" id="loginbtn">
+                <input type="submit" value="Login to Account" id="loginbtn">
+
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="{% url 'signup' %}">Join Saf7a</a></p>
+                </div>
             </div>
         </form>
     </div>
 
     <script src="{% static 'js/general.js' %}"></script>
-    <script src="{% static 'js/login.js' %}"></script>
+    <script>
+        // كود بسيط لتبديل رؤية كلمة السر
+        const togglePassword = document.querySelector('#eyeIcon');
+        const password = document.querySelector('#password');
+
+        togglePassword.addEventListener('click', function (e) {
+            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+            password.setAttribute('type', type);
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye');
+        });
+    </script>
 </body>
 </html>

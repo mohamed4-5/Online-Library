@@ -8,23 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 /* --- 1. إدارة القائمة (Mobile Menu) --- */
 const hamburger = document.querySelector(".hamburger");
-const navLinks = document.querySelector(".nav-links");
-const rigester = document.querySelector(".rigester");
+const mobileMenu = document.getElementById("mobile-menu"); // ← غيّرت دي
 
-if (hamburger && navLinks && rigester) {
+if (hamburger && mobileMenu) {
     hamburger.addEventListener("click", () => {
         hamburger.classList.toggle("open");
-        navLinks.classList.toggle("open");
-        rigester.classList.toggle("open");
+        mobileMenu.classList.toggle("open"); // ← وغيّرت دي
     });
 }
 
 // إغلاق القائمة عند النقر خارجها
 document.addEventListener("click", (e) => {
-    if (!e.target.closest(".nav") && navLinks?.classList.contains("open")) {
+    if (!e.target.closest(".nav") && mobileMenu?.classList.contains("open")) {
         hamburger.classList.remove("open");
-        navLinks.classList.remove("open");
-        rigester.classList.remove("open");
+        mobileMenu.classList.remove("open"); // ← وغيّرت دي
     }
 });
 
@@ -114,3 +111,27 @@ function showMessage(text, type) {
     msg.className = `show ${type}`; 
     setTimeout(() => { msg.className = ""; }, 3000);
 }
+
+// general.js
+const toggleBtn = document.getElementById('dark-mode-toggle');
+const body = document.body;
+const icon = toggleBtn.querySelector('i');
+
+// 1. التشيك على الموود المحفوظ أول ما الصفحة تفتح
+if (localStorage.getItem('theme') === 'dark') {
+    body.classList.add('dark-mode');
+    icon.classList.replace('fa-moon', 'fa-sun');
+}
+
+// 2. التبديل عند الضغط
+toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    
+    if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        icon.classList.replace('fa-moon', 'fa-sun');
+    } else {
+        localStorage.setItem('theme', 'light');
+        icon.classList.replace('fa-sun', 'fa-moon');
+    }
+});

@@ -1,11 +1,12 @@
+
 /* Container الرئيسي للموقع */
 .hero {
     display: flex;
     align-items: center;
-    width: 96%;            /* مسافة بسيطة من جوانب الشاشة */
+    width: 96%;            
     max-width: 1300px;
-    height: 350px;         /* زودنا الطول قليلاً ليناسب الجرافيك */
-    margin: 20px auto;     /* سنترناه في نص الصفحة */
+    height: 350px;         
+    margin: 20px auto;     
     position: relative;
     overflow: hidden;
     background-color: transparent; 
@@ -15,12 +16,13 @@
     position: absolute;
     top: 30px;
     left: 40px;
-    background: rgba(255, 255, 255, 0.15); /* خلفية بيضاء شفافة */
-    backdrop-filter: blur(10px); /* تأثير الزجاج الضبابي */
+    /* تعديل: خلفية تتبع المود */
+    background: var(--nav-bg); 
+    backdrop-filter: blur(10px); 
     padding: 8px 20px;
     border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
+    border: 1px solid var(--border);
+    color: var(--text-color);
     font-family: var(--font-sans);
     font-size: 14px;
     font-weight: 500;
@@ -29,17 +31,17 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
 }
 
 /* النقطة اللي بتنور (Live Effect) */
 .enjoy .dot {
     width: 8px;
     height: 8px;
-    background-color: #55efc4; /* لون أخضر هادي */
+    background-color: #55efc4; 
     border-radius: 50%;
     box-shadow: 0 0 10px #55efc4;
-    animation: pulse 1.5s infinite; /* أنيميشن نبض */
+    animation: pulse 1.5s infinite; 
 }
 
 @keyframes pulse {
@@ -54,7 +56,7 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    color: white;
+    color: white; /* هيفضل أبيض لأنه فوق تدرج غامق */
     font-family: var(--font-sans);
     font-weight: 600;
     background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
@@ -62,7 +64,7 @@
     align-items: flex-start;
     padding-left: 60px;
     position: relative;
-    border-radius: 20px; /* الحواف المنحنية */
+    border-radius: 20px; 
     clip-path: polygon(0% 0%, 99% 0%, 75% 100%, 0% 100%);
     margin-right: -1;
     outline: 1px solid transparent;
@@ -87,15 +89,15 @@
 
 /* ضبط أبعاد الصورة ومكانها */
 .hero-image {
-    height: 320px;       /* كبرنا الصورة قليلاً لتكون أوضح */
-    width: auto;         /* العرض تلقائي عشان متتمطش */
+    height: 320px;       
+    width: auto;         
     border-radius: 0;  
     object-fit: contain;
 }
 
 /* تعديل مساحة النص داخل الميل */
 .slider-text-container {
-    padding-right: 18%; /* عشان نضمن الكلام ميبقاش فوق الجزء المقطوع */
+    padding-right: 18%; 
     height: 60px;
     overflow: hidden;
 }
@@ -127,7 +129,7 @@
     margin: 40px 0;
     background: none !important;
     border-radius: 0;
-    position: relative; /* مهم جداً عشان الأزرار تتظبط جواها */
+    position: relative; 
 }
 
 
@@ -136,7 +138,7 @@
     position: relative;
     overflow: hidden;
     background: transparent;
-    width: calc((220px + 15px) * 5 - 15px); /* 5 كتب + gap */
+    width: calc((220px + 15px) * 5 - 15px); 
     margin: 0 auto; 
 }
 
@@ -146,12 +148,11 @@
     gap: 15px;
     scroll-behavior: smooth;
     padding: 10px 0;
-    flex-wrap: nowrap; /* مهم جداً لمنع النزول تحت */
-    overflow-x: auto; /* السر هنا: هي دي اللي بتخلي الجافاسكريبت يعرف يعمل سكرول */
-    scrollbar-width: none; /* إخفاء شريط التمرير في فايرفوكس */
+    flex-wrap: nowrap; 
+    overflow-x: auto; 
+    scrollbar-width: none; 
 }
 
-/* إخفاء شريط التمرير في كروم وسفاري */
 .books-container::-webkit-scrollbar {
     display: none; 
 }
@@ -161,7 +162,8 @@
     margin: 40px 0 20px;
     font-size: 32px;
     font-weight: 800;
-    color: #09324e;
+    /* تعديل: لون العنوان يتبع المود */
+    color: var(--text-color);
     text-align: center;
     font-family: var(--font-sans);
     position: relative;
@@ -172,14 +174,15 @@
 /* --- Book Card Design --- */
 .book-card {
     flex: 0 0 220px;
-    background-color: white;
+    /* تعديل: لون الكارد يتبع المود */
+    background-color: var(--card-color);
     border-radius: 18px;
     padding: 12px;
     cursor: pointer;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
-    flex-direction: column; /* ترتيب العناصر طولي */
-    border: 1px solid #f0f0f0;
+    flex-direction: column; 
+    border: 1px solid var(--border);
     overflow: hidden;
 }
 
@@ -228,16 +231,16 @@
 .book-info {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* بتخلي الحاوية دي تاخد كل المساحة المتاحة */
+    flex-grow: 1; 
     text-align: left;
 }
 
 .book-card h3 {
     margin: 0 0 5px;
     font-size: 17px;
-    color: #09324e;
+    /* تعديل: لون النص يتبع المود */
+    color: var(--text-color);
     font-weight: 700;
-    /* كود لقص النص لو زاد عن سطرين */
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
@@ -246,14 +249,14 @@
 
 .author-name {
     font-size: 14px;
-    color: #666;
+    color: var(--muted); /* تعديل لمتغير */
     margin-bottom: 15px;
 }
 
 /* ديزاين الزرار وتثبيته في القاع */
 .details-btn {
-    margin-top: auto; /* السر هنا: هيزق الزرار لآخر الكارد غصب عنه */
-    background: linear-gradient(135deg, #09324e 0%, #322a4f 100%);
+    margin-top: auto; 
+    background: var(--primary-color); /* تعديل لمتغير */
     color: white !important;
     text-decoration: none;
     padding: 10px;
@@ -266,7 +269,7 @@
 }
 
 .details-btn:hover {
-    box-shadow: 0 5px 15px rgba(85, 239, 196, 0.3);
+    background-color: var(--accent); /* تعديل لمتغير */
     transform: scale(0.98);
 }
 /* --- Slide Buttons --- */
@@ -276,25 +279,27 @@
     transform: translateY(-50%);
     width: 45px;
     height: 45px;
-    background-color: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
+    /* تعديل: خلفية تتبع المود */
+    background-color: var(--nav-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border);
     font-size: 20px;
     cursor: pointer;
-    border-radius: 50%; /* شكل دائري أفضل بكثير للـ UI */
+    border-radius: 50%; 
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: 0.3s;
+    box-shadow: var(--shadow);
 }
 
-/* إخراج الأزرار قليلاً عن حاوية الكتب لسهولة الضغط */
 .slide-btn.left { left: 0; }
 .slide-btn.right { right: 0; }
 
 .slide-btn:hover {
-    background-color: rgba(0,0,0,0.8);
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .authors-section {
@@ -310,7 +315,7 @@
 }
 
 .author-card {
-  background: white;
+  background: var(--card-color);
   padding: 15px;
   border-radius: 15px;
   width: 120px;
@@ -337,14 +342,14 @@
 
 .stats-section {
   display: flex;
-  flex-wrap: wrap; /* مهم */
+  flex-wrap: wrap; 
   justify-content: center;
   align-items: center;
   gap: 20px;
 
-  width: 90%; /* بدل 50% */
-  max-width: 1000px; /* يفضل يبقى فيه حد أقصى */
-  margin: 60px auto; /* سنتر */
+  width: 90%; 
+  max-width: 1000px; 
+  margin: 60px auto; 
 
   padding: 30px;
   background: linear-gradient(135deg, #322a4f, #09324e);
@@ -352,9 +357,8 @@
   border-radius: 20px;
 }
 
-/* كل stat */
 .stat {
-  flex: 1 1 180px; /* responsive */
+  flex: 1 1 180px; 
   text-align: center;
 }
 
@@ -368,40 +372,6 @@
   font-size: 14px;
   opacity: 0.8;
 }
-
-
-
-@media (max-width: 1024px) {
-
-
-
-  /* HERO */
-  .hero {
-    height: 280px;
-    width: 98%;
-  }
-  .slider {
-    width: 60%;
-    padding-left: 40px;
-  }
-  .slide {
-    font-size: 22px;
-  }
-  .hero-image {
-    height: 250px;
-  }
-
-  /* BOOKS SLIDER */
-  .slider-wrapper {
-    width: calc((200px + 12px) * 4 - 12px);
-  }
-  .book-card {
-    flex: 0 0 200px;
-  }
-
-
-}
-
 
 /* ─── Mobile Large: 480px → 768px ─── */
 @media (max-width: 768px) {

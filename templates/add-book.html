@@ -14,31 +14,42 @@
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav class="nav">
-    <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
-    
-    <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-    </button>
+ <nav class="nav">
+        <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+        
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'library' %}" class="{% if request.resolver_match.url_name == 'library' %}active{% endif %}">Library</a>
+                <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
+                <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
+                <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
+                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
+            </div>
 
-    <div class="nav-links">
-        <a href="{% url 'home' %}">Home</a>
-        
-        <a href="{% url 'library' %}">Library</a>
-        <a href="{% url 'favorites' %}">Favorites</a>
-        
-        <a href="{% url 'profile' %}">Profile</a>
-        
-        <a href="{% url 'about-us' %}">About Us</a>
-        <a href="{% url 'plans' %}">Plans</a>
-    </div>
 
-    <div class="rigester">
-        <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
-        <a class="login" href="{% url 'login' %}">Login</a>
-    </div>
-</nav>
+            <div class="rigester">
+                
+                        <!-- جوه الـ nav قبل الـ hamburger -->
+                <button id="dark-mode-toggle" class="dark-mode-btn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-profile-pill">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span class="nav-profile-pill-text">{{ user.username }}</span>
+                    </a>
+                    <a class="login" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="login" href="{% url 'login' %}">Login</a>
+                    <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
 
 <!-- ── HERO ── -->
 <div class="add-book-hero">
