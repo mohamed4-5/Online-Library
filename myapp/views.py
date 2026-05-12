@@ -4,13 +4,8 @@ from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-<<<<<<< HEAD
-from django.core.serializers.json import DjangoJSONEncoder
-from .models import Favorite, Book, Author # ضيفنا Author هنا
-import json
-=======
 from .models import Favorite, Book, Author, UserPlan
->>>>>>> f17e47b1ef7c45a1a512cb8a39526de984712333
+import json
 
 def home_view(request):
     # جلب البيانات من الداتا بيز
