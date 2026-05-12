@@ -19,4 +19,8 @@ urlpatterns = [
     
     # إضافة رابط الـ toggle_favorite عشان الـ JS يشوفه
     path('toggle-favorite/<int:book_id>/', views.toggle_favorite, name='toggle_favorite'),
+    
+    # إضافة endpoints للـ API
+    path('api/user-favorites/', views.get_user_favorites, name='user_favorites'),
+    path('api/get-books/', views.get_books, name='get_books'),
 ]

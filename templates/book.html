@@ -104,6 +104,20 @@
     </footer>
 
     <script src="{% static 'js/general.js' %}"></script>
+    <script>
+        // Pass book data from Django to JavaScript
+        const bookData = {
+            id: {{ book.id }},
+            title: "{{ book.title }}",
+            author: "{{ book.author.name }}",
+            category: "{{ book.category }}",
+            image: "{{ book.image.url }}",
+            description: "{{ book.description|escapejs }}"
+        };
+        
+        // Get all books for related section
+        const allBooksData = {{ books_json|safe }};
+    </script>
     <script src="{% static 'js/book.js' %}"></script>
 </body>
 </html>

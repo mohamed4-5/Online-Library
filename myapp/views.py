@@ -4,7 +4,9 @@ from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.core.serializers.json import DjangoJSONEncoder
 from .models import Favorite, Book, Author # ضيفنا Author هنا
+import json
 
 def home_view(request):
     # جلب البيانات من الداتا بيز
@@ -99,19 +101,47 @@ def library_view(request):
 
 def favorites_view(request):
     if request.user.is_authenticated:
-        # بنجيب الكتب اللي اليوزر عملها مفضلة فعلياً
+        # Get user's favorite books
         user_favorites = Favorite.objects.filter(user=request.user).select_related('book')
         books = [fav.book for fav in user_favorites]
+        favorite_book_ids = [fav.book.id for fav in user_favorites]
+        
+        context = {
+            'books': books,
+            'favorite_book_ids': favorite_book_ids,
+        }
+        return render(request, 'favorites-page.html', context)
     else:
-        books = []
-    return render(request, 'favorites.html', {'books': books})
+        return redirect('login')
 
 def plans_view(request):
     return render(request, 'plans.html')
 
 def book_view(request, id):
     book = get_object_or_404(Book, id=id)
-    return render(request, 'book.html', {'book': book})
+    
+    # جلب جميع الكتب لـ JavaScript (للكتب المرتبطة)
+    all_books = Book.objects.select_related('author').values(
+        'id', 'title', 'author__name', 'category', 'image', 'description', 'rating'
+    )
+    books_list = [
+        {
+            'id': b['id'],
+            'title': b['title'],
+            'author': b['author__name'],
+            'category': b['category'],
+            'image': b['image'],
+            'description': b['description'],
+            'rating': float(b['rating'])
+        }
+        for b in all_books
+    ]
+    
+    context = {
+        'book': book,
+        'books_json': json.dumps(books_list)
+    }
+    return render(request, 'book.html', context)
 
 def add_book_view(request):
     return render(request, 'add_book.html')
@@ -133,3 +163,28 @@ def toggle_favorite(request, book_id):
             
         return JsonResponse({'status': status})
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
+@login_required
+def get_user_favorites(request):
+    """Returns list of favorite book IDs for the current user"""
+    if request.user.is_authenticated:
+        favorite_ids = Favorite.objects.filter(user=request.user).values_list('book_id', flat=True)
+        return JsonResponse({'favorites': list(favorite_ids)})
+    return JsonResponse({'favorites': []})
+
+def get_books(request):
+    """Returns all books in JSON format for frontend use"""
+    books = Book.objects.select_related('author').all()
+    books_list = [
+        {
+            'id': book.id,
+            'title': book.title,
+            'author': book.author.name,
+            'category': book.category,
+            'image': book.image.url,  # Get full URL
+            'description': book.description,
+            'rating': float(book.rating)
+        }
+        for book in books
+    ]
+    return JsonResponse({'books': books_list})

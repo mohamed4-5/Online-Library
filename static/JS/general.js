@@ -1,3 +1,11 @@
+/* --- 0. متغيرات عامة --- */
+let userFavorites = []; // قائمة المفضلات الخاصة بالمستخدم من قاعدة البيانات
+
+// جلب المفضلات من قاعدة البيانات عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    fetchUserFavorites();
+});
+
 /* --- 1. إدارة القائمة (Mobile Menu) --- */
 const hamburger = document.querySelector(".hamburger");
 const navLinks = document.querySelector(".nav-links");
@@ -44,16 +52,46 @@ function toggleFavorite(bookId, button) {
             button.classList.add('active');
             icon.classList.replace('fa-regular', 'fa-solid');
             showMessage("Added to favorites!", "success");
+            // إضافة book ID إلى القائمة المحلية
+            if (!userFavorites.includes(bookId)) {
+                userFavorites.push(bookId);
+            }
         } else {
             button.classList.remove('active');
             icon.classList.replace('fa-solid', 'fa-regular');
             showMessage("Removed from favorites", "info");
+            // إزالة book ID من القائمة المحلية
+            userFavorites = userFavorites.filter(id => id !== bookId);
         }
     })
     .catch(err => console.error("Error:", err));
 }
 
-/* --- 3. وظائف مساعدة --- */
+/* --- 3. وظائف المفضلات --- */
+function fetchUserFavorites() {
+    /**
+     * جلب قائمة المفضلات من قاعدة البيانات
+     * تعمل فقط للمستخدمين المسجلين
+     */
+    fetch('/api/user-favorites/')
+        .then(response => response.json())
+        .then(data => {
+            userFavorites = data.favorites || [];
+        })
+        .catch(err => {
+            // إذا حدث خطأ، يعني المستخدم غير مسجل دخول
+            userFavorites = [];
+        });
+}
+
+function isFavorite(bookId) {
+    /**
+     * تتحقق إذا كان الكتاب مضافاً للمفضلات
+     */
+    return userFavorites.includes(bookId);
+}
+
+/* --- 4. وظائف مساعدة --- */
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

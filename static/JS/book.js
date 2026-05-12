@@ -4,41 +4,20 @@ const containerRelated = document.getElementById("related-books");
 let currentBook = null;
 let booksCatalog = [];
 
-const params = new URLSearchParams(window.location.search);
-const bookId = params.get("id");
-
-// 1. جلب البيانات ودمجها
-fetch("../data/books.json")
-  .then((res) => res.json())
-  .then((data) => {
-    booksCatalog = [...data];
+// جلب البيانات من Django (تم تمريرها في HTML)
+if (typeof bookData !== 'undefined' && bookData) {
+    currentBook = bookData;
+    booksCatalog = typeof allBooksData !== 'undefined' ? allBooksData : [bookData];
     
-    // جلب الكتب المضافة بواسطة المستخدم الحالي فقط
-    const user = parseCurrentUser();
-    if (user) {
-      const userKey = `userBooks_${user.username || user.email}`;
-      const userBooks = JSON.parse(localStorage.getItem(userKey)) || [];
-      userBooks.forEach((b) => {
-        if (!booksCatalog.find((x) => x.id === b.id)) booksCatalog.push(b);
-      });
-    }
+    displayBookDetails(currentBook);
+    syncFavoriteButton(currentBook);
+    renderBorrowState(currentBook.id);
+    updateReadButton(currentBook);
 
-    const book = booksCatalog.find((b) => b.id == bookId);
-    if (!book) {
-      document.body.innerHTML = "<h2 style='text-align:center; margin-top:50px;'>Book not found! 📚</h2>";
-      return;
-    }
-
-    currentBook = book;
-    displayBookDetails(book);
-    syncFavoriteButton(book);
-    renderBorrowState(book.id);
-    updateReadButton(book);
-
-    const related = booksCatalog.filter(b => b.category === book.category && b.id != book.id);
+    // عرض الكتب المرتبطة
+    const related = booksCatalog.filter(b => b.category === currentBook.category && b.id != currentBook.id);
     displayRelated(related.slice(0, 5));
-  })
-  .catch(err => console.error("Error loading book:", err));
+}
 
 // 2. عرض تفاصيل الكتاب
 function displayBookDetails(book) {

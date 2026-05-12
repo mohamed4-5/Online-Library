@@ -1,14 +1,5 @@
 (function () {
-  try {
-    var raw = localStorage.getItem("currentUser");
-    if (!raw) {
-      window.location.replace("login.html");
-      return;
-    }
-    JSON.parse(raw);
-  } catch (e) {
-    window.location.replace("login.html");
-    return;
-  }
-  window.location.replace("profile.html#favorites");
+  // Redirect to profile favorites section
+  // Django will handle authentication on the profile view
+  window.location.replace("/profile/#favorites");
 })();
