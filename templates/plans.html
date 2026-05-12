@@ -12,63 +12,79 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     </head>
     <body>
-       <nav class="nav">
-    <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
-    
-    <button class="hamburger" aria-label="Menu">
-        <span></span><span></span><span></span>
-    </button>
+        <nav class="nav">
+        <a class="logo" href="{% url 'home' %}">Saf<span>7</span>a</a>
+        
+        <button class="hamburger" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'library' %}" class="{% if request.resolver_match.url_name == 'library' %}active{% endif %}">Library</a>
+                <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
+                <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
+                <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
+                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
+            </div>
 
-    <div class="nav-links">
-        <a href="{% url 'home' %}">Home</a>
-        
-        <a href="{% url 'library' %}">Library</a>
-        <a href="{% url 'favorites' %}">Favorites</a>
-        
-        <a href="{% url 'profile' %}">Profile</a>
-        
-        <a href="{% url 'about-us' %}">About Us</a>
-        <a href="{% url 'plans' %}">Plans</a>
-    </div>
 
-    <div class="rigester">
-        <a class="login" href="{% url 'login' %}">Login</a>
-        <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
-    </div>
-</nav>
+            <div class="rigester">
+                
+                        <!-- جوه الـ nav قبل الـ hamburger -->
+                <button id="dark-mode-toggle" class="dark-mode-btn">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' %}" class="nav-profile-pill">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span class="nav-profile-pill-text">{{ user.username }}</span>
+                    </a>
+                    <a class="login" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    <a class="login" href="{% url 'login' %}">Login</a>
+                    <a class="sign-up" href="{% url 'signup' %}">Sign UP</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
 
         <section class="plans">
             <h2>Choose Your Plan</h2>
 
+            <!-- في ملف Plans.html جوه الـ container -->
             <div class="plans-container">
-                <div class="plan-card">
+                <!-- Basic Plan -->
+                <div class="plan-card {% if current_plan == 'basic' %}active-plan{% endif %}">
                     <h3>Basic</h3>
                     <p class="price">Free</p>
                     <ul>
                         <li>2 Books</li>
                         <li>7 Days</li>
                     </ul>
-                    <button type="button" data-plan="basic">Choose Plan</button>
+                    <button type="button" data-plan="basic" {% if current_plan == 'basic' %} disabled class="current-btn" {% endif %} >{% if current_plan == 'basic' %}Current Plan{% else %}Choose Plan{% endif %}</button>
                 </div>
 
-                <div class="plan-card popular">
+                <!-- Standard Plan -->
+                <div class="plan-card popular {% if current_plan == 'standard' %}active-plan{% endif %}">
                     <h3>Standard</h3>
                     <p class="price">$5</p>
                     <ul>
                         <li>5 Books</li>
                         <li>14 Days</li>
                     </ul>
-                    <button type="button" data-plan="standard">Choose Plan</button>
+                    <button type="button" data-plan="standard" {% if current_plan == 'standard' %} disabled class="current-btn" {% endif %} > {% if current_plan == 'standard' %}Current Plan{% else %}Choose Plan{% endif %}</button>
                 </div>
 
-                <div class="plan-card">
+                <!-- Premium Plan -->
+                <div class="plan-card {% if current_plan == 'premium' %}active-plan{% endif %}">
                     <h3>Premium</h3>
                     <p class="price">$10</p>
                     <ul>
                         <li>10 Books</li>
                         <li>30 Days</li>
                     </ul>
-                    <button type="button" data-plan="premium">Choose Plan</button>
+                    <button type="button" data-plan="premium" {% if current_plan == 'premium' %} disabled class="current-btn" {% endif %}>{% if current_plan == 'premium' %}Current Plan{% else %}Choose Plan{% endif %}</button>
                 </div>
             </div>
         </section>

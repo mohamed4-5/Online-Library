@@ -2,24 +2,41 @@
    1. المتغيرات والأساسيات (Variables & Reset)
    ============================================ */
 :root {
+    /* ألوان الـ Light (الأساسية بتاعتك) */
     --bg-color: #f8f9fa;
     --card-color: #ffffff;
     --text-color: #222;
-    --primary-color: rgb(227, 64, 97); /* اللون الوردي الأساسي */
+    --nav-bg: rgba(255, 255, 255, 0.85);
+    --nav-border: rgba(255, 255, 255, 0.3);
+    --border: #e2e8f0;
+    
+    /* ألوان ثابتة */
+    --primary-color: rgb(227, 64, 97); 
     --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
     --red-light: #ff5c7a;
     --dark: #1a1a2e;
     --muted: #64748b;
-    --border: #e2e8f0;
     --radius: 14px;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     --accent: #fd79a8;
+}
+
+/* ألوان الـ Dark Mode (تعديل قيم المتغيرات فقط) */
+body.dark-mode {
+    --bg-color: #121212;
+    --card-color: #1e1e1e;
+    --text-color: #e0e0e0;
+    --nav-bg: rgba(30, 30, 30, 0.85);
+    --nav-border: rgba(255, 255, 255, 0.1);
+    --border: #333;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /* إضافة Transition ناعم للألوان فقط */
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 body {
@@ -33,7 +50,7 @@ body {
 
 main {
     flex: 1;
-    padding-top: 100px; /* مساحة عشان الناف بار العائم ميتغطاش المحتوى */
+    padding-top: 100px; 
 }
 
 a {
@@ -44,7 +61,18 @@ a {
 button {
     cursor: pointer;
     border: none;
+    background: none; /* عشان زرار الموود ميبقاش ليه خلفية */
     font-family: var(--font-sans);
+}
+
+/* زرار التبديل (تنسيق بسيط جداً بدون بوظان للهيكل) */
+#dark-mode-toggle {
+    color: var(--text-color);
+    font-size: 18px;
+    padding: 5px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
 }
 
 /* ============================================
@@ -55,8 +83,6 @@ button {
     justify-content: space-between;
     align-items: center;
     padding: 10px 35px;
-    
-    /* وضعية العوم */
     position: fixed;
     top: 20px;
     left: 50%;
@@ -65,44 +91,44 @@ button {
     max-width: 1200px;
     z-index: 2000;
 
-    /* تأثير الزجاج الشفاف */
-    background: rgba(255, 255, 255, 0.85);
+    /* استخدام المتغيرات للألوان */
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 100px; /* شكل الكبسولة */
+    border: 1px solid var(--nav-border);
+    border-radius: 100px; 
     
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* التنسيق عند السكرول */
 .nav.scrolled {
     top: 0;
     width: 100%;
     max-width: 100%;
     border-radius: 0;
     padding: 12px 60px;
-    background: #ffffff;
+    background: var(--card-color);
     border-bottom: 2px solid var(--primary-color);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-/* اللوجو */
 .logo {
-    font-size: 24px;
+    text-align: center;
+    font-size: 30px;
     font-weight: 800;
-    text-transform: uppercase;
-    color: var(--dark);
-    letter-spacing: 1px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: var(--text-color); /* تعديل من لون ثابت لمتغير */
+    letter-spacing: -1px;
 }
 
 .logo span {
-    color: var(--accent);
-    font-style: italic;
+    color: var(--primary-color);
 }
 
-/* روابط التنقل */
 .nav-links {
     display: flex;
     gap: 20px;
@@ -122,7 +148,6 @@ button {
     color: var(--primary-color);
 }
 
-/* الخط المتحرك تحت اللينكات */
 .nav-links a::after {
     content: "";
     position: absolute;
@@ -139,7 +164,6 @@ button {
     width: 100%;
 }
 
-/* منطقة التسجيل والبروفايل */
 .rigester {
     display: flex;
     align-items: center;
@@ -175,7 +199,6 @@ button {
     color: white;
 }
 
-/* Profile pill — light/neutral (no dark blue bar look) */
 .nav-profile-pill {
     display: inline-flex;
     align-items: center;
@@ -183,9 +206,9 @@ button {
     gap: 10px;
     padding: 8px 16px 8px 12px;
     border-radius: 999px;
-    background: #ffffff;
-    color: var(--text-color) !important;
-    border: 1.5px solid var(--border);
+    background: var(--card-color); /* متغير */
+    color: var(--text-color) !important; /* متغير */
+    border: 1.5px solid var(--border); /* متغير */
     font-weight: 700;
     font-size: 15px;
     line-height: 1.2;
@@ -216,15 +239,10 @@ button {
     box-shadow: 0 2px 8px rgba(227, 64, 97, 0.15);
 }
 
-.nav-profile-pill:hover > i {
-    color: var(--primary-color);
-}
-
 .nav-profile-pill.active {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px rgba(227, 64, 97, 0.25);
 }
-
 
 /* ============================================
    3. الهامبرجر (Mobile Menu Button)
@@ -241,12 +259,11 @@ button {
     display: block;
     width: 28px;
     height: 3px;
-    background-color: var(--dark);
+    background-color: var(--text-color); /* تعديل لمتغير عشان تبان في الدارك */
     border-radius: 3px;
     transition: 0.3s;
 }
 
-/* أنيميشن الـ X */
 .hamburger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
@@ -255,7 +272,7 @@ button {
    4. الفوتر (Footer)
    ============================================ */
 footer {
-    background: #1a1a2e;
+    background: var(--dark); /* هيفضل غامق زي ما هو أو خليه متغير لو تحب */
     color: #fff;
     padding-top: 60px;
     border-top: 4px solid var(--accent);
@@ -287,19 +304,22 @@ footer {
     color: #747d8c;
 }
 
-/* حل مشكلة تداخل الناف بار مع محتوى الصفحات */
 body {
-    /* بنضيف مساحة فوق في جسم الصفحة كلها عشان المحتوى يبدأ بعد الناف بار */
-    /* 100px مساحة كافية تغطي الناف بار العائم والمسافة اللي فوقه */
     padding-top: 110px; 
 }
 
-/* لو عندك صفحة الهوم فيها Hero section اتأكد إنها مش واخدة margin-top سالب */
 .hero, section:first-of-type {
     margin-top: 0 !important;
 }
 
+   /* الناڤ يسمح بالـ overflow */
+.nav {
+    overflow: visible !important;
+}
 
+.mobile-menu {
+    display: contents; /* ← بيخلي الأولاد يتصرفوا كأنهم مباشرة جوه الـ nav */
+}
 /* ============================================
    5. الاستجابة (Responsive)
    ============================================ */
@@ -318,34 +338,59 @@ body {
         display: flex;
     }
 
-    .nav-links, .rigester {
+    .mobile-menu {
         position: absolute;
-        top: 70px;
+        top: calc(100% + 10px); /* ← تحت الناڤ مباشرة */
         left: 0;
         width: 100%;
-        background: white;
+        display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        padding: 0;
+        background: var(--card-color);
+        border-radius: 20px;
+        overflow: hidden;
         max-height: 0;
         opacity: 0;
-        overflow: hidden;
-        transition: 0.4s ease;
-        border-radius: 20px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        transition: max-height 0.4s ease, opacity 0.4s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        border: 1px solid var(--border);
+        z-index: 1999;
     }
 
-    .nav-links.open, .rigester.open {
-        max-height: 500px;
+    .mobile-menu.open {
+        max-height: 700px;
         opacity: 1;
-        padding: 30px 20px;
     }
 
-    /* ترتيب القائمة في الموبايل */
-    .rigester {
-        top: 320px; /* بتنزل تحت اللينكات */
-        border-top: 1px solid #eee;
+    /* nav-links جوه mobile-menu */
+    .mobile-menu .nav-links {
+        position: static;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        padding: 20px;
+        max-height: none;
+        opacity: 1;
+        overflow: visible;
+        border: none;
         box-shadow: none;
+        background: transparent;
+    }
+
+    /* rigester جوه mobile-menu */
+    .mobile-menu .rigester {
+        position: static;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 15px 20px 20px;
+        max-height: none;
+        opacity: 1;
+        overflow: visible;
+        border: none;
+        border-top: 1px solid var(--border);
+        box-shadow: none;
+        background: transparent;
+        width: 100%;
     }
 }

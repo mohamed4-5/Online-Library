@@ -1,15 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
-:root {
-    --bg-color: #f8f9fa;
-    --card-color: #ffffff;
-    --text-color: #222;
-    --primary-color: rgb(227, 64, 97);
-}
 
 body {
     background-color: var(--bg-color);
@@ -124,7 +113,7 @@ button {
     font-family: var(--font-sans);
     font-size: 1.2rem;
     font-weight: 700;
-    color: #1a1a2e;
+    color: var(--text-color);
     margin-bottom: 14px;
 }
 

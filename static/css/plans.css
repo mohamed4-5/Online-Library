@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  flex: 1;
 }
 
 /* العنوان */
@@ -11,7 +12,7 @@
     margin-bottom: 30px;
     font-size: 32px;
     font-weight: 800;
-    color: #09324e;
+    color: var(--text-color);
     text-align: center;
     font-family: var(--font-sans);
     position: relative;
@@ -31,10 +32,11 @@
 
 /* الكارد */
 .plan-card {
-  background: white;
+  background: var(--card-color);
   padding: 25px 20px;
   border-radius: 20px;
   width: 260px;
+  border: 1px solid var(--border);
 
   box-shadow: 0 8px 20px rgba(0,0,0,0.08);
   transition: 0.3s;
@@ -46,6 +48,7 @@
 /* hover */
 .plan-card:hover {
   transform: translateY(-12px) scale(1.03);
+  border-color: var(--primary-color);
 }
 
 /* العنوان */
@@ -72,7 +75,7 @@
 .plan-card li {
   margin: 10px 0;
   font-size: 14px;
-  color: #555;
+  color: var(--muted);
 }
 
 /* الزرار */
@@ -82,7 +85,7 @@
   border: none;
   border-radius: 25px;
 
-  background: linear-gradient(135deg, rgb(233, 43, 81), rgb(239, 49, 87));
+  background: linear-gradient(135deg, var(--red-light), var(--primary-color));
   color: white;
 
   cursor: pointer;
@@ -93,6 +96,23 @@
 .plan-card button:hover {
   opacity: 0.9;
   transform: scale(1.05);
+}
+
+/* ستايل الزرار لما يكون هو الخطة الحالية */
+.plan-card button:disabled, 
+.plan-card button.current-btn {
+    background: #ccc; /* لون رمادي هادي */
+    color: #666;
+    cursor: not-allowed; /* يغير شكل الماوس لعلامة الممنوع */
+    transform: none !important; /* يلغي أي تحريك في الـ hover */
+    opacity: 0.7;
+    box-shadow: none;
+}
+
+/* التأكد إن الـ hover مبيشتغلش على الزرار المعطل */
+.plan-card button:disabled:hover {
+    opacity: 0.7;
+    transform: none;
 }
 
 /* ⭐ الخطة المميزة */
@@ -122,7 +142,7 @@
   border: 3px solid #2ecc71; /* برودر أخضر لتمييز الخطة */
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 15px 30px rgba(46, 204, 113, 0.2);
-  background-color: #fafffb; /* خلفية فاتحة جداً مريحة */
+  background-color: rgba(46, 204, 113, 0.05);
 }
 
 /* إضافة شارة "Active" في الزاوية */

@@ -33,3 +33,28 @@ class Favorite(models.Model):
 
     class Meta:
         unique_together = ('user', 'book') # عشان الكتاب ميتكررش للمستخدم الواحد
+
+
+class UserPlan(models.Model):
+    # خيارات الخطط المتاحة
+    PLAN_CHOICES = [
+        ('basic', 'Basic (Free)'),
+        ('standard', 'Standard'),
+        ('premium', 'Premium'),
+    ]
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='user_plan')
+    plan_name = models.CharField(max_length=20, choices=PLAN_CHOICES, default='basic')
+    start_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.plan_name}"
+
+# كود تلقائي لإنشاء خطة Basic فور تسجيل أي يوزر جديد
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_user_plan(sender, instance, created, **kwargs):
+    if created:
+        UserPlan.objects.create(user=instance)

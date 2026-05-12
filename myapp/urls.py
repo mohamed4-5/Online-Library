@@ -10,6 +10,7 @@ urlpatterns = [
     path('library/', views.library_view, name='library'),
     path('favorites/', views.favorites_view, name='favorites'),
     path('plans/', views.plans_view, name='plans'),
+    path('select-plan/', views.select_plan, name='select-plan'),
     
     # التعديل هنا: إضافة الـ id وتغيير الاسم لـ book_detail
     path('book/<int:id>/', views.book_view, name='book_detail'), 
