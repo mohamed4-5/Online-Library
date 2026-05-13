@@ -8,35 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/library.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link rel="stylesheet" href="{% static 'css/heart.css' %}">
     <link rel="icon" href="{% static 'images/favicon.png' %}">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        #booksGrid {
-            display: flex !important;
-            gap: 15px;
-            overflow-x: auto;
-            padding: 10px 0;
-            scroll-behavior: smooth;
-        }
-        #booksGrid .book-card {
-            flex: 0 0 180px;
-            min-width: 180px;
-        }
-        #booksGrid .book-cover {
-            height: 220px;
-        }
-        #booksGrid .book-info {
-            padding: 12px 10px;
-        }
-        #booksGrid .book-info h3 {
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-        }
-        #booksGrid .book-info .author {
-            font-size: 0.8rem;
-        }
-    </style>
 </head>
 <body>
 
@@ -89,29 +64,35 @@
                     <i class="fa-regular fa-heart"></i> {{ books|length }} favorite book{{ books|pluralize }}
                 </h2>
             </div>
-            <div id="booksGrid" style="display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; scroll-behavior: smooth;">
-                {% for book in books %}
-                <div class="book-card" onclick="window.location.href='{% url 'book_detail' book.id %}'">
-                    <div class="book-cover">
-                        <img src="{{ book.image.url }}" 
-                             alt="{{ book.title }}"
-                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                        <div class="book-cover-placeholder book-cover-placeholder--hidden" style="display: none;">{{ book.title }}</div>
-                        <span class="book-badge">{{ book.category }}</span>
-                        <button type="button" class="fav-btn active"
-                                title="Remove from favorites"
-                                aria-label="Remove from favorites"
-                                onclick="event.stopPropagation(); toggleFavorite({{ book.id }}, this)">
-                            <i class="fa-solid fa-heart"></i>
-                        </button>
+            <section class="slider-section" id="favorites-section">
+                <div class="slider-wrapper">
+                    <button type="button" class="slide-btn left" data-slider-target="favorites-books">&#10094;</button>
+                    <div id="favorites-books" class="books-container">
+                        {% for book in books %}
+                        <div class="book-card" onclick="window.location.href='{% url 'book_detail' book.id %}'">
+                            <div class="book-image-wrapper">
+                                <img src="{{ book.image.url }}" 
+                                     alt="{{ book.title }}"
+                                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                                <div class="book-cover-placeholder book-cover-placeholder--hidden" style="display: none;">{{ book.title }}</div>
+                                <span class="category-badge">{{ book.category }}</span>
+                                <button type="button" class="fav-btn active"
+                                        title="Remove from favorites"
+                                        aria-label="Remove from favorites"
+                                        onclick="event.stopPropagation(); toggleFavorite({{ book.id }}, this)">
+                                    <i class="fa-solid fa-heart"></i>
+                                </button>
+                            </div>
+                            <div class="book-info">
+                                <h3>{{ book.title }}</h3>
+                                <p class="author-name">{{ book.author.name }}</p>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
-                    <div class="book-info">
-                        <h3>{{ book.title }}</h3>
-                        <p class="author">{{ book.author.name }}</p>
-                    </div>
+                    <button type="button" class="slide-btn right" data-slider-target="favorites-books">&#10095;</button>
                 </div>
-                {% endfor %}
-            </div>
+            </section>
         {% else %}
             <div style="text-align: center; padding: 60px 20px;">
                 <i class="fa-regular fa-heart" style="font-size: 3rem; color: var(--muted); opacity: 0.5; margin-bottom: 20px;"></i>
@@ -155,7 +136,28 @@
     // Initialize favorites on page load
     document.addEventListener('DOMContentLoaded', () => {
         fetchUserFavorites();
+        
+        // Setup slider buttons
+        document.querySelectorAll('.slide-btn[data-slider-target]').forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const id = btn.getAttribute('data-slider-target');
+                if (!id) return;
+                if (btn.classList.contains('left')) slideLeft(id);
+                else slideRight(id);
+            });
+        });
     });
+    
+    // Slider functions
+    function slideRight(containerId) {
+        const container = document.getElementById(containerId);
+        container.scrollBy({ left: (220 + 15) * 2, behavior: 'smooth' });
+    }
+
+    function slideLeft(containerId) {
+        const container = document.getElementById(containerId);
+        container.scrollBy({ left: -(220 + 15) * 2, behavior: 'smooth' });
+    }
 </script>
 </body>
 </html>
