@@ -28,7 +28,6 @@
                 <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
                 <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
                 <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
-                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
             </div>
 
 
@@ -90,6 +89,15 @@
     </div>
 </footer>
 
+<div id="message"></div>
+
+{% csrf_token %}
+<script>
+    window.LIBRARY_CONFIG = {
+        isStaff: {{ user.is_staff|yesno:"true,false" }},
+        addBookUrl: "{% url 'add_book' %}",
+    };
+</script>
 <script src="{% static 'js/general.js' %}"></script>
 <script src="{% static 'js/library-page.js' %}"></script>
 

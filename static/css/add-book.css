@@ -1,4 +1,11 @@
-/* Add book page — tokens from style.css */
+/* Add book page — uses tokens from style.css (:root / body.dark-mode) */
+
+.add-book-container,
+.add-book-container *,
+.add-book-container *::before,
+.add-book-container *::after {
+    box-sizing: border-box;
+}
 
 .add-book-hero {
     background: linear-gradient(135deg, var(--dark) 0%, #2d1b3d 100%);
@@ -27,7 +34,7 @@
     position: relative;
 }
 .add-book-hero h1 span {
-    color: var(--red-light);
+    color: var(--accent);
 }
 .add-book-hero p {
     color: rgba(255, 255, 255, 0.55);
@@ -37,51 +44,56 @@
 
 .add-book-container {
     max-width: 900px;
+    width: calc(100% - 32px);
     margin: -24px auto 48px;
-    padding: 32px 28px 36px;
-    background: var(--card);
+    padding: clamp(20px, 4vw, 32px) clamp(16px, 4vw, 28px) 36px;
+    background: var(--card-color);
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
     position: relative;
     z-index: 1;
+    overflow-x: hidden;
 }
 .add-book-container > h2 {
     font-family: var(--font-sans);
     font-size: 1.35rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--text-color);
     margin-bottom: 24px;
     display: flex;
     align-items: center;
     gap: 8px;
+    max-width: 100%;
 }
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px 24px;
     align-items: start;
+    width: 100%;
+    max-width: 100%;
 }
 
 .form-group {
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-.form-group.full-width {
+    min-width: 0;
+    max-width: 100%;
+}.form-group.full-width {
     grid-column: 1 / -1;
 }
 
 .form-group label {
     font-weight: 600;
     font-size: 0.9rem;
-    color: var(--dark);
+    color: var(--text-color);
     display: flex;
     align-items: center;
     gap: 8px;
-}
-.form-group label i {
+}.form-group label i {
     color: var(--muted);
     width: 1.1em;
     text-align: center;
@@ -91,22 +103,23 @@
 .form-group select,
 .form-group textarea {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     padding: 12px 14px;
     border: 2px solid var(--border);
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.95rem;
-    color: var(--text);
-    background: #fff;
+    color: var(--text-color);
+    background: var(--card-color);
     transition: border-color 0.2s;
 }
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: var(--red);
-}
-.form-group textarea {
+    border-color: var(--primary-color);
+}.form-group textarea {
     min-height: 120px;
     resize: vertical;
 }
@@ -142,10 +155,10 @@
     color: var(--muted);
     transition: border-color 0.2s, color 0.2s, background 0.2s;
     max-width: 100%;
-}
-.file-upload-btn:hover {
-    border-color: var(--red);
-    color: var(--red);
+    word-break: break-word;
+}.file-upload-btn:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
 }
 .file-upload-btn.has-file {
     border-style: solid;
@@ -155,11 +168,11 @@
 }
 
 .add-book-container h2 .section-title-icon {
-    color: var(--red);
+    color: var(--primary-color);
     margin-right: 8px;
 }
 .form-group label .label-required {
-    color: var(--red);
+    color: var(--primary-color);
 }
 
 .file-name-display {
@@ -204,10 +217,46 @@
 }
 .cover-preview-box img {
     width: 100%;
+    max-width: 100%;
     max-height: 280px;
     object-fit: contain;
     display: block;
-    background: #fff;
+    background: var(--card-color);
+}
+.add-book-staff-only {
+    padding: 28px 24px;
+    text-align: center;
+    border-radius: 12px;
+    border: 2px dashed var(--border);
+    background: var(--bg-color);
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+.add-book-staff-only a {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.add-book-flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 28px;
+    align-items: center;
+}
+.checkbox-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: 500;
+}
+.checkbox-label input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
 }
 
 .btn-submit {
@@ -220,7 +269,7 @@
     margin-top: 8px;
     padding: 16px 28px;
     min-height: 52px;
-    background: var(--red);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent) 100%);
     color: #fff;
     border: none;
     border-radius: 12px;
@@ -228,12 +277,12 @@
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition: transform 0.15s, box-shadow 0.2s;
     box-shadow: 0 4px 16px rgba(227, 64, 97, 0.35);
 }
 .btn-submit:hover:not(:disabled) {
-    background: #c93656;
     transform: translateY(-1px);
+    box-shadow: 0 8px 22px rgba(227, 64, 97, 0.42);
 }
 .btn-submit:disabled {
     opacity: 0.75;
@@ -278,15 +327,16 @@
     visibility: visible;
 }
 .toast-card {
-    background: #fff;
+    background: var(--card-color);
     border-radius: var(--radius);
     padding: 32px 28px;
-    max-width: 400px;
+    max-width: min(400px, calc(100vw - 40px));
     width: 100%;
     text-align: center;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-}
-.toast-icon {
+    border: 1px solid var(--border);
+    box-sizing: border-box;
+}.toast-icon {
     width: 64px;
     height: 64px;
     margin: 0 auto 16px;
@@ -301,10 +351,9 @@
 .toast-card h3 {
     font-family: var(--font-sans);
     font-size: 1.35rem;
-    color: var(--dark);
+    color: var(--text-color);
     margin-bottom: 8px;
-}
-.toast-card p {
+}.toast-card p {
     color: var(--muted);
     font-size: 0.95rem;
     margin-bottom: 24px;
@@ -332,18 +381,17 @@
     transition: background 0.2s, transform 0.15s;
 }
 .btn-toast.primary {
-    background: var(--red);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent) 100%);
     color: #fff;
 }
 .btn-toast.primary:hover {
-    background: #c93656;
+    filter: brightness(1.05);
 }
 .btn-toast.secondary {
     background: var(--bg-color);
-    color: var(--dark);
+    color: var(--text-color);
     border: 2px solid var(--border);
-}
-.btn-toast.secondary:hover {
+}.btn-toast.secondary:hover {
     border-color: var(--muted);
 }
 
@@ -352,9 +400,10 @@
         grid-template-columns: 1fr;
     }
     .add-book-container {
-        margin-left: 16px;
-        margin-right: 16px;
-        padding: 24px 18px 28px;
+        width: calc(100% - 24px);
+        margin-left: auto;
+        margin-right: auto;
+        padding: 24px 16px 28px;
     }
     .add-book-hero h1 {
         font-size: 1.75rem;

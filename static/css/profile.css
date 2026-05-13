@@ -365,3 +365,104 @@ Body {
   );
   border: 1px solid var(--border);
 }
+
+.profile-subscription-card {
+  background: linear-gradient(
+    145deg,
+    rgba(227, 64, 97, 0.08) 0%,
+    var(--card-color) 42%,
+    var(--card-color) 100%
+  );
+  border: 1px solid var(--border);
+}
+
+.profile-subscription-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.profile-subscription-main {
+  flex: 1;
+  min-width: 200px;
+}
+
+.profile-subscription-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary-color);
+  margin: 0 0 6px;
+}
+
+.profile-subscription-title {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--text-color);
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.profile-subscription-meta {
+  font-size: 0.95rem;
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 520px;
+}
+
+.profile-subscription-badge {
+  flex-shrink: 0;
+  min-width: 72px;
+  text-align: center;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: linear-gradient(135deg, #09324e, #0f4c75);
+  box-shadow: 0 8px 20px rgba(9, 50, 78, 0.25);
+}
+
+body.dark-mode .profile-subscription-badge {
+  background: linear-gradient(135deg, #1e293b, #334155);
+}
+
+.profile-subscription-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.profile-action-btn--primary {
+  padding: 12px 22px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(227, 64, 97, 0.28);
+}
+
+.profile-action-btn--primary:hover:not(:disabled) {
+  box-shadow: 0 10px 24px rgba(227, 64, 97, 0.35);
+}
+
+.profile-borrowed-pill {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(20, 184, 166, 0.15);
+  color: #0f766e;
+}
+
+body.dark-mode .profile-borrowed-pill {
+  background: rgba(20, 184, 166, 0.22);
+  color: #5eead4;
+}

@@ -35,6 +35,19 @@ class Favorite(models.Model):
         unique_together = ('user', 'book') # عشان الكتاب ميتكررش للمستخدم الواحد
 
 
+class BorrowedBook(models.Model):
+    """Active borrow: one row per user per book until returned."""
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='borrowed_books')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='active_borrows')
+    borrowed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'book')
+
+    def __str__(self):
+        return f"{self.user.username} → {self.book.title}"
+
+
 class UserPlan(models.Model):
     # خيارات الخطط المتاحة
     PLAN_CHOICES = [

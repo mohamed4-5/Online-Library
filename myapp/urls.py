@@ -13,6 +13,7 @@ urlpatterns = [
     path('select-plan/', views.select_plan, name='select-plan'),
     
     # التعديل هنا: إضافة الـ id وتغيير الاسم لـ book_detail
+    path('book/<int:id>/read-pdf/', views.book_read_pdf, name='book_read_pdf'),
     path('book/<int:id>/', views.book_view, name='book_detail'), 
     
     path('add_book/', views.add_book_view, name='add_book'),
@@ -24,4 +25,7 @@ urlpatterns = [
     # إضافة endpoints للـ API
     path('api/user-favorites/', views.get_user_favorites, name='user_favorites'),
     path('api/get-books/', views.get_books, name='get_books'),
+    path('api/my-borrows/', views.get_my_borrows, name='my_borrows'),
+    path('api/borrow/<int:book_id>/', views.borrow_book_api, name='borrow_book'),
+    path('api/return/<int:book_id>/', views.return_book_api, name='return_book'),
 ]

@@ -1,4 +1,5 @@
 (function () {
+  const cfg = typeof window.ADD_BOOK_CONFIG !== "undefined" ? window.ADD_BOOK_CONFIG : {};
   const form = document.getElementById("addBookForm");
   const imageInput = document.getElementById("bookImageFile");
   const imageUploadBtn = document.getElementById("imageUploadBtn");
@@ -21,6 +22,13 @@
     !submitBtn
   ) {
     return;
+  }
+
+  function getCsrfToken() {
+    const inp = form.querySelector("[name=csrfmiddlewaretoken]");
+    if (inp && inp.value) return inp.value;
+    if (typeof getCookie === "function") return getCookie("csrftoken") || "";
+    return "";
   }
 
   imageInput.addEventListener("change", function () {
@@ -57,76 +65,94 @@
     const author = document.getElementById("bookAuthor").value.trim();
     const category = document.getElementById("bookCategory").value;
     const description = document.getElementById("bookDescription").value.trim();
+    const latestEl = document.getElementById("bookLatest");
+    const mostReadEl = document.getElementById("bookMostRead");
 
     if (!title || !author || !category || !description) {
       alert("Please fill in all required fields.");
       return;
     }
 
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<span class="spinner"></span> Processing…';
-
     const imageFile = imageInput.files[0];
     const pdfFile = pdfInput.files[0];
+    if (!imageFile || !pdfFile) {
+      alert("Please upload both a cover image and a PDF file.");
+      return;
+    }
 
-    const readFile = (file) => {
-      return new Promise((resolve) => {
-        if (!file) {
-          resolve(null);
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = () => resolve(null);
-        reader.readAsDataURL(file);
-      });
-    };
+    const postUrl = cfg.postUrl || form.getAttribute("action") || "/add_book/";
+    const fd = new FormData();
+    fd.append("title", title);
+    fd.append("author", author);
+    fd.append("category", category);
+    fd.append("description", description);
+    fd.append("cover", imageFile);
+    fd.append("pdf", pdfFile);
+    if (latestEl && latestEl.checked) fd.append("latest", "on");
+    if (mostReadEl && mostReadEl.checked) fd.append("most_read", "on");
 
-    Promise.all([readFile(imageFile), readFile(pdfFile)])
-      .then(([imageData, pdfData]) => {
-        const newBook = {
-          id: Date.now(),
-          title,
-          author,
-          category,
-          description,
-          image: imageData || "../images/book-placeholder.jpg",
-          pdf: pdfData || "#",
-          rating: 0,
-          latest: true,
-          mostRead: false,
-          userAdded: true,
-        };
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<span class="spinner"></span> Saving…';
 
-        let stored = [];
+    fetch(postUrl, {
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCsrfToken(),
+      },
+      body: fd,
+    })
+      .then(async (res) => {
+        let data = {};
         try {
-          stored = JSON.parse(localStorage.getItem("userBooks")) || [];
-        } catch {
-          stored = [];
+          data = await res.json();
+        } catch (_) {
+          data = {};
         }
-
-        stored.push(newBook);
-        localStorage.setItem("userBooks", JSON.stringify(stored));
-
+        if (!res.ok || !data.ok) {
+          const err =
+            data.error ||
+            (res.status === 403
+              ? "You do not have permission to add books."
+              : "Could not save the book. Please try again.");
+          throw new Error(err);
+        }
+        return data;
+      })
+      .then((data) => {
         submitBtn.disabled = false;
         submitBtn.innerHTML =
           '<i class="fa-solid fa-plus-circle"></i> Add Book to Library';
 
-        document.getElementById("toastMsg").textContent =
-          `"${title}" by ${author} has been added to the library!`;
+        const toastMsg = document.getElementById("toastMsg");
+        if (toastMsg) {
+          toastMsg.textContent =
+            data.message ||
+            `"${title}" by ${author} has been added to the library.`;
+        }
+        const viewBook = document.getElementById("viewNewBookBtn");
+        if (viewBook && data.book_id) {
+          viewBook.href = `/book/${data.book_id}/`;
+          viewBook.style.display = "inline-flex";
+        }
         document.getElementById("successToast").classList.add("show");
       })
-      .catch(() => {
+      .catch((e) => {
         submitBtn.disabled = false;
         submitBtn.innerHTML =
           '<i class="fa-solid fa-plus-circle"></i> Add Book to Library';
-        alert("Something went wrong processing the files. Please try again.");
+        alert(e.message || "Something went wrong. Please try again.");
       });
   });
 
   function addAnother() {
     document.getElementById("successToast").classList.remove("show");
     form.reset();
+
+    const viewBook = document.getElementById("viewNewBookBtn");
+    if (viewBook) {
+      viewBook.style.display = "none";
+      viewBook.removeAttribute("href");
+    }
 
     imageUploadBtn.classList.remove("has-file");
     imageUploadBtn.querySelector("span").textContent = "Choose cover image";

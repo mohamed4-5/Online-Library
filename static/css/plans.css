@@ -19,6 +19,21 @@
     letter-spacing: -0.5px;
 }
 
+.plans-intro {
+    max-width: 520px;
+    margin: -12px auto 28px;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--muted);
+}
+
+.plans-intro a {
+    color: var(--primary-color);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
 /* الكونتينر */
 .plans-container {
   display: flex;

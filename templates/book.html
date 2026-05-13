@@ -27,7 +27,6 @@
                 <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
                 <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
                 <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
-                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
             </div>
 
 
@@ -115,16 +114,20 @@
         </div>
     </footer>
 
+    <div id="message"></div>
+
     <script src="{% static 'js/general.js' %}"></script>
+    {% csrf_token %}
     <script>
         // Pass book data from Django to JavaScript
         const bookData = {
             id: {{ book.id }},
-            title: "{{ book.title }}",
-            author: "{{ book.author.name }}",
-            category: "{{ book.category }}",
+            title: "{{ book.title|escapejs }}",
+            author: "{{ book.author.name|escapejs }}",
+            category: "{{ book.category|escapejs }}",
             image: "{{ book.image.url }}",
-            description: "{{ book.description|escapejs }}"
+            description: "{{ book.description|escapejs }}",
+            pdf: "{% if book.pdf_file %}{% url 'book_read_pdf' book.id %}{% else %}#{% endif %}"
         };
         
         // Get all books for related section

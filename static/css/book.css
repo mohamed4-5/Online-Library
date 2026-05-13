@@ -112,14 +112,14 @@
     box-shadow: 0 15px 25px rgba(239, 49, 87, 0.4);
 }
 
-/* Borrowed state = return action (click again to return) */
-.borrow-btn.borrowed.return-mode {
+/* Borrowed state = return action */
+.borrow-btn.return-mode {
     background: linear-gradient(135deg, #475569, #64748b);
     cursor: pointer;
     box-shadow: 0 8px 18px rgba(71, 85, 105, 0.35);
 }
 
-.borrow-btn.borrowed.return-mode:hover:not(:disabled) {
+.borrow-btn.return-mode:hover:not(:disabled) {
     background: linear-gradient(135deg, #334155, #475569);
     box-shadow: 0 12px 24px rgba(51, 65, 85, 0.4);
 }
@@ -166,6 +166,46 @@
 .related-section {
     padding: 60px 20px;
     background: #f8fafc;
+}
+
+.related-empty {
+    text-align: center;
+    width: 100%;
+    color: #64748b;
+    font-size: 1rem;
+    padding: 24px;
+}
+
+body.dark-mode .related-section {
+    background: var(--bg-color);
+}
+
+body.dark-mode .related-section h2 {
+    color: var(--text-color);
+}
+
+body.dark-mode .related-empty {
+    color: var(--muted);
+}
+
+body.dark-mode .book-card {
+    background: var(--card-color);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+}
+
+body.dark-mode .book-info h3 {
+    color: var(--text-color);
+}
+
+body.dark-mode .author-name {
+    color: var(--muted);
+}
+
+body.dark-mode .slider-nav-btn {
+    background: var(--card-color);
+    color: var(--text-color);
+    border: 1px solid var(--border);
 }
 
 .related-section h2 {

@@ -25,7 +25,6 @@
                 <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
                 <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
                 <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
-                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
             </div>
 
 
@@ -51,6 +50,7 @@
 
         <section class="plans">
             <h2>Choose Your Plan</h2>
+            <p class="plans-intro">Your active plan is summarized on <a href="{% url 'profile' %}">your profile</a>. Pick a tier below to update borrowing limits.</p>
 
             <!-- في ملف Plans.html جوه الـ container -->
             <div class="plans-container">
@@ -117,6 +117,7 @@
             </div>
         </footer>
 
+{% csrf_token %}
 <script src="{% static 'js/general.js' %}"></script>
 <script src="{% static 'js/plans-page.js' %}"></script>
     </body>

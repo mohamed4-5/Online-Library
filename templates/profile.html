@@ -27,7 +27,6 @@
                 <a href="{% url 'favorites' %}" class="{% if request.resolver_match.url_name == 'favorites' %}active{% endif %}">Favorites</a>
                 <a href="{% url 'profile' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Profile</a>
                 <a href="{% url 'about-us' %}" class="{% if request.resolver_match.url_name == 'about-us' %}active{% endif %}">About Us</a>
-                <a href="{% url 'plans' %}" class="{% if request.resolver_match.url_name == 'plans' %}active{% endif %}">Plans</a>
             </div>
 
 
@@ -88,14 +87,29 @@
             </section>
         </div>
         {% else %}
-        <section class="profile-section" id="plan-section">
-            <h2 id="plan-heading"><i class="fa-solid fa-layer-group"></i> Subscription plan</h2>
-            <p class="profile-plan-line" id="planLine">Standard — up to 5 books</p>
-            <a href="#" class="profile-action-btn" id="planCta">Change plan</a>
+        <section class="profile-section profile-subscription-card" id="plan-section">
+            <div class="profile-subscription-row">
+                <div class="profile-subscription-main">
+                    <p class="profile-subscription-label">Your subscription</p>
+                    <h2 class="profile-subscription-title">{{ current_plan_label }}</h2>
+                    <p class="profile-subscription-meta">Borrow up to <strong>{{ borrow_limit }}</strong> books at once. Manage your plan anytime — upgrades apply immediately.</p>
+                </div>
+                <div class="profile-subscription-badge" aria-hidden="true">{{ current_plan|upper }}</div>
+            </div>
+            <div class="profile-subscription-actions">
+                <a href="{% url 'plans' %}" class="profile-action-btn profile-action-btn--primary">Change or compare plans</a>
+            </div>
+        </section>
+
+        <section class="profile-section" id="favorites-section">
+            <h2><i class="fa-regular fa-heart"></i> Favorite books</h2>
+            <p class="profile-hint">Titles you marked with the heart while browsing the library or home page.</p>
+            <div id="profile-favorites-grid" class="profile-favorites-grid"></div>
         </section>
 
         <section class="profile-section" id="borrowed-section">
             <h2 id="borrowed-heading"><i class="fa-solid fa-book-bookmark"></i> Borrowed books</h2>
+            <p class="profile-hint">Books you currently have on loan. Open a title to read the PDF or return it when you are done.</p>
             <div id="profile-borrowed-grid" class="profile-favorites-grid"></div>
         </section>
         {% endif %}
@@ -110,6 +124,7 @@
         </div>
     </footer>
 
+    {% csrf_token %}
     <script src="{% static 'js/general.js' %}"></script>
     <script src="{% static 'js/profile.js' %}"></script>
 </body>
