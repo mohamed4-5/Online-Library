@@ -1,10 +1,8 @@
 /* Library page — uses tokens from style.css */
 
+/* Hero shared by Library + Favorites; image only on Library (modifier below). */
 .library-hero {
-    background-image: url("../images/search-bar-background.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: linear-gradient(180deg, var(--card-color) 0%, var(--bg-color) 100%);
     padding: 56px 40px 48px;
     text-align: center;
     /* تعديل: اللون يتبع المود لضمان القراءة فوق الخلفية */
@@ -12,7 +10,8 @@
     position: relative;
     overflow: hidden;
 }
-.library-hero::before {
+/* دوائر خفيفة — صفحات زي Favorites من غير صورة الهيرو */
+.library-hero:not(.library-hero--with-search-bg)::before {
     content: "";
     position: absolute;
     width: 400px;
@@ -20,10 +19,9 @@
     top: -120px;
     right: -80px;
     border-radius: 50%;
-    /* إضافة لمسة خفيفة بلون الثيم */
     background: rgba(227, 64, 97, 0.05);
 }
-.library-hero::after {
+.library-hero:not(.library-hero--with-search-bg)::after {
     content: "";
     position: absolute;
     width: 300px;
@@ -40,6 +38,7 @@
     letter-spacing: -0.02em;
     margin-bottom: 6px;
     position: relative;
+    z-index: 1;
 }
 .library-hero h1 span { color: var(--primary-color); }
 
@@ -50,20 +49,28 @@
     font-size: 1.05rem;
     margin-bottom: 32px;
     position: relative;
+    z-index: 1;
+}
+
+.library-hero.library-hero--with-search-bg {
+    background-color: var(--bg-color);
+    background-image: url("../images/search-bar-background.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .search-wrap {
     max-width: 560px;
     margin: 0 auto;
     display: flex;
-    /* تعديل: خلفية السيرش */
     background: var(--card-color);
     border-radius: 50px;
     overflow: hidden;
-    /* تعديل: الشادو يتبع المود */
     box-shadow: var(--shadow);
     border: 1px solid var(--border);
     position: relative;
+    z-index: 1;
 }
 .search-wrap input {
     flex: 1;
